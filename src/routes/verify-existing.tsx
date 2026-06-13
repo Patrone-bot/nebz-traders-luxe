@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { Check, Loader2 } from "lucide-react";
 
-export const Route = createFileRoute("/verify/existing")({
+export const Route = createFileRoute("/verify-existing")({
   head: () => ({ meta: [{ title: "Verify Account — NEBZ" }] }),
   component: Existing,
 });
@@ -31,7 +31,7 @@ function Existing() {
         stage === "form" ? (
           <p className="text-center">
             New here?{" "}
-            <Link to="/verify/new" className="text-gold hover:underline">Create an account</Link>
+            <Link to="/verify-new" className="text-gold hover:underline">Create an account</Link>
           </p>
         ) : null
       }

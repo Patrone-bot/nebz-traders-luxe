@@ -34,7 +34,7 @@ function Verify() {
           <div className="mt-10 grid sm:grid-cols-2 gap-5">
             <motion.button
               whileHover={{ y: -4 }}
-              onClick={() => navigate({ to: "/verify/existing" })}
+              onClick={() => navigate({ to: "/verify-existing" })}
               className="group glass shadow-luxury rounded-2xl p-10 hover:border-gold/60 transition-all"
             >
               <div className="h-16 w-16 mx-auto rounded-2xl bg-gradient-gold flex items-center justify-center shadow-gold-glow">
@@ -46,7 +46,7 @@ function Verify() {
 
             <motion.button
               whileHover={{ y: -4 }}
-              onClick={() => navigate({ to: "/verify/new" })}
+              onClick={() => navigate({ to: "/verify-new" })}
               className="group glass shadow-luxury rounded-2xl p-10 hover:border-gold/60 transition-all"
             >
               <div className="h-16 w-16 mx-auto rounded-2xl glass-gold flex items-center justify-center">
