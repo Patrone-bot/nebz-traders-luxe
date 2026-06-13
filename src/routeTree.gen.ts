@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VerifyNewRouteImport } from './routes/verify-new'
+import { Route as VerifyExistingRouteImport } from './routes/verify-existing'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
@@ -16,9 +18,17 @@ import { Route as GetStartedRouteImport } from './routes/get-started'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as VerifyNewRouteImport } from './routes/verify.new'
-import { Route as VerifyExistingRouteImport } from './routes/verify.existing'
 
+const VerifyNewRoute = VerifyNewRouteImport.update({
+  id: '/verify-new',
+  path: '/verify-new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyExistingRoute = VerifyExistingRouteImport.update({
+  id: '/verify-existing',
+  path: '/verify-existing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerifyRoute = VerifyRouteImport.update({
   id: '/verify',
   path: '/verify',
@@ -54,16 +64,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VerifyNewRoute = VerifyNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => VerifyRoute,
-} as any)
-const VerifyExistingRoute = VerifyExistingRouteImport.update({
-  id: '/existing',
-  path: '/existing',
-  getParentRoute: () => VerifyRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -72,9 +72,9 @@ export interface FileRoutesByFullPath {
   '/get-started': typeof GetStartedRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/verify': typeof VerifyRouteWithChildren
-  '/verify/existing': typeof VerifyExistingRoute
-  '/verify/new': typeof VerifyNewRoute
+  '/verify': typeof VerifyRoute
+  '/verify-existing': typeof VerifyExistingRoute
+  '/verify-new': typeof VerifyNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,9 +83,9 @@ export interface FileRoutesByTo {
   '/get-started': typeof GetStartedRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/verify': typeof VerifyRouteWithChildren
-  '/verify/existing': typeof VerifyExistingRoute
-  '/verify/new': typeof VerifyNewRoute
+  '/verify': typeof VerifyRoute
+  '/verify-existing': typeof VerifyExistingRoute
+  '/verify-new': typeof VerifyNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,9 +95,9 @@ export interface FileRoutesById {
   '/get-started': typeof GetStartedRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/verify': typeof VerifyRouteWithChildren
-  '/verify/existing': typeof VerifyExistingRoute
-  '/verify/new': typeof VerifyNewRoute
+  '/verify': typeof VerifyRoute
+  '/verify-existing': typeof VerifyExistingRoute
+  '/verify-new': typeof VerifyNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +109,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/verify'
-    | '/verify/existing'
-    | '/verify/new'
+    | '/verify-existing'
+    | '/verify-new'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +120,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/verify'
-    | '/verify/existing'
-    | '/verify/new'
+    | '/verify-existing'
+    | '/verify-new'
   id:
     | '__root__'
     | '/'
@@ -131,8 +131,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/register'
     | '/verify'
-    | '/verify/existing'
-    | '/verify/new'
+    | '/verify-existing'
+    | '/verify-new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -142,11 +142,27 @@ export interface RootRouteChildren {
   GetStartedRoute: typeof GetStartedRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
-  VerifyRoute: typeof VerifyRouteWithChildren
+  VerifyRoute: typeof VerifyRoute
+  VerifyExistingRoute: typeof VerifyExistingRoute
+  VerifyNewRoute: typeof VerifyNewRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/verify-new': {
+      id: '/verify-new'
+      path: '/verify-new'
+      fullPath: '/verify-new'
+      preLoaderRoute: typeof VerifyNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-existing': {
+      id: '/verify-existing'
+      path: '/verify-existing'
+      fullPath: '/verify-existing'
+      preLoaderRoute: typeof VerifyExistingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verify': {
       id: '/verify'
       path: '/verify'
@@ -196,35 +212,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/verify/new': {
-      id: '/verify/new'
-      path: '/new'
-      fullPath: '/verify/new'
-      preLoaderRoute: typeof VerifyNewRouteImport
-      parentRoute: typeof VerifyRoute
-    }
-    '/verify/existing': {
-      id: '/verify/existing'
-      path: '/existing'
-      fullPath: '/verify/existing'
-      preLoaderRoute: typeof VerifyExistingRouteImport
-      parentRoute: typeof VerifyRoute
-    }
   }
 }
-
-interface VerifyRouteChildren {
-  VerifyExistingRoute: typeof VerifyExistingRoute
-  VerifyNewRoute: typeof VerifyNewRoute
-}
-
-const VerifyRouteChildren: VerifyRouteChildren = {
-  VerifyExistingRoute: VerifyExistingRoute,
-  VerifyNewRoute: VerifyNewRoute,
-}
-
-const VerifyRouteWithChildren =
-  VerifyRoute._addFileChildren(VerifyRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -233,7 +222,9 @@ const rootRouteChildren: RootRouteChildren = {
   GetStartedRoute: GetStartedRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
-  VerifyRoute: VerifyRouteWithChildren,
+  VerifyRoute: VerifyRoute,
+  VerifyExistingRoute: VerifyExistingRoute,
+  VerifyNewRoute: VerifyNewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
