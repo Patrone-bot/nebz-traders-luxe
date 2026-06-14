@@ -1,19 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, TrendingUp, Cpu, Zap, Star, Globe, Users, Trophy, Sparkles } from "lucide-react";
+import { ArrowRight, TrendingUp, Cpu, Zap, Star, Globe, Users, Trophy, Sparkles, Heart, ShieldCheck } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { successStories } from "@/lib/mock-data";
-import nebzHero from "@/assets/nebz-hero.jpg";
+
+import heroImg from "@/assets/story/hero.jpg.asset.json";
+import nebzBefore from "@/assets/story/nebz-before.png.asset.json";
+import nebzAfter from "@/assets/story/nebz-after.jpg.asset.json";
+import nyathiraBefore from "@/assets/story/nyathira-before.png.asset.json";
+import nyathiraAfter from "@/assets/story/nyathira-after.jpg.asset.json";
+import story1 from "@/assets/story/story1.jpg.asset.json";
+import story2 from "@/assets/story/story2.jpg.asset.json";
+import story4 from "@/assets/story/story4.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NEBZ — The Evolution of Trading Excellence" },
-      { name: "description", content: "Join Nebz, world-class forex trader, and 20,000+ traders mastering the markets with discipline and consistency." },
-      { property: "og:title", content: "NEBZ — The Evolution of Trading Excellence" },
-      { property: "og:description", content: "Eight years of experience. Twenty thousand strong. One movement." },
+      { title: "NEBZ — From Nothing to a Trading Empire" },
+      { name: "description", content: "From a school dropout and a waitress to building a trading empire. Nebz & Nyathira help ordinary people begin their journey for free." },
     ],
   }),
   component: HomePage,
@@ -25,11 +31,7 @@ function AnimatedCounter({ value, suffix = "", duration = 2 }: { value: number; 
   const mv = useMotionValue(0);
   const sv = useSpring(mv, { duration: duration * 1000, bounce: 0 });
   const display = useTransform(sv, (v) => Math.floor(v).toLocaleString() + suffix);
-
-  useEffect(() => {
-    if (inView) mv.set(value);
-  }, [inView, mv, value]);
-
+  useEffect(() => { if (inView) mv.set(value); }, [inView, mv, value]);
   return <motion.span ref={ref}>{display}</motion.span>;
 }
 
@@ -39,8 +41,11 @@ function HomePage() {
       <Navbar />
       <Hero />
       <Stats />
-      <Journey />
+      <OurStory />
+      <Nyathira />
+      <Automation />
       <Stories />
+      <Mission />
       <FinalCTA />
       <Footer />
     </div>
@@ -50,7 +55,6 @@ function HomePage() {
 function Hero() {
   return (
     <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 px-6">
-      {/* Background ambience */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-gold/10 blur-[120px]" />
         <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-gold-deep/10 blur-[140px]" />
@@ -65,17 +69,18 @@ function Hero() {
         >
           <div className="inline-flex items-center gap-2 glass-gold rounded-full px-4 py-1.5 mb-8">
             <Sparkles className="h-3.5 w-3.5 text-gold" />
-            <span className="text-[11px] tracking-[0.3em] text-gold uppercase">Est. 2017 · Eight Years Strong</span>
+            <span className="text-[11px] tracking-[0.3em] text-gold uppercase">A True Story · Eight Years In</span>
           </div>
 
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.02] text-foreground">
-            The Evolution of <br />
-            <span className="text-gradient-gold italic">Trading Excellence.</span>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.02] text-foreground">
+            From School Dropout <br />
+            <span className="text-muted-foreground">& Waitress —</span> <br />
+            <span className="text-gradient-gold italic">to a Trading Empire.</span>
           </h1>
 
           <p className="mt-8 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Eight years of experience navigating the markets through discipline, innovation,
-            and consistency. Join an exclusive movement of traders shaped by precision.
+            We started with nothing. Trading changed our lives. Today we help ordinary
+            people begin their journey — for free.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -94,20 +99,9 @@ function Hero() {
             </Link>
           </div>
 
-          <div className="mt-12 flex items-center gap-6">
-            <div className="flex -space-x-2">
-              {[1,2,3,4].map((i) => (
-                <div key={i} className="h-8 w-8 rounded-full border-2 border-background bg-gradient-to-br from-gold via-gold-deep to-charcoal" />
-              ))}
-            </div>
-            <div>
-              <div className="flex items-center gap-0.5 text-gold">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                ))}
-              </div>
-              <p className="text-xs text-muted-foreground mt-0.5">Trusted by 20,000+ traders globally</p>
-            </div>
+          <div className="mt-10 flex items-center gap-3 text-xs text-muted-foreground">
+            <ShieldCheck className="h-4 w-4 text-gold" />
+            <span className="tracking-[0.15em] uppercase">Official Pocket Option Partner</span>
           </div>
         </motion.div>
 
@@ -120,23 +114,23 @@ function Hero() {
           <div className="relative aspect-[3/4] max-w-md mx-auto">
             <div className="absolute -inset-4 bg-gradient-gold opacity-20 blur-3xl rounded-full" />
             <div className="relative h-full rounded-3xl overflow-hidden glass shadow-luxury">
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent z-10" />
+              {/* cinematic grade: warm gold tint + dark vignette */}
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/40 to-transparent" />
+              <div className="absolute inset-0 z-10 mix-blend-overlay bg-gradient-to-br from-gold/25 via-transparent to-gold-deep/30" />
+              <div className="absolute inset-0 z-10 ring-1 ring-inset ring-gold/20" />
               <img
-                src={nebzHero}
-                alt="Nebz — Forex trader and mentor"
-                width={1080}
-                height={1440}
-                className="h-full w-full object-cover"
+                src={heroImg.url}
+                alt="Nebz and Nyathira"
+                className="h-full w-full object-cover saturate-[1.05] contrast-[1.05]"
+                style={{ filter: "brightness(0.85)" }}
               />
               <div className="absolute bottom-6 left-6 right-6 z-20">
-                <p className="text-[10px] tracking-[0.4em] text-gold uppercase">Founder</p>
-                <p className="font-display text-2xl text-foreground mt-1">Nebz</p>
+                <p className="text-[10px] tracking-[0.4em] text-gold uppercase">Founders</p>
+                <p className="font-display text-2xl text-foreground mt-1">Nebz &amp; Nyathira</p>
                 <p className="text-xs text-muted-foreground">Forex Strategist · Mentor</p>
               </div>
-              {/* Floating stat card */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6, duration: 0.7 }}
                 className="absolute -left-6 top-12 z-20 glass shadow-luxury rounded-xl px-4 py-3 hidden sm:block"
               >
@@ -149,8 +143,7 @@ function Hero() {
                 </div>
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8, duration: 0.7 }}
                 className="absolute -right-6 bottom-32 z-20 glass-gold shadow-luxury rounded-xl px-4 py-3 hidden sm:block"
               >
@@ -170,9 +163,8 @@ function Stats() {
     { value: 8, suffix: "+", label: "Years Experience", icon: Trophy },
     { value: 20000, suffix: "+", label: "Community Members", icon: Users },
     { value: 100, suffix: "+", label: "Countries Reached", icon: Globe },
-    { value: 5000, suffix: "+", label: "Success Stories", icon: Star },
+    { value: 365, suffix: "", label: "Free Daily Guidance", icon: Star },
   ];
-
   return (
     <section className="relative py-20 px-6">
       <div className="absolute inset-x-0 top-0 h-px hairline-gold opacity-40" />
@@ -202,62 +194,150 @@ function Stats() {
   );
 }
 
-function Journey() {
-  const steps = [
-    { title: "Manual Trading", desc: "The foundation. Years of chart-by-chart precision and learning the language of price action.", icon: TrendingUp, year: "2017" },
-    { title: "Automated Trading", desc: "Codified discipline. Algorithms that execute the rules emotion cannot keep.", icon: Cpu, year: "2021" },
-    { title: "Binary Trading", desc: "Refined edge. High-conviction setups delivered with surgical timing.", icon: Zap, year: "2024" },
-  ];
-
+function CinematicImage({ src, alt, tall = false }: { src: string; alt: string; tall?: boolean }) {
   return (
-    <section id="journey" className="relative py-24 px-6">
+    <div className={`relative overflow-hidden rounded-2xl glass shadow-luxury ${tall ? "aspect-[3/4]" : "aspect-[4/5]"}`}>
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/30 to-transparent" />
+      <div className="absolute inset-0 z-10 mix-blend-overlay bg-gradient-to-br from-gold/20 via-transparent to-gold-deep/25" />
+      <div className="absolute inset-0 z-10 ring-1 ring-inset ring-gold/15" />
+      {/* subtle chart overlay */}
+      <svg className="absolute inset-0 z-[5] w-full h-full opacity-[0.08]" viewBox="0 0 400 400" preserveAspectRatio="none">
+        <path d="M0,300 L60,260 L120,280 L180,200 L240,220 L300,140 L360,160 L400,80" stroke="currentColor" strokeWidth="1" fill="none" className="text-gold" />
+      </svg>
+      <img src={src} alt={alt} className="h-full w-full object-cover" style={{ filter: "brightness(0.82) saturate(1.05) contrast(1.05)" }} />
+    </div>
+  );
+}
+
+function OurStory() {
+  const stages = [
+    { n: "01", title: "No Money. No Direction.", caption: "People doubted my future. I had a dream but no one believed in it.", img: nebzBefore.url },
+    { n: "02", title: "Discovered Trading.", caption: "The markets humbled me, but discipline and persistence changed everything.", img: nyathiraBefore.url },
+    { n: "03", title: "Built Skills. Built Systems.", caption: "I mastered the craft and developed systems that could help others succeed.", img: nebzAfter.url },
+    { n: "04", title: "Financial Freedom.", caption: "Trading transformed our reality and gave us the freedom we once only imagined.", img: story1.url },
+    { n: "05", title: "Helping Thousands.", caption: "Success became meaningful when we began helping others change their lives.", img: story2.url },
+  ];
+  return (
+    <section id="story" className="relative py-24 px-6">
       <div className="mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">The Journey</p>
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Story</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground">
-            An Evolution, Not <span className="italic text-gradient-gold">a Shortcut.</span>
+            A Journey, <span className="italic text-gradient-gold">Not a Shortcut.</span>
           </h2>
-          <p className="mt-5 max-w-2xl mx-auto text-muted-foreground">
-            Three deliberate eras shaped a trader the markets respect.
-          </p>
         </motion.div>
 
-        <div className="relative">
-          {/* connecting line */}
-          <div className="hidden lg:block absolute top-20 left-[12%] right-[12%] h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+        <div className="space-y-20 lg:space-y-28">
+          {stages.map((s, i) => (
+            <motion.div
+              key={s.n}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8 }}
+              className={`grid lg:grid-cols-12 gap-10 items-center ${i % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}
+            >
+              <div className="lg:col-span-6">
+                <CinematicImage src={s.img} alt={s.title} />
+              </div>
+              <div className="lg:col-span-6">
+                <p className="font-display text-7xl text-gradient-gold opacity-60 leading-none">{s.n}</p>
+                <h3 className="mt-4 font-display text-3xl sm:text-4xl text-foreground">{s.title}</h3>
+                <p className="mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
+                  &ldquo;{s.caption}&rdquo;
+                </p>
+                <div className="mt-6 h-px w-24 hairline-gold opacity-60" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-          <div className="grid lg:grid-cols-3 gap-6 lg:gap-10">
-            {steps.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <motion.div
-                  key={s.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: i * 0.15, duration: 0.6 }}
-                  className="relative"
-                >
-                  <div className="glass shadow-luxury rounded-2xl p-8 h-full hover:border-gold/40 transition-all group">
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="h-14 w-14 rounded-2xl glass-gold flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Icon className="h-6 w-6 text-gold" />
-                      </div>
-                      <span className="font-display text-3xl text-gradient-gold opacity-60">{s.year}</span>
-                    </div>
-                    <div className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Phase 0{i+1}</div>
-                    <h3 className="font-display text-2xl text-foreground mt-2">{s.title}</h3>
-                    <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
+function Nyathira() {
+  return (
+    <section className="relative py-24 px-6">
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6 }}
+          className="mb-14 max-w-3xl"
+        >
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Her Chapter</p>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground">
+            From Waitress to <span className="italic text-gradient-gold">Inspiring Thousands.</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-3">
+            <CinematicImage src={nyathiraBefore.url} alt="Nyathira before" tall />
+            <p className="mt-3 text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Before · $200/mo</p>
+          </div>
+          <div className="lg:col-span-1 hidden lg:flex justify-center">
+            <ArrowRight className="h-6 w-6 text-gold" />
+          </div>
+          <div className="lg:col-span-4">
+            <CinematicImage src={nyathiraAfter.url} alt="Nyathira after" tall />
+            <p className="mt-3 text-[10px] tracking-[0.3em] text-gold uppercase">After · Mentor & Leader</p>
+          </div>
+          <div className="lg:col-span-4">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              She earned approximately <span className="text-foreground">$200 per month</span> and struggled with
+              manual trading. Together, we developed systems that removed complexity
+              and created consistency.
+            </p>
+            <p className="mt-5 text-base sm:text-lg text-foreground leading-relaxed">
+              Today, she inspires <span className="text-gradient-gold italic">thousands of women and traders</span> across Africa.
+            </p>
+            <div className="mt-8 grid grid-cols-4 gap-2 text-center">
+              {["Waitress","Learning","Automation","Impact"].map((t, idx) => (
+                <div key={t} className="glass rounded-lg px-2 py-3">
+                  <p className="text-[9px] tracking-[0.2em] text-gold uppercase">0{idx+1}</p>
+                  <p className="text-[11px] text-foreground mt-1">{t}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Automation() {
+  return (
+    <section className="relative py-24 px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="relative glass shadow-luxury rounded-3xl p-10 sm:p-16 overflow-hidden">
+          <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
+          <Cpu className="h-6 w-6 text-gold mb-5" />
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-4">The Automation Story</p>
+          <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl text-foreground leading-tight max-w-3xl">
+            When manual trading became a barrier, we built <span className="italic text-gradient-gold">systems around our strategy</span>.
+          </h3>
+          <p className="mt-6 max-w-2xl text-muted-foreground leading-relaxed">
+            What started as a solution for one person evolved into an opportunity
+            for thousands — codified discipline, executed without emotion.
+          </p>
+          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { i: TrendingUp, t: "Strategy" },
+              { i: Cpu, t: "Automation" },
+              { i: Zap, t: "Execution" },
+              { i: Heart, t: "Community" },
+            ].map(({ i: Icon, t }) => (
+              <div key={t} className="glass-gold rounded-xl p-4 flex items-center gap-2">
+                <Icon className="h-4 w-4 text-gold" />
+                <span className="text-xs tracking-[0.2em] text-foreground uppercase">{t}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -334,6 +414,33 @@ function Stories() {
   );
 }
 
+function Mission() {
+  return (
+    <section className="relative py-24 px-6">
+      <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-5">
+          <CinematicImage src={story4.url} alt="Mission" />
+        </div>
+        <div className="lg:col-span-7">
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Mission</p>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.05]">
+            We Changed Our Lives. <br />
+            <span className="italic text-gradient-gold">Now We Help You Change Yours.</span>
+          </h2>
+          <p className="mt-7 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+            We don&rsquo;t sell dreams. We share what worked for us — and help
+            others take the same chance we once took.
+          </p>
+          <div className="mt-8 flex items-center gap-3 text-xs text-muted-foreground">
+            <ShieldCheck className="h-4 w-4 text-gold" />
+            <span className="tracking-[0.15em] uppercase">Trusted Partner · Pocket Option</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function FinalCTA() {
   return (
     <section className="relative py-24 px-6">
@@ -347,7 +454,8 @@ function FinalCTA() {
             Start Your Journey <span className="italic text-gradient-gold">Today.</span>
           </h2>
           <p className="mt-6 max-w-xl mx-auto text-muted-foreground">
-            The markets reward those who show up prepared. Join 20,000+ members who chose precision over chance.
+            The markets reward those who show up prepared. Join 20,000+ members
+            who chose precision over chance.
           </p>
           <Link
             to="/get-started"
