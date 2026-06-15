@@ -14,6 +14,11 @@ import nyathiraAfter from "@/assets/story/nyathira-after.jpg";
 import story1 from "@/assets/story/story1.jpg";
 import story2 from "@/assets/story/story2.jpg";
 import story4 from "@/assets/story/story4.jpg";
+import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
+
+// NOTE: Story-image5.jpg (for Nebz AFTER comparison) was not present in uploads.
+// Using nebzAfter as a temporary stand-in until the asset is provided.
+const nebzAfterCompare = nebzAfter;
 
 // Journey progression — re-use existing approved imagery in a cinematic sequence
 const journeyImages = [nebzBefore, story1, story2, story4, nebzAfter, nyathiraAfter];
@@ -45,8 +50,8 @@ function HomePage() {
       <Hero />
       <Stats />
       <NebzTransformation />
-      <OurStory />
       <NyathiraTransformation />
+      <OurStory />
       <Automation />
       <Stories />
       <Mission />
@@ -58,17 +63,14 @@ function HomePage() {
 }
 
 /* ---------- Official Pocket Option partner mark ---------- */
-function PocketOptionLogo({ className = "" }: { className?: string }) {
-  // Inline mark using Pocket Option's official red (#E11B22 family) + white wordmark.
+function PocketOptionLogo({ className = "h-6 sm:h-7" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-md bg-[#E11B22] shadow-[0_0_24px_-6px_rgba(225,27,34,0.7)]">
-        <span className="font-display text-[13px] font-bold leading-none text-white tracking-tight">PO</span>
-      </span>
-      <span className="font-display text-base leading-none text-white tracking-tight">
-        Pocket<span className="text-[#E11B22]">Option</span>
-      </span>
-    </span>
+    <img
+      src={pocketOptionLogoSrc}
+      alt="Pocket Option — Official Partner"
+      className={`w-auto ${className} select-none`}
+      draggable={false}
+    />
   );
 }
 
@@ -76,13 +78,13 @@ function PartnerBand() {
   return (
     <section className="relative py-10 px-6">
       <div className="mx-auto max-w-5xl">
-        <div className="glass rounded-2xl border border-border/60 px-6 py-5 sm:px-10 sm:py-6 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-5 text-center sm:text-left">
+        <div className="glass rounded-2xl border border-border/60 px-6 py-6 sm:px-10 sm:py-7 flex flex-col items-center gap-4 text-center">
           <div className="flex items-center gap-3">
-            <ShieldCheck className="h-4 w-4 text-gold" />
-            <p className="text-[10px] sm:text-[11px] tracking-[0.4em] text-gold uppercase">Official Partner</p>
+            <ShieldCheck className="h-3.5 w-3.5 text-gold" />
+            <p className="text-[10px] sm:text-[11px] tracking-[0.45em] text-gold uppercase">Official Partner</p>
           </div>
-          <PocketOptionLogo />
-          <p className="text-[10px] sm:text-[11px] tracking-[0.25em] text-muted-foreground uppercase">
+          <PocketOptionLogo className="h-7 sm:h-9" />
+          <p className="text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
             Verified Broker · Since 2019
           </p>
         </div>
@@ -141,7 +143,7 @@ function Hero() {
           <div className="mt-10 flex items-center gap-3">
             <span className="text-[10px] tracking-[0.4em] text-muted-foreground uppercase">Official Partner</span>
             <span className="h-px w-6 bg-border" />
-            <PocketOptionLogo />
+            <PocketOptionLogo className="h-5" />
           </div>
         </motion.div>
 
@@ -271,13 +273,13 @@ function TransformCard({
 
 function ProgressionIndicator({ label }: { label: string }) {
   return (
-    <div className="flex flex-row sm:flex-col items-center justify-center gap-3 py-2 sm:py-0">
-      <span className="h-px w-10 sm:h-16 sm:w-px bg-gradient-to-r sm:bg-gradient-to-b from-transparent via-gold to-transparent" />
-      <div className="glass-gold rounded-full h-10 w-10 flex items-center justify-center shrink-0">
-        <ArrowRight className="h-4 w-4 text-gold sm:rotate-90" />
+    <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 py-2 self-center">
+      <span className="h-10 w-px sm:h-16 bg-gradient-to-b from-transparent via-gold to-gold/40" />
+      <div className="glass-gold rounded-full h-7 w-7 sm:h-10 sm:w-10 flex items-center justify-center shrink-0">
+        <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-gold" />
       </div>
-      <span className="h-px w-10 sm:h-16 sm:w-px bg-gradient-to-r sm:bg-gradient-to-b from-gold via-gold to-transparent sm:via-gold" />
-      <p className="hidden sm:block mt-2 text-[10px] tracking-[0.3em] text-gold uppercase whitespace-nowrap">{label}</p>
+      <span className="h-10 w-px sm:h-16 bg-gradient-to-b from-gold/40 via-gold to-transparent" />
+      <p className="hidden sm:block mt-1 text-[10px] tracking-[0.3em] text-gold uppercase whitespace-nowrap [writing-mode:horizontal-tb]">{label}</p>
     </div>
   );
 }
@@ -298,7 +300,7 @@ function NebzTransformation() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-8 lg:gap-10 items-stretch">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-6 lg:gap-10 items-stretch">
           <TransformCard
             src={nebzBefore}
             alt="Nebz before"
@@ -306,11 +308,9 @@ function NebzTransformation() {
             tone="before"
             lines={["School dropout.", "No money.", "No direction.", "People doubted my future."]}
           />
-          <div className="col-span-2 sm:col-span-2 lg:col-span-1 flex items-center justify-center">
-            <ProgressionIndicator label="8 Years of Work" />
-          </div>
+          <ProgressionIndicator label="8 Years of Work" />
           <TransformCard
-            src={nebzAfter}
+            src={nebzAfterCompare}
             alt="Nebz after"
             label="After"
             tone="after"
@@ -399,7 +399,7 @@ function NyathiraTransformation() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-8 lg:gap-10 items-stretch">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-6 lg:gap-10 items-stretch">
           <TransformCard
             src={nyathiraBefore}
             alt="Nyathira before"
@@ -407,9 +407,7 @@ function NyathiraTransformation() {
             tone="before"
             lines={["Earning ~$200/month.", "Struggled with manual trading."]}
           />
-          <div className="col-span-2 lg:col-span-1 flex items-center justify-center">
-            <ProgressionIndicator label="Systems Built" />
-          </div>
+          <ProgressionIndicator label="Systems Built" />
           <TransformCard
             src={nyathiraAfter}
             alt="Nyathira after"
