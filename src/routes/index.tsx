@@ -63,17 +63,14 @@ function HomePage() {
 }
 
 /* ---------- Official Pocket Option partner mark ---------- */
-function PocketOptionLogo({ className = "" }: { className?: string }) {
-  // Inline mark using Pocket Option's official red (#E11B22 family) + white wordmark.
+function PocketOptionLogo({ className = "h-6 sm:h-7" }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-md bg-[#E11B22] shadow-[0_0_24px_-6px_rgba(225,27,34,0.7)]">
-        <span className="font-display text-[13px] font-bold leading-none text-white tracking-tight">PO</span>
-      </span>
-      <span className="font-display text-base leading-none text-white tracking-tight">
-        Pocket<span className="text-[#E11B22]">Option</span>
-      </span>
-    </span>
+    <img
+      src={pocketOptionLogoSrc}
+      alt="Pocket Option — Official Partner"
+      className={`w-auto ${className} select-none`}
+      draggable={false}
+    />
   );
 }
 
