@@ -399,7 +399,7 @@ function NyathiraTransformation() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-8 lg:gap-10 items-stretch">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-6 lg:gap-10 items-stretch">
           <TransformCard
             src={nyathiraBefore}
             alt="Nyathira before"
@@ -407,9 +407,7 @@ function NyathiraTransformation() {
             tone="before"
             lines={["Earning ~$200/month.", "Struggled with manual trading."]}
           />
-          <div className="col-span-2 lg:col-span-1 flex items-center justify-center">
-            <ProgressionIndicator label="Systems Built" />
-          </div>
+          <ProgressionIndicator label="Systems Built" />
           <TransformCard
             src={nyathiraAfter}
             alt="Nyathira after"
