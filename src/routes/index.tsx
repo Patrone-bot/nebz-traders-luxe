@@ -273,13 +273,13 @@ function TransformCard({
 
 function ProgressionIndicator({ label }: { label: string }) {
   return (
-    <div className="flex flex-row sm:flex-col items-center justify-center gap-3 py-2 sm:py-0">
-      <span className="h-px w-10 sm:h-16 sm:w-px bg-gradient-to-r sm:bg-gradient-to-b from-transparent via-gold to-transparent" />
-      <div className="glass-gold rounded-full h-10 w-10 flex items-center justify-center shrink-0">
-        <ArrowRight className="h-4 w-4 text-gold sm:rotate-90" />
+    <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 py-2 self-center">
+      <span className="h-10 w-px sm:h-16 bg-gradient-to-b from-transparent via-gold to-gold/40" />
+      <div className="glass-gold rounded-full h-7 w-7 sm:h-10 sm:w-10 flex items-center justify-center shrink-0">
+        <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-gold" />
       </div>
-      <span className="h-px w-10 sm:h-16 sm:w-px bg-gradient-to-r sm:bg-gradient-to-b from-gold via-gold to-transparent sm:via-gold" />
-      <p className="hidden sm:block mt-2 text-[10px] tracking-[0.3em] text-gold uppercase whitespace-nowrap">{label}</p>
+      <span className="h-10 w-px sm:h-16 bg-gradient-to-b from-gold/40 via-gold to-transparent" />
+      <p className="hidden sm:block mt-1 text-[10px] tracking-[0.3em] text-gold uppercase whitespace-nowrap [writing-mode:horizontal-tb]">{label}</p>
     </div>
   );
 }
