@@ -14,6 +14,11 @@ import nyathiraAfter from "@/assets/story/nyathira-after.jpg";
 import story1 from "@/assets/story/story1.jpg";
 import story2 from "@/assets/story/story2.jpg";
 import story4 from "@/assets/story/story4.jpg";
+import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
+
+// NOTE: Story-image5.jpg (for Nebz AFTER comparison) was not present in uploads.
+// Using nebzAfter as a temporary stand-in until the asset is provided.
+const nebzAfterCompare = nebzAfter;
 
 // Journey progression — re-use existing approved imagery in a cinematic sequence
 const journeyImages = [nebzBefore, story1, story2, story4, nebzAfter, nyathiraAfter];
