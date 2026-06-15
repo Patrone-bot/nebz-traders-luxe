@@ -50,8 +50,8 @@ function HomePage() {
       <Hero />
       <Stats />
       <NebzTransformation />
-      <OurStory />
       <NyathiraTransformation />
+      <OurStory />
       <Automation />
       <Stories />
       <Mission />
