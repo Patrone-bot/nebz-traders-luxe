@@ -6,14 +6,17 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { successStories } from "@/lib/mock-data";
 
-import heroImg from "@/assets/story/hero.jpg.asset.json";
-import nebzBefore from "@/assets/story/nebz-before.png.asset.json";
-import nebzAfter from "@/assets/story/nebz-after.jpg.asset.json";
-import nyathiraBefore from "@/assets/story/nyathira-before.png.asset.json";
-import nyathiraAfter from "@/assets/story/nyathira-after.jpg.asset.json";
-import story1 from "@/assets/story/story1.jpg.asset.json";
-import story2 from "@/assets/story/story2.jpg.asset.json";
-import story4 from "@/assets/story/story4.jpg.asset.json";
+import heroImg from "@/assets/story/hero.jpg";
+import nebzBefore from "@/assets/story/nebz-before.png";
+import nebzAfter from "@/assets/story/nebz-after.jpg";
+import nyathiraBefore from "@/assets/story/nyathira-before.png";
+import nyathiraAfter from "@/assets/story/nyathira-after.jpg";
+import story1 from "@/assets/story/story1.jpg";
+import story2 from "@/assets/story/story2.jpg";
+import story4 from "@/assets/story/story4.jpg";
+
+// Journey progression — re-use existing approved imagery in a cinematic sequence
+const journeyImages = [nebzBefore, story1, story2, story4, nebzAfter, nyathiraAfter];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,14 +44,50 @@ function HomePage() {
       <Navbar />
       <Hero />
       <Stats />
+      <NebzTransformation />
       <OurStory />
-      <Nyathira />
+      <NyathiraTransformation />
       <Automation />
       <Stories />
       <Mission />
+      <PartnerBand />
       <FinalCTA />
       <Footer />
     </div>
+  );
+}
+
+/* ---------- Official Pocket Option partner mark ---------- */
+function PocketOptionLogo({ className = "" }: { className?: string }) {
+  // Inline mark using Pocket Option's official red (#E11B22 family) + white wordmark.
+  return (
+    <span className={`inline-flex items-center gap-2.5 ${className}`}>
+      <span className="relative inline-flex h-7 w-7 items-center justify-center rounded-md bg-[#E11B22] shadow-[0_0_24px_-6px_rgba(225,27,34,0.7)]">
+        <span className="font-display text-[13px] font-bold leading-none text-white tracking-tight">PO</span>
+      </span>
+      <span className="font-display text-base leading-none text-white tracking-tight">
+        Pocket<span className="text-[#E11B22]">Option</span>
+      </span>
+    </span>
+  );
+}
+
+function PartnerBand() {
+  return (
+    <section className="relative py-10 px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="glass rounded-2xl border border-border/60 px-6 py-5 sm:px-10 sm:py-6 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-5 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <ShieldCheck className="h-4 w-4 text-gold" />
+            <p className="text-[10px] sm:text-[11px] tracking-[0.4em] text-gold uppercase">Official Partner</p>
+          </div>
+          <PocketOptionLogo />
+          <p className="text-[10px] sm:text-[11px] tracking-[0.25em] text-muted-foreground uppercase">
+            Verified Broker · Since 2019
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -99,9 +138,10 @@ function Hero() {
             </Link>
           </div>
 
-          <div className="mt-10 flex items-center gap-3 text-xs text-muted-foreground">
-            <ShieldCheck className="h-4 w-4 text-gold" />
-            <span className="tracking-[0.15em] uppercase">Official Pocket Option Partner</span>
+          <div className="mt-10 flex items-center gap-3">
+            <span className="text-[10px] tracking-[0.4em] text-muted-foreground uppercase">Official Partner</span>
+            <span className="h-px w-6 bg-border" />
+            <PocketOptionLogo />
           </div>
         </motion.div>
 
@@ -114,12 +154,11 @@ function Hero() {
           <div className="relative aspect-[3/4] max-w-md mx-auto">
             <div className="absolute -inset-4 bg-gradient-gold opacity-20 blur-3xl rounded-full" />
             <div className="relative h-full rounded-3xl overflow-hidden glass shadow-luxury">
-              {/* cinematic grade: warm gold tint + dark vignette */}
               <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/40 to-transparent" />
               <div className="absolute inset-0 z-10 mix-blend-overlay bg-gradient-to-br from-gold/25 via-transparent to-gold-deep/30" />
               <div className="absolute inset-0 z-10 ring-1 ring-inset ring-gold/20" />
               <img
-                src={heroImg.url}
+                src={heroImg}
                 alt="Nebz and Nyathira"
                 className="h-full w-full object-cover saturate-[1.05] contrast-[1.05]"
                 style={{ filter: "brightness(0.85)" }}
@@ -194,28 +233,112 @@ function Stats() {
   );
 }
 
-function CinematicImage({ src, alt, tall = false }: { src: string; alt: string; tall?: boolean }) {
+function CinematicImage({ src, alt, tall = false, dim = "0.82" }: { src: string; alt: string; tall?: boolean; dim?: string }) {
   return (
     <div className={`relative overflow-hidden rounded-2xl glass shadow-luxury ${tall ? "aspect-[3/4]" : "aspect-[4/5]"}`}>
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/30 to-transparent" />
       <div className="absolute inset-0 z-10 mix-blend-overlay bg-gradient-to-br from-gold/20 via-transparent to-gold-deep/25" />
       <div className="absolute inset-0 z-10 ring-1 ring-inset ring-gold/15" />
-      {/* subtle chart overlay */}
       <svg className="absolute inset-0 z-[5] w-full h-full opacity-[0.08]" viewBox="0 0 400 400" preserveAspectRatio="none">
         <path d="M0,300 L60,260 L120,280 L180,200 L240,220 L300,140 L360,160 L400,80" stroke="currentColor" strokeWidth="1" fill="none" className="text-gold" />
       </svg>
-      <img src={src} alt={alt} className="h-full w-full object-cover" style={{ filter: "brightness(0.82) saturate(1.05) contrast(1.05)" }} />
+      <img src={src} alt={alt} className="h-full w-full object-cover" style={{ filter: `brightness(${dim}) saturate(1.05) contrast(1.05)` }} />
     </div>
   );
 }
 
+/* ---------- Transformation card primitive ---------- */
+function TransformCard({
+  src, alt, label, lines, tone,
+}: { src: string; alt: string; label: string; lines: string[]; tone: "before" | "after" }) {
+  const accent = tone === "after" ? "text-gold" : "text-muted-foreground";
+  return (
+    <div className="flex flex-col">
+      <CinematicImage src={src} alt={alt} tall dim={tone === "after" ? "0.9" : "0.7"} />
+      <div className="mt-4 sm:mt-5">
+        <p className={`text-[10px] tracking-[0.4em] uppercase ${accent}`}>{label}</p>
+        <div className="mt-3 space-y-1.5">
+          {lines.map((l) => (
+            <p key={l} className={`text-sm sm:text-base leading-snug ${tone === "after" ? "text-foreground" : "text-muted-foreground"}`}>
+              {l}
+            </p>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProgressionIndicator({ label }: { label: string }) {
+  return (
+    <div className="flex flex-row sm:flex-col items-center justify-center gap-3 py-2 sm:py-0">
+      <span className="h-px w-10 sm:h-16 sm:w-px bg-gradient-to-r sm:bg-gradient-to-b from-transparent via-gold to-transparent" />
+      <div className="glass-gold rounded-full h-10 w-10 flex items-center justify-center shrink-0">
+        <ArrowRight className="h-4 w-4 text-gold sm:rotate-90" />
+      </div>
+      <span className="h-px w-10 sm:h-16 sm:w-px bg-gradient-to-r sm:bg-gradient-to-b from-gold via-gold to-transparent sm:via-gold" />
+      <p className="hidden sm:block mt-2 text-[10px] tracking-[0.3em] text-gold uppercase whitespace-nowrap">{label}</p>
+    </div>
+  );
+}
+
+/* ---------- A. Nebz Transformation ---------- */
+function NebzTransformation() {
+  return (
+    <section className="relative py-24 px-6">
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.6 }}
+          className="text-center mb-14 sm:mb-16"
+        >
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">The Transformation · Nebz</p>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.05]">
+            From Doubted <span className="italic text-gradient-gold">to Decided.</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-8 lg:gap-10 items-stretch">
+          <TransformCard
+            src={nebzBefore}
+            alt="Nebz before"
+            label="Before"
+            tone="before"
+            lines={["School dropout.", "No money.", "No direction.", "People doubted my future."]}
+          />
+          <div className="col-span-2 sm:col-span-2 lg:col-span-1 flex items-center justify-center">
+            <ProgressionIndicator label="8 Years of Work" />
+          </div>
+          <TransformCard
+            src={nebzAfter}
+            alt="Nebz after"
+            label="After"
+            tone="after"
+            lines={["Professional trader.", "Financial freedom.", "Helping thousands.", "Living life on my terms."]}
+          />
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="mt-14 text-center font-display text-2xl sm:text-3xl text-foreground italic"
+        >
+          &ldquo;If I did it, <span className="text-gradient-gold">you can do it too.</span>&rdquo;
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Journey ---------- */
 function OurStory() {
   const stages = [
-    { n: "01", title: "No Money. No Direction.", caption: "People doubted my future. I had a dream but no one believed in it.", img: nebzBefore.url },
-    { n: "02", title: "Discovered Trading.", caption: "The markets humbled me, but discipline and persistence changed everything.", img: nyathiraBefore.url },
-    { n: "03", title: "Built Skills. Built Systems.", caption: "I mastered the craft and developed systems that could help others succeed.", img: nebzAfter.url },
-    { n: "04", title: "Financial Freedom.", caption: "Trading transformed our reality and gave us the freedom we once only imagined.", img: story1.url },
-    { n: "05", title: "Helping Thousands.", caption: "Success became meaningful when we began helping others change their lives.", img: story2.url },
+    { n: "01", title: "The Struggle.", caption: "No money. No direction. People doubted my future.", img: journeyImages[0] },
+    { n: "02", title: "Discovering Trading.", caption: "A chart, a chance, and a hunger to learn what no one taught me.", img: journeyImages[1] },
+    { n: "03", title: "Building the Skill.", caption: "Years of screen time, losses, and discipline turned chaos into clarity.", img: journeyImages[2] },
+    { n: "04", title: "Creating Systems.", caption: "We codified what worked — repeatable, calm, executed without emotion.", img: journeyImages[3] },
+    { n: "05", title: "Financial Freedom.", caption: "Trading gave us our time back. We chose how to spend our days.", img: journeyImages[4] },
+    { n: "06", title: "Helping Others.", caption: "The mission became bigger than us — thousands now walk the same path.", img: journeyImages[5] },
   ];
   return (
     <section id="story" className="relative py-24 px-6">
@@ -225,13 +348,13 @@ function OurStory() {
           viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Story</p>
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">The Journey</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground">
             A Journey, <span className="italic text-gradient-gold">Not a Shortcut.</span>
           </h2>
         </motion.div>
 
-        <div className="space-y-20 lg:space-y-28">
+        <div className="space-y-16 sm:space-y-20 lg:space-y-28">
           {stages.map((s, i) => (
             <motion.div
               key={s.n}
@@ -239,7 +362,7 @@ function OurStory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.8 }}
-              className={`grid lg:grid-cols-12 gap-10 items-center ${i % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}
+              className={`grid lg:grid-cols-12 gap-8 sm:gap-10 items-center ${i % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}
             >
               <div className="lg:col-span-6">
                 <CinematicImage src={s.img} alt={s.title} />
@@ -260,7 +383,8 @@ function OurStory() {
   );
 }
 
-function Nyathira() {
+/* ---------- B. Nyathira Transformation ---------- */
+function NyathiraTransformation() {
   return (
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-7xl">
@@ -269,43 +393,42 @@ function Nyathira() {
           viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="mb-14 max-w-3xl"
         >
-          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Her Chapter</p>
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Her Chapter · Nyathira</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground">
             From Waitress to <span className="italic text-gradient-gold">Inspiring Thousands.</span>
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-3">
-            <CinematicImage src={nyathiraBefore.url} alt="Nyathira before" tall />
-            <p className="mt-3 text-[10px] tracking-[0.3em] text-muted-foreground uppercase">Before · $200/mo</p>
+        <div className="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-8 lg:gap-10 items-stretch">
+          <TransformCard
+            src={nyathiraBefore}
+            alt="Nyathira before"
+            label="Before"
+            tone="before"
+            lines={["Earning ~$200/month.", "Struggled with manual trading."]}
+          />
+          <div className="col-span-2 lg:col-span-1 flex items-center justify-center">
+            <ProgressionIndicator label="Systems Built" />
           </div>
-          <div className="lg:col-span-1 hidden lg:flex justify-center">
-            <ArrowRight className="h-6 w-6 text-gold" />
-          </div>
-          <div className="lg:col-span-4">
-            <CinematicImage src={nyathiraAfter.url} alt="Nyathira after" tall />
-            <p className="mt-3 text-[10px] tracking-[0.3em] text-gold uppercase">After · Mentor & Leader</p>
-          </div>
-          <div className="lg:col-span-4">
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              She earned approximately <span className="text-foreground">$200 per month</span> and struggled with
-              manual trading. Together, we developed systems that removed complexity
-              and created consistency.
-            </p>
-            <p className="mt-5 text-base sm:text-lg text-foreground leading-relaxed">
-              Today, she inspires <span className="text-gradient-gold italic">thousands of women and traders</span> across Africa.
-            </p>
-            <div className="mt-8 grid grid-cols-4 gap-2 text-center">
-              {["Waitress","Learning","Automation","Impact"].map((t, idx) => (
-                <div key={t} className="glass rounded-lg px-2 py-3">
-                  <p className="text-[9px] tracking-[0.2em] text-gold uppercase">0{idx+1}</p>
-                  <p className="text-[11px] text-foreground mt-1">{t}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <TransformCard
+            src={nyathiraAfter}
+            alt="Nyathira after"
+            label="After"
+            tone="after"
+            lines={["Top female trader.", "Mentor.", "Inspiring thousands."]}
+          />
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ delay: 0.15, duration: 0.7 }}
+          className="mt-14 max-w-3xl mx-auto text-center"
+        >
+          <p className="text-base sm:text-lg text-foreground/90 leading-relaxed italic">
+            &ldquo;When manual trading became a barrier, we built systems around our strategy.
+            What started as a solution for one person evolved into an opportunity for <span className="text-gradient-gold not-italic">thousands</span>.&rdquo;
+          </p>
+        </motion.div>
       </div>
     </section>
   );
@@ -315,7 +438,7 @@ function Automation() {
   return (
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-5xl">
-        <div className="relative glass shadow-luxury rounded-3xl p-10 sm:p-16 overflow-hidden">
+        <div className="relative glass shadow-luxury rounded-3xl p-8 sm:p-16 overflow-hidden">
           <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
           <Cpu className="h-6 w-6 text-gold mb-5" />
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-4">The Automation Story</p>
@@ -419,7 +542,7 @@ function Mission() {
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
-          <CinematicImage src={story4.url} alt="Mission" />
+          <CinematicImage src={story4} alt="Mission" />
         </div>
         <div className="lg:col-span-7">
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Mission</p>
@@ -431,10 +554,6 @@ function Mission() {
             We don&rsquo;t sell dreams. We share what worked for us — and help
             others take the same chance we once took.
           </p>
-          <div className="mt-8 flex items-center gap-3 text-xs text-muted-foreground">
-            <ShieldCheck className="h-4 w-4 text-gold" />
-            <span className="tracking-[0.15em] uppercase">Trusted Partner · Pocket Option</span>
-          </div>
         </div>
       </div>
     </section>
@@ -445,12 +564,12 @@ function FinalCTA() {
   return (
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-6xl">
-        <div className="relative glass-gold shadow-luxury rounded-3xl p-12 sm:p-20 text-center overflow-hidden">
+        <div className="relative glass-gold shadow-luxury rounded-3xl p-10 sm:p-20 text-center overflow-hidden">
           <div className="absolute inset-0 -z-10">
             <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-80 w-[120%] bg-gradient-gold opacity-20 blur-3xl rounded-full" />
           </div>
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-5">Your Move</p>
-          <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl text-foreground leading-tight">
+          <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl text-foreground leading-tight">
             Start Your Journey <span className="italic text-gradient-gold">Today.</span>
           </h2>
           <p className="mt-6 max-w-xl mx-auto text-muted-foreground">
