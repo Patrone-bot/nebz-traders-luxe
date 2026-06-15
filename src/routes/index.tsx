@@ -143,7 +143,7 @@ function Hero() {
           <div className="mt-10 flex items-center gap-3">
             <span className="text-[10px] tracking-[0.4em] text-muted-foreground uppercase">Official Partner</span>
             <span className="h-px w-6 bg-border" />
-            <PocketOptionLogo />
+            <PocketOptionLogo className="h-5" />
           </div>
         </motion.div>
 
