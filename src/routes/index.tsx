@@ -300,7 +300,7 @@ function NebzTransformation() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-8 lg:gap-10 items-stretch">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-6 lg:gap-10 items-stretch">
           <TransformCard
             src={nebzBefore}
             alt="Nebz before"
@@ -308,11 +308,9 @@ function NebzTransformation() {
             tone="before"
             lines={["School dropout.", "No money.", "No direction.", "People doubted my future."]}
           />
-          <div className="col-span-2 sm:col-span-2 lg:col-span-1 flex items-center justify-center">
-            <ProgressionIndicator label="8 Years of Work" />
-          </div>
+          <ProgressionIndicator label="8 Years of Work" />
           <TransformCard
-            src={nebzAfter}
+            src={nebzAfterCompare}
             alt="Nebz after"
             label="After"
             tone="after"
