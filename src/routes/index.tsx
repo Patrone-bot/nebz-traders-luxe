@@ -78,13 +78,13 @@ function PartnerBand() {
   return (
     <section className="relative py-10 px-6">
       <div className="mx-auto max-w-5xl">
-        <div className="glass rounded-2xl border border-border/60 px-6 py-5 sm:px-10 sm:py-6 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-5 text-center sm:text-left">
+        <div className="glass rounded-2xl border border-border/60 px-6 py-6 sm:px-10 sm:py-7 flex flex-col items-center gap-4 text-center">
           <div className="flex items-center gap-3">
-            <ShieldCheck className="h-4 w-4 text-gold" />
-            <p className="text-[10px] sm:text-[11px] tracking-[0.4em] text-gold uppercase">Official Partner</p>
+            <ShieldCheck className="h-3.5 w-3.5 text-gold" />
+            <p className="text-[10px] sm:text-[11px] tracking-[0.45em] text-gold uppercase">Official Partner</p>
           </div>
-          <PocketOptionLogo />
-          <p className="text-[10px] sm:text-[11px] tracking-[0.25em] text-muted-foreground uppercase">
+          <PocketOptionLogo className="h-7 sm:h-9" />
+          <p className="text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
             Verified Broker · Since 2019
           </p>
         </div>
