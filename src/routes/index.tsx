@@ -306,16 +306,17 @@ function NebzTransformation() {
             alt="Nebz before"
             label="Before"
             tone="before"
-            lines={["School dropout.", "No money.", "No direction.", "People doubted my future."]}
+            lines={["School dropout with $0 to his name.", "\n", "\n", "\n"]}
           />
-          <ProgressionIndicator label="8 Years of Work" />
+          <ProgressionIndicator label="8 YEARS OF WORK" />
           <TransformCard
             src={nebzAfterCompare}
             alt="Nebz after"
             label="After"
             tone="after"
-            lines={["Professional trader.", "Financial freedom.", "Helping thousands.", "Living life on my terms."]}
+            lines={["Today he proves that your past does not decide your future.", "\n", "\n", "\n"]}
           />
+
         </div>
 
         <motion.p
@@ -333,12 +334,13 @@ function NebzTransformation() {
 /* ---------- Journey ---------- */
 function OurStory() {
   const stages = [
-    { n: "01", title: "The Struggle.", caption: "No money. No direction. People doubted my future.", img: journeyImages[0] },
-    { n: "02", title: "Discovering Trading.", caption: "A chart, a chance, and a hunger to learn what no one taught me.", img: journeyImages[1] },
-    { n: "03", title: "Building the Skill.", caption: "Years of screen time, losses, and discipline turned chaos into clarity.", img: journeyImages[2] },
-    { n: "04", title: "Creating Systems.", caption: "We codified what worked — repeatable, calm, executed without emotion.", img: journeyImages[3] },
-    { n: "05", title: "Financial Freedom.", caption: "Trading gave us our time back. We chose how to spend our days.", img: journeyImages[4] },
-    { n: "06", title: "Helping Others.", caption: "The mission became bigger than us — thousands now walk the same path.", img: journeyImages[5] },
+    { n: "01", title: "Less Than $100 & A Dream.", caption: "We didn’t start with mentors, capital, or any special skill. We only had less than $100, our faith in God, and the belief that with Him, anything was possible.", img: journeyImages[0] },
+    { n: "02", title: "The Price Of Believing.", caption: "We took risks, trusted the wrong people, lost money to scams and fake strategies. But every setback became a lesson that pushed us closer to success.", img: journeyImages[1] },
+    { n: "03", title: "From Survival To Success.", caption: "The small steps, mistakes, and lessons slowly became the foundation of a life we once only dreamed about.", img: journeyImages[2] },
+    { n: "04", title: "Building Something Bigger.", caption: "We stopped chasing opportunities and started creating them. Our experience turned into systems, businesses, and solutions impacting traders worldwide.", img: journeyImages[3] },
+    { n: "05", title: "Beyond What We Imagined.", caption: "What started with less than $100 grew into a multimillion dollar success story. Today our mission is helping others believe that their beginning doesn’t define their future.", img: journeyImages[4] },
+    { n: "06", title: "A Mission Beyond Ourselves.", caption: "God changed our story from impossible to possible. Now our purpose is to open doors for others and prove that where you start does not determine where you can finish.", img: journeyImages[5] },
+
   ];
   return (
     <section id="story" className="relative py-24 px-6">
@@ -393,10 +395,11 @@ function NyathiraTransformation() {
           viewport={{ once: true }} transition={{ duration: 0.6 }}
           className="mb-14 max-w-3xl"
         >
-          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Her Chapter · Nyathira</p>
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">MORE THAN A TRANSFORMATION</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground">
             From Waitress to <span className="italic text-gradient-gold">Inspiring Thousands.</span>
           </h2>
+
         </motion.div>
 
         <div className="grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-6 lg:gap-10 items-stretch">
@@ -405,7 +408,8 @@ function NyathiraTransformation() {
             alt="Nyathira before"
             label="Before"
             tone="before"
-            lines={["Earning ~$200/month.", "Struggled with manual trading."]}
+            lines={["Earning -200$\\month.", "\n"]}
+
           />
           <ProgressionIndicator label="Systems Built" />
           <TransformCard
@@ -413,7 +417,8 @@ function NyathiraTransformation() {
             alt="Nyathira after"
             label="After"
             tone="after"
-            lines={["Top female trader.", "Mentor.", "Inspiring thousands."]}
+            lines={["Today she proves that your beginning does not decide your future.", "\n", "\n"]}
+
           />
         </div>
 
@@ -422,10 +427,12 @@ function NyathiraTransformation() {
           viewport={{ once: true }} transition={{ delay: 0.15, duration: 0.7 }}
           className="mt-14 max-w-3xl mx-auto text-center"
         >
-          <p className="text-base sm:text-lg text-foreground/90 leading-relaxed italic">
-            &ldquo;When manual trading became a barrier, we built systems around our strategy.
-            What started as a solution for one person evolved into an opportunity for <span className="text-gradient-gold not-italic">thousands</span>.&rdquo;
+          <p className="text-base sm:text-lg text-foreground/90 leading-relaxed italic whitespace-pre-wrap">
+            &ldquo;Manual trading became the hardest chapter of my journey. The sleepless nights, emotions, mistakes, and pressure almost made me walk away from everything.{"\n\n\n"}
+            But instead of giving up, I turned my biggest struggle into innovation. We developed an automated trading robot built from years of experience, designed to follow our strategy with discipline and precision.{"\n\n\n"}
+            What was created to solve our own biggest challenge has now become technology helping <span className="text-gradient-gold not-italic">thousands</span> of traders around the world.&rdquo;
           </p>
+
         </motion.div>
       </div>
     </section>
@@ -439,14 +446,16 @@ function Automation() {
         <div className="relative glass shadow-luxury rounded-3xl p-8 sm:p-16 overflow-hidden">
           <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
           <Cpu className="h-6 w-6 text-gold mb-5" />
-          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-4">The Automation Story</p>
-          <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl text-foreground leading-tight max-w-3xl">
-            When manual trading became a barrier, we built <span className="italic text-gradient-gold">systems around our strategy</span>.
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-4">THE AUTOMATION BREAKTHROUGH</p>
+          <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl text-foreground leading-tight max-w-3xl whitespace-pre-wrap">
+            The problem every trader faces{"\n"}became the solution we created{"\n"}&nbsp; <span className="italic text-gradient-gold">turning experience into automation.</span>
           </h3>
-          <p className="mt-6 max-w-2xl text-muted-foreground leading-relaxed">
-            What started as a solution for one person evolved into an opportunity
-            for thousands — codified discipline, executed without emotion.
+          <p className="mt-6 max-w-2xl text-muted-foreground leading-relaxed whitespace-pre-wrap">
+            We knew the struggle because we lived it. The emotions, second guessing, sleepless nights, and hours staring at charts made manual trading one of our biggest challenges.{"\n\n\n"}
+            Instead of accepting that reality, we spent years turning our experience into an automated trading robot designed to follow our strategy with patience and discipline.{"\n\n\n"}
+            What started as our solution is now helping traders around the world trade differently..
           </p>
+
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { i: TrendingUp, t: "Strategy" },
@@ -544,14 +553,14 @@ function Mission() {
         </div>
         <div className="lg:col-span-7">
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Mission</p>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.05]">
-            We Changed Our Lives. <br />
-            <span className="italic text-gradient-gold">Now We Help You Change Yours.</span>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-foreground leading-[1.05] whitespace-pre-wrap">
+            God Changed Our Story.{"\n"}
+            <span className="italic text-gradient-gold">Now We Help Others Rewrite Theirs.</span>
           </h2>
           <p className="mt-7 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            We don&rsquo;t sell dreams. We share what worked for us — and help
-            others take the same chance we once took.
+            We know what it feels like to start with nothing, to fail, and to almost give up. That’s why we built this community — to share the lessons, tools, and opportunities we wish we had when we started..
           </p>
+
         </div>
       </div>
     </section>
@@ -566,19 +575,20 @@ function FinalCTA() {
           <div className="absolute inset-0 -z-10">
             <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-80 w-[120%] bg-gradient-gold opacity-20 blur-3xl rounded-full" />
           </div>
-          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-5">Your Move</p>
-          <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl text-foreground leading-tight">
-            Start Your Journey <span className="italic text-gradient-gold">Today.</span>
+          <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-5">YOUR TURN</p>
+          <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl text-foreground leading-tight whitespace-pre-wrap">
+            Every Story Has A Beginning{"\n"}&nbsp;<span className="italic text-gradient-gold">This Could Be Yours.</span>
           </h2>
           <p className="mt-6 max-w-xl mx-auto text-muted-foreground">
-            The markets reward those who show up prepared. Join 20,000+ members
-            who chose precision over chance.
+            We once wished someone would show us the way. Today we’re opening that door for you. Join thousands taking their first step.
           </p>
+
           <Link
             to="/get-started"
             className="mt-10 inline-flex items-center gap-3 rounded-full bg-gradient-gold px-10 py-4 text-sm font-semibold tracking-[0.3em] text-primary-foreground shadow-gold-glow hover:scale-[1.03] transition-transform"
           >
-            GET STARTED
+            BEGIN YOUR JOURNEY
+
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

@@ -28,10 +28,11 @@ export function Navbar() {
         >
           <Link to="/" className="flex items-center gap-2 group">
             <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center shadow-gold-glow">
-              <span className="text-primary-foreground font-display font-bold text-sm">N</span>
+              <span className="text-primary-foreground font-display font-bold text-sm">CFX</span>
             </div>
             <span className="text-lg sm:text-xl font-display font-semibold tracking-[0.25em] text-gradient-gold">
-              NEBZ
+              CashoutFX
+
             </span>
           </Link>
 
