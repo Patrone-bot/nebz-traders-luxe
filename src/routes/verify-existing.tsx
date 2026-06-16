@@ -3,6 +3,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { Check, Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
+import { submitExistingAccountVerification } from "@/lib/supabase/verification-requests";
 
 export const Route = createFileRoute("/verify-existing")({
   head: () => ({ meta: [{ title: "Verify Account — NEBZ" }] }),
@@ -11,15 +13,33 @@ export const Route = createFileRoute("/verify-existing")({
 
 function Existing() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [referrer, setReferrer] = useState<"Nebz" | "Nyathira" | null>(null);
-  const [poId, setPoId] = useState("");
+  const [pocketTraderId, setPocketTraderId] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "success">("form");
+  const [error, setError] = useState<string | null>(null);
 
-  const onVerify = (e: React.FormEvent) => {
+  const onVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!referrer || !poId) return;
+    if (!referrer || !pocketTraderId.trim()) return;
+
+    if (!user) {
+      setError("Please sign in to verify your account.");
+      return;
+    }
+
+    setError(null);
     setStage("loading");
-    setTimeout(() => setStage("success"), 2200);
+
+    const result = await submitExistingAccountVerification(user.id, pocketTraderId);
+
+    if (!result.ok) {
+      setStage("form");
+      setError(result.message);
+      return;
+    }
+
+    setStage("success");
   };
 
   return (
@@ -66,13 +86,14 @@ function Existing() {
               </div>
             </div>
             <LuxField
-              label="Pocket Option ID"
-              name="poId"
-              value={poId}
-              onChange={(e) => setPoId(e.target.value)}
+              label="Pocket Trader ID"
+              name="pocketTraderId"
+              value={pocketTraderId}
+              onChange={(e) => setPocketTraderId(e.target.value)}
               placeholder="e.g. 88123456"
             />
-            <LuxButton type="submit" disabled={!referrer || !poId}>
+            {error && <p className="text-xs text-destructive">{error}</p>}
+            <LuxButton type="submit" disabled={!referrer || !pocketTraderId.trim()}>
               VERIFY ACCOUNT
             </LuxButton>
           </motion.form>

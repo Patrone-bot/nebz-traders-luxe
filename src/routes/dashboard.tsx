@@ -1,7 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut } from "lucide-react";
+import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from "@/contexts/auth-context";
 import { supabase } from "@/lib/supabase/client";
+import { requestPackage } from "@/lib/supabase/package-requests";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — NEBZ" }] }),
@@ -40,8 +43,40 @@ const packages = [
 
 function Dashboard() {
   const navigate = useNavigate();
-  const onSelect = (id: string) => {
-    try { sessionStorage.setItem("nebz_package", id); } catch {}
+  const { user } = useAuth();
+  const [selectingId, setSelectingId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  const onSelect = async (id: string) => {
+    setError(null);
+    setNotice(null);
+
+    if (!user) {
+      setError("Please sign in to select a package.");
+      return;
+    }
+
+    setSelectingId(id);
+
+    const result = await requestPackage(user.id, id);
+
+    setSelectingId(null);
+
+    if (!result.ok) {
+      if (result.kind === "duplicate") {
+        setNotice(result.message);
+        return;
+      }
+      setError(result.message);
+      return;
+    }
+
+    try {
+      sessionStorage.setItem("nebz_package", id);
+    } catch {
+      // ignore storage failures
+    }
     navigate({ to: "/verify" });
   };
   const onSignOut = async () => {
@@ -82,6 +117,8 @@ function Dashboard() {
           <p className="mt-4 text-muted-foreground">
             Choose the experience that matches your goals.
           </p>
+          {notice && <p className="mt-4 text-xs text-muted-foreground">{notice}</p>}
+          {error && <p className="mt-4 text-xs text-destructive">{error}</p>}
         </motion.div>
 
         <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6">
@@ -124,15 +161,26 @@ function Dashboard() {
                     </ul>
 
                     <button
+                      type="button"
                       onClick={() => onSelect(p.id)}
-                      className={`mt-8 w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-xs font-semibold tracking-[0.3em] transition-all ${
+                      disabled={selectingId !== null}
+                      className={`mt-8 w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-xs font-semibold tracking-[0.3em] transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                         p.featured
                           ? "bg-gradient-gold text-primary-foreground shadow-gold-glow hover:scale-[1.02]"
                           : "border border-border/70 bg-secondary/40 text-foreground hover:border-gold/60"
                       }`}
                     >
-                      GET ACCESS
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      {selectingId === p.id ? (
+                        <>
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          PROCESSING
+                        </>
+                      ) : (
+                        <>
+                          GET ACCESS
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
