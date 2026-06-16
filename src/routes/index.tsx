@@ -308,7 +308,7 @@ function NebzTransformation() {
           />
           <ProgressionIndicator label="8 YEARS OF WORK" />
           <TransformCard
-            src={nebzAfterCompare}
+            src={nebzAfter}
             alt="Nebz after"
             label="After"
             tone="after"
@@ -547,7 +547,7 @@ function Mission() {
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
-          <CinematicImage src={story4} alt="Mission" />
+          <CinematicImage src={missionImg} alt="Mission" />
         </div>
         <div className="lg:col-span-7">
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Mission</p>
