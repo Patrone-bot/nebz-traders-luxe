@@ -8,20 +8,18 @@ import { successStories } from "@/lib/mock-data";
 
 import heroImg from "@/assets/story/hero.jpg";
 import nebzBefore from "@/assets/story/nebz-before.png";
-import nebzAfter from "@/assets/story/nebz-after.jpg";
+import nebzAfter from "@/assets/story/nebz-after2.jpg";
 import nyathiraBefore from "@/assets/story/nyathira-before.png";
-import nyathiraAfter from "@/assets/story/nyathira-after.jpg";
-import story1 from "@/assets/story/story1.jpg";
+import nyathiraAfter from "@/assets/story/nyathira-after2.jpg";
+import story1 from "@/assets/story/part-one.jpg";
 import story2 from "@/assets/story/story2.jpg";
 import story4 from "@/assets/story/story4.jpg";
+import missionImg from "@/assets/story/last-image.jpg";
 import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
 
-// NOTE: Story-image5.jpg (for Nebz AFTER comparison) was not present in uploads.
-// Using nebzAfter as a temporary stand-in until the asset is provided.
-const nebzAfterCompare = nebzAfter;
-
 // Journey progression — re-use existing approved imagery in a cinematic sequence
-const journeyImages = [nebzBefore, story1, story2, story4, nebzAfter, nyathiraAfter];
+const journeyImages = [story1, story2, story4, nebzAfter, nyathiraAfter, story1];
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -310,7 +308,7 @@ function NebzTransformation() {
           />
           <ProgressionIndicator label="8 YEARS OF WORK" />
           <TransformCard
-            src={nebzAfterCompare}
+            src={nebzAfter}
             alt="Nebz after"
             label="After"
             tone="after"
@@ -549,7 +547,7 @@ function Mission() {
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
-          <CinematicImage src={story4} alt="Mission" />
+          <CinematicImage src={missionImg} alt="Mission" />
         </div>
         <div className="lg:col-span-7">
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Mission</p>
