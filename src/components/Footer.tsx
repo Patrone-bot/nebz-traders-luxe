@@ -9,13 +9,14 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
               <div className="h-9 w-9 rounded-full bg-gradient-gold flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold">N</span>
+                <span className="text-primary-foreground font-display font-bold">CFX</span>
               </div>
-              <span className="font-display text-xl tracking-[0.3em] text-gradient-gold">NEBZ</span>
+              <span className="font-display text-xl tracking-[0.3em] text-gradient-gold">CashoutFX</span>
             </div>
             <p className="mt-5 max-w-md text-sm text-muted-foreground leading-relaxed">
-              The Evolution of Trading Excellence. Eight years of mastering the markets through
-              discipline, innovation, and consistency.
+              From A Dream To A Legacy.<br />
+              What started with less than $100 became eight years of growth, innovation, and a mission bigger than ourselves.
+
             </p>
           </div>
           <div>
@@ -29,14 +30,14 @@ export function Footer() {
           <div>
             <h4 className="text-xs tracking-[0.25em] text-gold uppercase">Reach</h4>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>Nairobi · Lagos · Dubai</li>
+              <li>Kenya&nbsp;·&nbsp;Nigeria ·&nbsp;Egypt ·&nbsp;South Africa · Tanzania · Morocco ·&nbsp;Ethiopia ·&nbsp;Ghana · Uganda</li>
               <li>contact@nebz.trade</li>
               <li>Mon–Sun · 24/7 Support</li>
             </ul>
           </div>
         </div>
         <div className="mt-14 pt-8 border-t border-border/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Nebz Trading. All rights reserved.</p>
+          <p>© {new Date().getFullYear()}&nbsp;CashoutFX. All rights reserved.</p>
           <p className="tracking-wider">Trading involves risk. Past performance is not indicative of future results.</p>
         </div>
       </div>
