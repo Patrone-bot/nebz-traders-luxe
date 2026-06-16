@@ -8,20 +8,18 @@ import { successStories } from "@/lib/mock-data";
 
 import heroImg from "@/assets/story/hero.jpg";
 import nebzBefore from "@/assets/story/nebz-before.png";
-import nebzAfter from "@/assets/story/nebz-after.jpg";
+import nebzAfter from "@/assets/story/nebz-after2.jpg";
 import nyathiraBefore from "@/assets/story/nyathira-before.png";
-import nyathiraAfter from "@/assets/story/nyathira-after.jpg";
-import story1 from "@/assets/story/story1.jpg";
+import nyathiraAfter from "@/assets/story/nyathira-after2.jpg";
+import story1 from "@/assets/story/part-one.jpg";
 import story2 from "@/assets/story/story2.jpg";
 import story4 from "@/assets/story/story4.jpg";
+import missionImg from "@/assets/story/last-image.jpg";
 import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
 
-// NOTE: Story-image5.jpg (for Nebz AFTER comparison) was not present in uploads.
-// Using nebzAfter as a temporary stand-in until the asset is provided.
-const nebzAfterCompare = nebzAfter;
-
 // Journey progression — re-use existing approved imagery in a cinematic sequence
-const journeyImages = [nebzBefore, story1, story2, story4, nebzAfter, nyathiraAfter];
+const journeyImages = [story1, story2, story4, nebzAfter, nyathiraAfter, story1];
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
