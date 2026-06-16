@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Login — NEBZ" }] }),
@@ -10,11 +11,33 @@ export const Route = createFileRoute("/login")({
 function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isSupabaseConfigured()) {
+      setError("Authentication is not configured. Add your Supabase credentials.");
+      return;
+    }
+
+    setError(null);
+    setSubmitting(true);
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: form.email.trim(),
+      password: form.password,
+    });
+
+    setSubmitting(false);
+
+    if (signInError) {
+      setError(signInError.message);
+      return;
+    }
+
     navigate({ to: "/dashboard" });
   };
 
@@ -36,7 +59,8 @@ function Login() {
         <div className="flex justify-end">
           <a href="#" className="text-xs text-muted-foreground hover:text-gold">Forgot password?</a>
         </div>
-        <LuxButton type="submit">LOGIN</LuxButton>
+        {error && <p className="text-xs text-destructive">{error}</p>}
+        <LuxButton type="submit" disabled={submitting}>LOGIN</LuxButton>
       </form>
     </AuthShell>
   );

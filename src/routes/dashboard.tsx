@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut } from "lucide-react";
+import { supabase } from "@/lib/supabase/client";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — NEBZ" }] }),
@@ -43,6 +44,10 @@ function Dashboard() {
     try { sessionStorage.setItem("nebz_package", id); } catch {}
     navigate({ to: "/verify" });
   };
+  const onSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/login" });
+  };
 
   return (
     <div className="min-h-screen">
@@ -53,10 +58,14 @@ function Dashboard() {
           </div>
           <span className="font-display tracking-[0.3em] text-gradient-gold">NEBZ</span>
         </Link>
-        <Link to="/login" className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-muted-foreground hover:text-gold uppercase">
+        <button
+          type="button"
+          onClick={onSignOut}
+          className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-muted-foreground hover:text-gold uppercase"
+        >
           <LogOut className="h-3.5 w-3.5" />
           Sign Out
-        </Link>
+        </button>
       </header>
 
       <main className="px-6 pb-20">
