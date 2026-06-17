@@ -12,7 +12,7 @@ export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>): LoginSearch => ({
     redirect: typeof search.redirect === "string" ? search.redirect : undefined,
   }),
-  head: () => ({ meta: [{ title: "Login — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Login — CashoutFX" }] }),
   component: Login,
 });
 
