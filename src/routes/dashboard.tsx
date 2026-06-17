@@ -1,6 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut } from "lucide-react";
+import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useRequireAuth } from "@/hooks/use-require-auth";
+import { AuthSessionLoader } from "@/components/AuthSessionLoader";
+import { supabase } from "@/lib/supabase/client";
+import { fetchProfile } from "@/lib/supabase/profiles";import { requestPackage } from "@/lib/supabase/package-requests";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — NEBZ" }] }),
@@ -39,9 +44,56 @@ const packages = [
 
 function Dashboard() {
   const navigate = useNavigate();
-  const onSelect = (id: string) => {
-    try { sessionStorage.setItem("nebz_package", id); } catch {}
+  const { user, loading } = useRequireAuth();
+  const [selectingId, setSelectingId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [displayName, setDisplayName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    let mounted = true;
+    fetchProfile(user.id).then(({ data }) => {
+      if (!mounted) return;
+      setDisplayName(data?.full_name?.trim() || user.email || "Member");
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, [user]);
+
+  if (loading || !user) return <AuthSessionLoader />;
+
+  const onSelect = async (id: string) => {
+    setError(null);
+
+    if (!user) {
+      setError("Please sign in to select a package.");
+      return;
+    }
+
+    setSelectingId(id);
+
+    const result = await requestPackage(user.id, id);
+
+    setSelectingId(null);
+
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+
+    try {
+      sessionStorage.setItem("nebz_package", id);
+    } catch {
+      // ignore storage failures
+    }
     navigate({ to: "/verify" });
+  };
+  const onSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/login" });
   };
 
   return (
@@ -53,10 +105,14 @@ function Dashboard() {
           </div>
           <span className="font-display tracking-[0.3em] text-gradient-gold">NEBZ</span>
         </Link>
-        <Link to="/login" className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-muted-foreground hover:text-gold uppercase">
+        <button
+          type="button"
+          onClick={onSignOut}
+          className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-muted-foreground hover:text-gold uppercase"
+        >
           <LogOut className="h-3.5 w-3.5" />
           Sign Out
-        </Link>
+        </button>
       </header>
 
       <main className="px-6 pb-20">
@@ -68,11 +124,14 @@ function Dashboard() {
         >
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Member Dashboard</p>
           <h1 className="font-display text-5xl sm:text-6xl text-foreground">
-            Welcome <span className="italic text-gradient-gold">Back.</span>
+            Welcome back,{" "}
+            <span className="italic text-gradient-gold">{displayName ?? "Member"}</span>
           </h1>
+          <p className="mt-3 text-sm text-muted-foreground">{user.email}</p>
           <p className="mt-4 text-muted-foreground">
             Choose the experience that matches your goals.
           </p>
+          {error && <p className="mt-4 text-xs text-destructive">{error}</p>}
         </motion.div>
 
         <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6">
@@ -115,15 +174,26 @@ function Dashboard() {
                     </ul>
 
                     <button
+                      type="button"
                       onClick={() => onSelect(p.id)}
-                      className={`mt-8 w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-xs font-semibold tracking-[0.3em] transition-all ${
+                      disabled={selectingId !== null}
+                      className={`mt-8 w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-xs font-semibold tracking-[0.3em] transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                         p.featured
                           ? "bg-gradient-gold text-primary-foreground shadow-gold-glow hover:scale-[1.02]"
                           : "border border-border/70 bg-secondary/40 text-foreground hover:border-gold/60"
                       }`}
                     >
-                      GET ACCESS
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      {selectingId === p.id ? (
+                        <>
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          PROCESSING
+                        </>
+                      ) : (
+                        <>
+                          GET ACCESS
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>

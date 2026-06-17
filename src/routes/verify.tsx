@@ -2,6 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { Check, X, ArrowLeft } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useRequireAuth } from "@/hooks/use-require-auth";
+import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 
 export const Route = createFileRoute("/verify")({
   head: () => ({ meta: [{ title: "Verify Account — NEBZ" }] }),
@@ -10,6 +12,9 @@ export const Route = createFileRoute("/verify")({
 
 function Verify() {
   const navigate = useNavigate();
+  const { loading, user } = useRequireAuth();
+
+  if (loading || !user) return <AuthSessionLoader />;
 
   return (
     <div className="min-h-screen flex flex-col">

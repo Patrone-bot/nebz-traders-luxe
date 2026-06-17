@@ -3,6 +3,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { AuthShell, LuxButton } from "@/components/AuthShell";
 import { ExternalLink, Loader2 } from "lucide-react";
+import { useRequireAuth } from "@/hooks/use-require-auth";
+import { AuthSessionLoader } from "@/components/AuthSessionLoader";
+import { submitReferralRedirect } from "@/lib/supabase/referral-redirects";
 
 export const Route = createFileRoute("/verify-new")({
   head: () => ({ meta: [{ title: "Continue Registration — NEBZ" }] }),
@@ -11,12 +14,36 @@ export const Route = createFileRoute("/verify-new")({
 
 function NewUser() {
   const navigate = useNavigate();
+  const { user, loading } = useRequireAuth();
   const [inviter, setInviter] = useState<"Nebz" | "Nyathira" | null>(null);
   const [stage, setStage] = useState<"form" | "redirect">("form");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const onProceed = () => {
+  if (loading || !user) return <AuthSessionLoader />;
+
+  const onProceed = async () => {
     if (!inviter) return;
+
+    if (!user) {
+      setError("Please sign in to continue.");
+      return;
+    }
+
+    setError(null);
+    setSubmitting(true);
+
+    const result = await submitReferralRedirect(user.id, inviter);
+
+    setSubmitting(false);
+
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+
     setStage("redirect");
+    window.location.assign(result.redirectUrl);
   };
 
   return (
@@ -61,7 +88,8 @@ function NewUser() {
                 ))}
               </div>
             </div>
-            <LuxButton onClick={onProceed} disabled={!inviter}>PROCEED</LuxButton>
+            {error && <p className="text-xs text-destructive">{error}</p>}
+            <LuxButton onClick={onProceed} disabled={!inviter || submitting}>PROCEED</LuxButton>
           </motion.div>
         )}
 
