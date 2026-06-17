@@ -5,6 +5,8 @@ import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { Check, Loader2 } from "lucide-react";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
+import { callVerifyPocketPartners } from "@/lib/api/verify-pocket-partners";
+import { supabase } from "@/lib/supabase/client";
 import { submitExistingAccountVerification } from "@/lib/supabase/verification-requests";
 
 export const Route = createFileRoute("/verify-existing")({
@@ -16,8 +18,9 @@ function Existing() {
   const navigate = useNavigate();
   const { user, loading } = useRequireAuth();
   const [pocketTraderId, setPocketTraderId] = useState("");
-  const [stage, setStage] = useState<"form" | "loading" | "success">("form");
+  const [stage, setStage] = useState<"form" | "loading" | "success" | "failure">("form");
   const [error, setError] = useState<string | null>(null);
+  const [verifiedUnder, setVerifiedUnder] = useState<"Nebz" | "Nyathira" | null>(null);
 
   if (loading || !user) return <AuthSessionLoader />;
 
@@ -31,23 +34,52 @@ function Existing() {
     }
 
     setError(null);
+    setVerifiedUnder(null);
     setStage("loading");
 
-    const result = await submitExistingAccountVerification(user.id, pocketTraderId);
+    const createResult = await submitExistingAccountVerification(user.id, pocketTraderId);
 
-    if (!result.ok) {
+    if (!createResult.ok) {
       setStage("form");
-      setError(result.message);
+      setError(createResult.message);
       return;
     }
 
-    setStage("success");
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (!session?.access_token) {
+      setStage("form");
+      setError("Please sign in to verify your account.");
+      return;
+    }
+
+    const verifyResult = await callVerifyPocketPartners(
+      createResult.verificationRequestId,
+      pocketTraderId.trim(),
+      session.access_token,
+    );
+
+    if (verifyResult.verified && verifyResult.verifiedUnder) {
+      setVerifiedUnder(verifyResult.verifiedUnder);
+      setStage("success");
+      return;
+    }
+
+    setStage("failure");
   };
 
   return (
     <AuthShell
       eyebrow="Existing Member"
-      title={stage === "success" ? "Verified." : "Verify Your Account"}
+      title={
+        stage === "success"
+          ? "Verified."
+          : stage === "failure"
+            ? "Verification Failed"
+            : "Verify Your Account"
+      }
       subtitle={
         stage === "success"
           ? "Welcome to the inner circle."
@@ -118,11 +150,32 @@ function Existing() {
               <Check className="h-8 w-8 text-primary-foreground" />
             </motion.div>
             <p className="mt-6 text-base text-foreground">
-              Your verification request has been received. We&apos;re checking your Pocket Option account automatically.
+              Your Pocket Option account has been verified successfully.
             </p>
-            <p className="mt-2 text-xs text-muted-foreground">A concierge will reach out within 24 hours.</p>
+            {verifiedUnder && (
+              <p className="mt-2 text-sm text-gold">Verified under {verifiedUnder}</p>
+            )}
             <div className="mt-8">
               <LuxButton onClick={() => navigate({ to: "/dashboard" })}>CONTINUE</LuxButton>
+            </div>
+          </motion.div>
+        )}
+
+        {stage === "failure" && (
+          <motion.div
+            key="failure"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="py-8 text-center"
+          >
+            <p className="text-base text-foreground">
+              We could not verify this Pocket Option account under Nebz or Nyathira.
+            </p>
+            <div className="mt-8 flex flex-col gap-3">
+              <LuxButton onClick={() => setStage("form")}>TRY AGAIN</LuxButton>
+              <LuxButton variant="ghost" onClick={() => navigate({ to: "/dashboard" })}>
+                BACK TO DASHBOARD
+              </LuxButton>
             </div>
           </motion.div>
         )}

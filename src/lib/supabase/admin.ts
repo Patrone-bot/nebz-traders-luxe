@@ -7,6 +7,7 @@ type VerificationRow = {
   user_id: string;
   pocket_trader_id: string;
   verification_status: string;
+  verified_under: string | null;
   created_at: string;
 };
 
@@ -40,6 +41,7 @@ export type ExistingMemberRow = {
   phone: string;
   pocketTraderId: string;
   verificationStatus: VerificationStatusLabel;
+  verifiedUnder: string | null;
   createdAt: string;
 };
 
@@ -88,7 +90,7 @@ export async function fetchAdminDashboard(): Promise<AdminDashboardData> {
       .order("created_at", { ascending: false }),
     supabase
       .from("verification_requests")
-      .select("id, user_id, pocket_trader_id, verification_status, created_at")
+      .select("id, user_id, pocket_trader_id, verification_status, verified_under, created_at")
       .order("created_at", { ascending: false }),
     supabase
       .from("referral_redirects")
@@ -127,6 +129,7 @@ export async function fetchAdminDashboard(): Promise<AdminDashboardData> {
       phone: profile.phone,
       pocketTraderId: verification.pocket_trader_id,
       verificationStatus: formatVerificationStatus(verification.verification_status),
+      verifiedUnder: verification.verified_under,
       createdAt: verification.created_at,
     });
   }

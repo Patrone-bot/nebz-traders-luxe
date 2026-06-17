@@ -6,16 +6,20 @@ export async function createVerificationRequest(input: {
   package_request_id: string;
   pocket_trader_id: string;
 }) {
-  return supabase.from("verification_requests").insert({
-    user_id: input.user_id,
-    package_request_id: input.package_request_id,
-    pocket_trader_id: input.pocket_trader_id,
-    verification_status: "pending",
-  });
+  return supabase
+    .from("verification_requests")
+    .insert({
+      user_id: input.user_id,
+      package_request_id: input.package_request_id,
+      pocket_trader_id: input.pocket_trader_id,
+      verification_status: "pending",
+    })
+    .select("id")
+    .single();
 }
 
 export type SubmitVerificationResult =
-  | { ok: true }
+  | { ok: true; verificationRequestId: string }
   | { ok: false; message: string };
 
 export async function submitExistingAccountVerification(
@@ -41,15 +45,15 @@ export async function submitExistingAccountVerification(
     };
   }
 
-  const { error: insertError } = await createVerificationRequest({
+  const { data, error: insertError } = await createVerificationRequest({
     user_id: userId,
     package_request_id: packageRequest.id,
     pocket_trader_id: trimmedId,
   });
 
-  if (insertError) {
-    return { ok: false, message: insertError.message };
+  if (insertError || !data?.id) {
+    return { ok: false, message: insertError?.message ?? "Unable to create verification request." };
   }
 
-  return { ok: true };
+  return { ok: true, verificationRequestId: data.id };
 }

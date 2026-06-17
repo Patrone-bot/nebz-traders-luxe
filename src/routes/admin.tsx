@@ -51,7 +51,7 @@ function Admin() {
   const filteredExistingMembers = useMemo(() => {
     const rows = data?.existingMembers ?? [];
     return rows.filter((member) => {
-      const matchQ = [member.name, member.email, member.phone, member.pocketTraderId].some((value) =>
+      const matchQ = [member.name, member.email, member.phone, member.pocketTraderId, member.verifiedUnder ?? ""].some((value) =>
         value.toLowerCase().includes(q.toLowerCase()),
       );
       const matchS = status === "All" || member.verificationStatus === status;
@@ -170,6 +170,7 @@ function Admin() {
                   <th className="px-5 py-3">Phone</th>
                   <th className="px-5 py-3">Pocket Trader ID</th>
                   <th className="px-5 py-3">Verification Status</th>
+                  <th className="px-5 py-3">Verified Under</th>
                   <th className="px-5 py-3">Created Date</th>
                 </tr>
               </thead>
@@ -192,12 +193,13 @@ function Admin() {
                         {member.verificationStatus}
                       </span>
                     </td>
+                    <td className="px-5 py-4 text-foreground/85">{member.verifiedUnder ?? "—"}</td>
                     <td className="px-5 py-4 text-muted-foreground">{formatDate(member.createdAt)}</td>
                   </tr>
                 ))}
                 {filteredExistingMembers.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-5 py-12 text-center text-muted-foreground text-sm">
+                    <td colSpan={7} className="px-5 py-12 text-center text-muted-foreground text-sm">
                       No users match your filters.
                     </td>
                   </tr>
