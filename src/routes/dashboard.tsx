@@ -1,9 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut, Loader2 } from "lucide-react";
+import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut, Loader2, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
+import { isAdminEmail } from "@/lib/auth/admin";
 import { supabase } from "@/lib/supabase/client";
 import { fetchProfile } from "@/lib/supabase/profiles";import { requestPackage } from "@/lib/supabase/package-requests";
 
@@ -138,6 +139,17 @@ function Dashboard() {
             <span className="italic text-gradient-gold">{displayName ?? "Member"}</span>
           </h1>
           <p className="mt-3 text-sm text-muted-foreground">{user.email}</p>
+          {isAdminEmail(user.email) && (
+            <div className="mt-4">
+              <Link
+                to="/admin"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-secondary/40 px-5 py-2.5 text-xs font-semibold tracking-[0.2em] text-foreground hover:border-gold/60 uppercase transition-all"
+              >
+                <Shield className="h-3.5 w-3.5 text-gold" />
+                Admin Console
+              </Link>
+            </div>
+          )}
           <p className="mt-4 text-muted-foreground">
             Choose the experience that matches your goals. Don&apos;t pay anything, just deposit. Your trading account pays us after profits and excellence.
           </p>
