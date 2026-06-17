@@ -15,10 +15,13 @@ import story1 from "@/assets/story/part-one.jpg";
 import story2 from "@/assets/story/story2.jpg";
 import story4 from "@/assets/story/story4.jpg";
 import missionImg from "@/assets/story/last-image.jpg";
+import journey04 from "@/assets/story/journey-04.jpg";
+import journey05 from "@/assets/story/journey-05.jpg";
+import journey06 from "@/assets/story/journey-06.jpg";
 import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
 
 // Journey progression — re-use existing approved imagery in a cinematic sequence
-const journeyImages = [story1, story2, story4, nebzAfter, nyathiraAfter, story1];
+const journeyImages = [story1, story2, story4, journey04, journey05, journey06];
 
 
 export const Route = createFileRoute("/")({
