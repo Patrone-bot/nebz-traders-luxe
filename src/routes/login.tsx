@@ -53,7 +53,7 @@ function Login() {
   return (
     <AuthShell
       eyebrow="Welcome Back"
-      title="Sign In to NEBZ"
+      title="Sign In to CashoutFX"
       subtitle="Access your private trading dashboard."
       footer={
         <p className="text-center">
