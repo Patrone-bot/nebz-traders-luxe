@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 
 export const Route = createFileRoute("/get-started")({
-  head: () => ({ meta: [{ title: "Get Started — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Get Started — CashoutFX" }] }),
   component: GetStarted,
 });
 

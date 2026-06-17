@@ -19,7 +19,7 @@ import { useRequireAdmin } from "@/hooks/use-require-admin";
 import { fetchAdminDashboard } from "@/lib/supabase/admin";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Admin — NEBZ" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Admin — CashoutFX" }, { name: "robots", content: "noindex" }] }),
   component: Admin,
 });
 
@@ -79,7 +79,7 @@ function Admin() {
               <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center">
                 <span className="text-primary-foreground font-display font-bold text-sm">N</span>
               </div>
-              <span className="font-display tracking-[0.3em] text-gradient-gold">NEBZ</span>
+              <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
             </Link>
             <span className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full glass-gold text-[10px] tracking-[0.25em] text-gold uppercase">
               <Shield className="h-3 w-3" /> Admin

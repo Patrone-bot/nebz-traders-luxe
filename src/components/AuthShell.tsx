@@ -19,7 +19,7 @@ export function AuthShell({ step, eyebrow, title, subtitle, children, footer }: 
           <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center">
             <span className="text-primary-foreground font-display font-bold text-sm">N</span>
           </div>
-          <span className="font-display tracking-[0.3em] text-gradient-gold">NEBZ</span>
+          <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
         </Link>
       </header>
 

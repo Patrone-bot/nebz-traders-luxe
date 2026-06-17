@@ -6,7 +6,7 @@ import { useRequireAuth } from "@/hooks/use-require-auth";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 
 export const Route = createFileRoute("/verify")({
-  head: () => ({ meta: [{ title: "Verify Account — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Verify Account — CashoutFX" }] }),
   component: Verify,
 });
 
