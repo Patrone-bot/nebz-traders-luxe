@@ -19,7 +19,12 @@ const packages = [
     subtitle: "AI Signals",
     benefit: "Free AI Signals",
     icon: Bot,
-    features: ["Daily AI-curated setups", "Real-time alerts", "Risk-scored entries", "Community channel access"],
+    features: [
+      "AI-powered market analysis",
+      "Daily trading signals",
+      "Entry & risk guidance",
+      "Private signal community",
+    ],
     featured: false,
   },
   {
@@ -28,7 +33,12 @@ const packages = [
     subtitle: "VVIP Access",
     benefit: "Free VVIP Access",
     icon: Crown,
-    features: ["Everything in AI Signals", "Live VVIP trade room", "Weekly 1:1 strategy review", "Priority concierge support"],
+    features: [
+      "High-probability confirmed setups",
+      "Premium signals with deeper analysis",
+      "One-on-one trading mentorship",
+      "Live VIP trading sessions",
+    ],
     featured: true,
   },
   {
@@ -129,7 +139,7 @@ function Dashboard() {
           </h1>
           <p className="mt-3 text-sm text-muted-foreground">{user.email}</p>
           <p className="mt-4 text-muted-foreground">
-            Choose the experience that matches your goals.
+            Choose the experience that matches your goals. Don&apos;t pay anything, just deposit. Your trading account pays us after profits and excellence.
           </p>
           {error && <p className="mt-4 text-xs text-destructive">{error}</p>}
         </motion.div>
