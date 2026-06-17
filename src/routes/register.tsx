@@ -6,7 +6,7 @@ import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
 import { insertProfile } from "@/lib/supabase/profiles";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({ meta: [{ title: "Create Account — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Create Account — CashoutFX" }] }),
   component: Register,
 });
 

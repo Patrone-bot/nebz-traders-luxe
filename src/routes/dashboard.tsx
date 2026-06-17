@@ -8,7 +8,7 @@ import { supabase } from "@/lib/supabase/client";
 import { fetchProfile } from "@/lib/supabase/profiles";import { requestPackage } from "@/lib/supabase/package-requests";
 
 export const Route = createFileRoute("/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — CashoutFX" }] }),
   component: Dashboard,
 });
 
@@ -101,9 +101,9 @@ function Dashboard() {
       <header className="px-6 py-6 flex items-center justify-between max-w-7xl mx-auto">
         <Link to="/" className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-bold text-sm">N</span>
+            <span className="text-primary-foreground font-display font-bold text-sm">CFX</span>
           </div>
-          <span className="font-display tracking-[0.3em] text-gradient-gold">NEBZ</span>
+          <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
         </Link>
         <button
           type="button"

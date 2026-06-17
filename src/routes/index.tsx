@@ -24,7 +24,7 @@ const journeyImages = [story1, story2, story4, nebzAfter, nyathiraAfter, story1]
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NEBZ — From Nothing to a Trading Empire" },
+      { title: "CashoutFX — From Nothing to a Trading Empire" },
       { name: "description", content: "From a school dropout and a waitress to building a trading empire. Nebz & Nyathira help ordinary people begin their journey for free." },
     ],
   }),

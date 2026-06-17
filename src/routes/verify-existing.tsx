@@ -8,7 +8,7 @@ import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { submitExistingAccountVerification } from "@/lib/supabase/verification-requests";
 
 export const Route = createFileRoute("/verify-existing")({
-  head: () => ({ meta: [{ title: "Verify Account — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Verify Account — CashoutFX" }] }),
   component: Existing,
 });
 

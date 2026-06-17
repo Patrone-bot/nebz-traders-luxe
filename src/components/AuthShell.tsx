@@ -17,9 +17,9 @@ export function AuthShell({ step, eyebrow, title, subtitle, children, footer }: 
       <header className="px-6 py-6">
         <Link to="/" className="inline-flex items-center gap-2">
           <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-bold text-sm">N</span>
+            <span className="text-primary-foreground font-display font-bold text-sm">CFX</span>
           </div>
-          <span className="font-display tracking-[0.3em] text-gradient-gold">NEBZ</span>
+          <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
         </Link>
       </header>
 

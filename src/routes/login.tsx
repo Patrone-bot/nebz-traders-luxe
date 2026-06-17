@@ -12,7 +12,7 @@ export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>): LoginSearch => ({
     redirect: typeof search.redirect === "string" ? search.redirect : undefined,
   }),
-  head: () => ({ meta: [{ title: "Login — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Login — CashoutFX" }] }),
   component: Login,
 });
 
@@ -53,7 +53,7 @@ function Login() {
   return (
     <AuthShell
       eyebrow="Welcome Back"
-      title="Sign In to NEBZ"
+      title="Sign In to CashoutFX"
       subtitle="Access your private trading dashboard."
       footer={
         <p className="text-center">

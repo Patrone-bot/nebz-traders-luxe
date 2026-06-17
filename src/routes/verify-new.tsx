@@ -8,7 +8,7 @@ import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { submitReferralRedirect } from "@/lib/supabase/referral-redirects";
 
 export const Route = createFileRoute("/verify-new")({
-  head: () => ({ meta: [{ title: "Continue Registration — NEBZ" }] }),
+  head: () => ({ meta: [{ title: "Continue Registration — CashoutFX" }] }),
   component: NewUser,
 });
 
