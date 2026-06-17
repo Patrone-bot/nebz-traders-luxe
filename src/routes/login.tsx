@@ -2,14 +2,23 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
+import { getPostLoginRedirect } from "@/lib/auth/redirect";
+
+type LoginSearch = {
+  redirect?: string;
+};
 
 export const Route = createFileRoute("/login")({
+  validateSearch: (search: Record<string, unknown>): LoginSearch => ({
+    redirect: typeof search.redirect === "string" ? search.redirect : undefined,
+  }),
   head: () => ({ meta: [{ title: "Login — NEBZ" }] }),
   component: Login,
 });
 
 function Login() {
   const navigate = useNavigate();
+  const { redirect: redirectTo } = Route.useSearch();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -38,7 +47,7 @@ function Login() {
       return;
     }
 
-    navigate({ to: "/dashboard" });
+    navigate({ to: getPostLoginRedirect(redirectTo) });
   };
 
   return (

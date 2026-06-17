@@ -16,16 +16,6 @@ export function toPackageType(packageId: string): PackageType | null {
   return null;
 }
 
-export async function findPendingPackageRequest(userId: string, packageType: PackageType) {
-  return supabase
-    .from("package_requests")
-    .select("id")
-    .eq("user_id", userId)
-    .eq("package_type", packageType)
-    .eq("status", "pending")
-    .maybeSingle();
-}
-
 export async function getLatestPendingPackageRequest(userId: string) {
   return supabase
     .from("package_requests")
@@ -45,9 +35,7 @@ export async function createPackageRequest(userId: string, packageType: PackageT
   });
 }
 
-export type PackageRequestResult =
-  | { ok: true }
-  | { ok: false; kind: "duplicate" | "error"; message: string };
+export type PackageRequestResult = { ok: true } | { ok: false; message: string };
 
 export async function requestPackage(
   userId: string,
@@ -55,30 +43,13 @@ export async function requestPackage(
 ): Promise<PackageRequestResult> {
   const packageType = toPackageType(packageId);
   if (!packageType) {
-    return { ok: false, kind: "error", message: "Invalid package selection." };
-  }
-
-  const { data: existing, error: lookupError } = await findPendingPackageRequest(
-    userId,
-    packageType,
-  );
-
-  if (lookupError) {
-    return { ok: false, kind: "error", message: lookupError.message };
-  }
-
-  if (existing) {
-    return {
-      ok: false,
-      kind: "duplicate",
-      message: "You already have a pending request for this package.",
-    };
+    return { ok: false, message: "Invalid package selection." };
   }
 
   const { error: insertError } = await createPackageRequest(userId, packageType);
 
   if (insertError) {
-    return { ok: false, kind: "error", message: insertError.message };
+    return { ok: false, message: insertError.message };
   }
 
   return { ok: true };

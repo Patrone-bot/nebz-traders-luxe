@@ -1,8 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { Search, Filter, Shield, Users, CheckCircle2, Clock, XCircle, ArrowLeft } from "lucide-react";
-import { adminUsers } from "@/lib/mock-data";
+import { useQuery } from "@tanstack/react-query";
+import {
+  Search,
+  Filter,
+  Shield,
+  Users,
+  CheckCircle2,
+  Clock,
+  ArrowLeft,
+  UserPlus,
+  UserCheck,
+} from "lucide-react";
+import { format } from "date-fns";
+import { AuthSessionLoader } from "@/components/AuthSessionLoader";
+import { useRequireAdmin } from "@/hooks/use-require-admin";
+import { fetchAdminDashboard } from "@/lib/supabase/admin";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — NEBZ" }, { name: "robots", content: "noindex" }] }),
@@ -15,24 +29,46 @@ const statusStyles: Record<string, string> = {
   Rejected: "text-rose-400 bg-rose-400/10 border-rose-400/20",
 };
 
+function formatDate(value: string) {
+  try {
+    return format(new Date(value), "MMM d, yyyy");
+  } catch {
+    return value;
+  }
+}
+
 function Admin() {
+  const { user, loading, isAdmin } = useRequireAdmin();
   const [q, setQ] = useState("");
   const [status, setStatus] = useState<string>("All");
 
-  const filtered = useMemo(() => {
-    return adminUsers.filter((u) => {
-      const matchQ = [u.name, u.email, u.phone].some((v) => v.toLowerCase().includes(q.toLowerCase()));
-      const matchS = status === "All" || u.status === status;
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["admin-dashboard"],
+    queryFn: fetchAdminDashboard,
+    enabled: !!user && isAdmin,
+  });
+
+  const filteredExistingMembers = useMemo(() => {
+    const rows = data?.existingMembers ?? [];
+    return rows.filter((member) => {
+      const matchQ = [member.name, member.email, member.phone, member.pocketTraderId].some((value) =>
+        value.toLowerCase().includes(q.toLowerCase()),
+      );
+      const matchS = status === "All" || member.verificationStatus === status;
       return matchQ && matchS;
     });
-  }, [q, status]);
+  }, [data?.existingMembers, q, status]);
 
-  const counts = useMemo(() => ({
-    total: adminUsers.length,
-    verified: adminUsers.filter((u) => u.status === "Verified").length,
-    pending: adminUsers.filter((u) => u.status === "Pending").length,
-    rejected: adminUsers.filter((u) => u.status === "Rejected").length,
-  }), []);
+  if (loading || !user || !isAdmin) return <AuthSessionLoader />;
+  if (isLoading) return <AuthSessionLoader />;
+
+  const metrics = data?.metrics ?? {
+    totalLeads: 0,
+    existingMembers: 0,
+    newRegistrations: 0,
+    pendingVerifications: 0,
+    verifiedMembers: 0,
+  };
 
   return (
     <div className="min-h-screen">
@@ -66,12 +102,19 @@ function Admin() {
           <p className="mt-2 text-sm text-muted-foreground">Monitor onboarding, verifications and package selections.</p>
         </motion.div>
 
-        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {error && (
+          <p className="mt-6 text-xs text-destructive">
+            {error instanceof Error ? error.message : "Unable to load admin data."}
+          </p>
+        )}
+
+        <div className="mt-8 grid grid-cols-2 lg:grid-cols-5 gap-4">
           {[
-            { label: "Total Users", val: counts.total, icon: Users },
-            { label: "Verified", val: counts.verified, icon: CheckCircle2 },
-            { label: "Pending", val: counts.pending, icon: Clock },
-            { label: "Rejected", val: counts.rejected, icon: XCircle },
+            { label: "Total Leads", val: metrics.totalLeads, icon: Users },
+            { label: "Existing Members", val: metrics.existingMembers, icon: UserCheck },
+            { label: "New Registrations", val: metrics.newRegistrations, icon: UserPlus },
+            { label: "Pending Verifications", val: metrics.pendingVerifications, icon: Clock },
+            { label: "Verified Members", val: metrics.verifiedMembers, icon: CheckCircle2 },
           ].map((s) => {
             const Icon = s.icon;
             return (
@@ -87,6 +130,9 @@ function Admin() {
         </div>
 
         <div className="mt-8 glass shadow-luxury rounded-2xl overflow-hidden">
+          <div className="p-5 border-b border-border/40">
+            <h2 className="font-display text-2xl text-foreground">Existing Members</h2>
+          </div>
           <div className="p-5 border-b border-border/40 flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
             <div className="relative flex-1 max-w-sm">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -120,37 +166,83 @@ function Admin() {
               <thead>
                 <tr className="text-left text-[10px] tracking-[0.2em] text-muted-foreground uppercase bg-secondary/30">
                   <th className="px-5 py-3">Name</th>
-                  <th className="px-5 py-3">Phone</th>
                   <th className="px-5 py-3">Email</th>
-                  <th className="px-5 py-3">Package</th>
-                  <th className="px-5 py-3">Status</th>
+                  <th className="px-5 py-3">Phone</th>
+                  <th className="px-5 py-3">Pocket Trader ID</th>
+                  <th className="px-5 py-3">Verification Status</th>
+                  <th className="px-5 py-3">Created Date</th>
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((u) => (
-                  <tr key={u.id} className="border-t border-border/30 hover:bg-secondary/20 transition-colors">
+                {filteredExistingMembers.map((member) => (
+                  <tr key={member.id} className="border-t border-border/30 hover:bg-secondary/20 transition-colors">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
                         <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center text-primary-foreground text-xs font-semibold">
-                          {u.name.split(" ").map((p) => p[0]).join("").slice(0,2)}
+                          {member.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}
                         </div>
-                        <span className="font-medium text-foreground">{u.name}</span>
+                        <span className="font-medium text-foreground">{member.name}</span>
                       </div>
                     </td>
-                    <td className="px-5 py-4 text-muted-foreground">{u.phone}</td>
-                    <td className="px-5 py-4 text-muted-foreground">{u.email}</td>
-                    <td className="px-5 py-4 text-foreground/85">{u.package}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{member.email}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{member.phone}</td>
+                    <td className="px-5 py-4 text-foreground/85">{member.pocketTraderId}</td>
                     <td className="px-5 py-4">
-                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] tracking-[0.15em] uppercase ${statusStyles[u.status]}`}>
-                        {u.status}
+                      <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] tracking-[0.15em] uppercase ${statusStyles[member.verificationStatus]}`}>
+                        {member.verificationStatus}
                       </span>
                     </td>
+                    <td className="px-5 py-4 text-muted-foreground">{formatDate(member.createdAt)}</td>
                   </tr>
                 ))}
-                {filtered.length === 0 && (
+                {filteredExistingMembers.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="px-5 py-12 text-center text-muted-foreground text-sm">
+                      No users match your filters.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-8 glass shadow-luxury rounded-2xl overflow-hidden">
+          <div className="p-5 border-b border-border/40">
+            <h2 className="font-display text-2xl text-foreground">New Registrations</h2>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-[10px] tracking-[0.2em] text-muted-foreground uppercase bg-secondary/30">
+                  <th className="px-5 py-3">Name</th>
+                  <th className="px-5 py-3">Email</th>
+                  <th className="px-5 py-3">Phone</th>
+                  <th className="px-5 py-3">Redirected To</th>
+                  <th className="px-5 py-3">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(data?.newRegistrations ?? []).map((registration) => (
+                  <tr key={registration.id} className="border-t border-border/30 hover:bg-secondary/20 transition-colors">
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center text-primary-foreground text-xs font-semibold">
+                          {registration.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}
+                        </div>
+                        <span className="font-medium text-foreground">{registration.name}</span>
+                      </div>
+                    </td>
+                    <td className="px-5 py-4 text-muted-foreground">{registration.email}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{registration.phone}</td>
+                    <td className="px-5 py-4 text-foreground/85">{registration.redirectedTo}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{formatDate(registration.createdAt)}</td>
+                  </tr>
+                ))}
+                {(data?.newRegistrations ?? []).length === 0 && (
                   <tr>
                     <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground text-sm">
-                      No users match your filters.
+                      No new registrations yet.
                     </td>
                   </tr>
                 )}

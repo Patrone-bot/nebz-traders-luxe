@@ -10,3 +10,17 @@ export type ProfileInsert = {
 export async function insertProfile(profile: ProfileInsert) {
   return supabase.from("profiles").insert(profile);
 }
+
+export type Profile = {
+  full_name: string;
+  email: string;
+  phone: string;
+};
+
+export async function fetchProfile(userId: string) {
+  return supabase
+    .from("profiles")
+    .select("full_name, email, phone")
+    .eq("id", userId)
+    .maybeSingle();
+}

@@ -3,7 +3,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { AuthShell, LuxButton } from "@/components/AuthShell";
 import { ExternalLink, Loader2 } from "lucide-react";
-import { useAuth } from "@/contexts/auth-context";
+import { useRequireAuth } from "@/hooks/use-require-auth";
+import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { submitReferralRedirect } from "@/lib/supabase/referral-redirects";
 
 export const Route = createFileRoute("/verify-new")({
@@ -13,11 +14,13 @@ export const Route = createFileRoute("/verify-new")({
 
 function NewUser() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, loading } = useRequireAuth();
   const [inviter, setInviter] = useState<"Nebz" | "Nyathira" | null>(null);
   const [stage, setStage] = useState<"form" | "redirect">("form");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  if (loading || !user) return <AuthSessionLoader />;
 
   const onProceed = async () => {
     if (!inviter) return;

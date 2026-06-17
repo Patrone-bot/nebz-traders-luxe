@@ -3,7 +3,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { Check, Loader2 } from "lucide-react";
-import { useAuth } from "@/contexts/auth-context";
+import { useRequireAuth } from "@/hooks/use-require-auth";
+import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { submitExistingAccountVerification } from "@/lib/supabase/verification-requests";
 
 export const Route = createFileRoute("/verify-existing")({
@@ -13,15 +14,16 @@ export const Route = createFileRoute("/verify-existing")({
 
 function Existing() {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const [referrer, setReferrer] = useState<"Nebz" | "Nyathira" | null>(null);
+  const { user, loading } = useRequireAuth();
   const [pocketTraderId, setPocketTraderId] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "success">("form");
   const [error, setError] = useState<string | null>(null);
 
+  if (loading || !user) return <AuthSessionLoader />;
+
   const onVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!referrer || !pocketTraderId.trim()) return;
+    if (!pocketTraderId.trim()) return;
 
     if (!user) {
       setError("Please sign in to verify your account.");
@@ -46,7 +48,11 @@ function Existing() {
     <AuthShell
       eyebrow="Existing Member"
       title={stage === "success" ? "Verified." : "Verify Your Account"}
-      subtitle={stage === "success" ? "Welcome to the inner circle." : "Provide your details for confirmation."}
+      subtitle={
+        stage === "success"
+          ? "Welcome to the inner circle."
+          : "We'll automatically detect whether your Pocket Option account belongs to Nebz or Nyathira."
+      }
       footer={
         stage === "form" ? (
           <p className="text-center">
@@ -66,25 +72,6 @@ function Existing() {
             onSubmit={onVerify}
             className="space-y-6"
           >
-            <div>
-              <p className="text-[11px] tracking-[0.25em] text-muted-foreground uppercase mb-3">Who referred you?</p>
-              <div className="grid grid-cols-2 gap-3">
-                {(["Nebz", "Nyathira"] as const).map((r) => (
-                  <button
-                    type="button"
-                    key={r}
-                    onClick={() => setReferrer(r)}
-                    className={`rounded-lg px-4 py-3 text-sm tracking-wide transition-all ${
-                      referrer === r
-                        ? "bg-gradient-gold text-primary-foreground shadow-gold-glow"
-                        : "glass hover:border-gold/40"
-                    }`}
-                  >
-                    {r}
-                  </button>
-                ))}
-              </div>
-            </div>
             <LuxField
               label="Pocket Trader ID"
               name="pocketTraderId"
@@ -93,7 +80,7 @@ function Existing() {
               placeholder="e.g. 88123456"
             />
             {error && <p className="text-xs text-destructive">{error}</p>}
-            <LuxButton type="submit" disabled={!referrer || !pocketTraderId.trim()}>
+            <LuxButton type="submit" disabled={!pocketTraderId.trim()}>
               VERIFY ACCOUNT
             </LuxButton>
           </motion.form>
@@ -109,7 +96,9 @@ function Existing() {
           >
             <Loader2 className="h-10 w-10 text-gold mx-auto animate-spin" />
             <p className="mt-6 text-sm text-foreground">Verifying with Pocket Option…</p>
-            <p className="mt-2 text-xs text-muted-foreground">Cross-checking your referral and account ID.</p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Verifying your Pocket Option account. This usually takes a few seconds.
+            </p>
           </motion.div>
         )}
 
@@ -128,7 +117,9 @@ function Existing() {
             >
               <Check className="h-8 w-8 text-primary-foreground" />
             </motion.div>
-            <p className="mt-6 text-base text-foreground">Your account has been verified successfully.</p>
+            <p className="mt-6 text-base text-foreground">
+              Your verification request has been received. We&apos;re checking your Pocket Option account automatically.
+            </p>
             <p className="mt-2 text-xs text-muted-foreground">A concierge will reach out within 24 hours.</p>
             <div className="mt-8">
               <LuxButton onClick={() => navigate({ to: "/dashboard" })}>CONTINUE</LuxButton>

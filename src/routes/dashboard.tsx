@@ -1,10 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { Check, Sparkles, Bot, Crown, Copy, ArrowRight, LogOut, Loader2 } from "lucide-react";
-import { useState } from "react";
-import { useAuth } from "@/contexts/auth-context";
+import { useState, useEffect } from "react";
+import { useRequireAuth } from "@/hooks/use-require-auth";
+import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { supabase } from "@/lib/supabase/client";
-import { requestPackage } from "@/lib/supabase/package-requests";
+import { fetchProfile } from "@/lib/supabase/profiles";import { requestPackage } from "@/lib/supabase/package-requests";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — NEBZ" }] }),
@@ -43,14 +44,29 @@ const packages = [
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, loading } = useRequireAuth();
   const [selectingId, setSelectingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [displayName, setDisplayName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+
+    let mounted = true;
+    fetchProfile(user.id).then(({ data }) => {
+      if (!mounted) return;
+      setDisplayName(data?.full_name?.trim() || user.email || "Member");
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, [user]);
+
+  if (loading || !user) return <AuthSessionLoader />;
 
   const onSelect = async (id: string) => {
     setError(null);
-    setNotice(null);
 
     if (!user) {
       setError("Please sign in to select a package.");
@@ -64,10 +80,6 @@ function Dashboard() {
     setSelectingId(null);
 
     if (!result.ok) {
-      if (result.kind === "duplicate") {
-        setNotice(result.message);
-        return;
-      }
       setError(result.message);
       return;
     }
@@ -112,12 +124,13 @@ function Dashboard() {
         >
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Member Dashboard</p>
           <h1 className="font-display text-5xl sm:text-6xl text-foreground">
-            Welcome <span className="italic text-gradient-gold">Back.</span>
+            Welcome back,{" "}
+            <span className="italic text-gradient-gold">{displayName ?? "Member"}</span>
           </h1>
+          <p className="mt-3 text-sm text-muted-foreground">{user.email}</p>
           <p className="mt-4 text-muted-foreground">
             Choose the experience that matches your goals.
           </p>
-          {notice && <p className="mt-4 text-xs text-muted-foreground">{notice}</p>}
           {error && <p className="mt-4 text-xs text-destructive">{error}</p>}
         </motion.div>
 
