@@ -77,7 +77,7 @@ function Admin() {
           <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold text-sm">N</span>
+                <span className="text-primary-foreground font-display font-bold text-sm">CFX</span>
               </div>
               <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
             </Link>
