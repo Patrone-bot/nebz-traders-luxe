@@ -27,12 +27,13 @@ export function Navbar() {
           }`}
         >
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="h-8 w-8 rounded-full bg-gradient-gold flex items-center justify-center shadow-gold-glow">
-              <span className="text-primary-foreground font-display font-bold text-sm">CFX</span>
-            </div>
+            <img
+              src="/__l5e/assets-v1/492d0329-bc4e-4e2f-bb71-8c2c5bcf81f6/cashoutfx-logo.png"
+              alt="CashoutFX"
+              className="h-8 w-8 rounded-full object-cover object-top shadow-gold-glow"
+            />
             <span className="text-lg sm:text-xl font-display font-semibold tracking-[0.25em] text-gradient-gold">
               CashoutFX
-
             </span>
           </Link>
 
