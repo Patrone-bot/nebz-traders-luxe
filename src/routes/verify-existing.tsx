@@ -5,6 +5,7 @@ import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { Check, Loader2 } from "lucide-react";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
+import { VerificationSuccessVvipCard } from "@/components/VerificationSuccessVvipCard";
 import { callVerifyPocketPartners } from "@/lib/api/verify-pocket-partners";
 import { supabase } from "@/lib/supabase/client";
 import { submitExistingAccountVerification } from "@/lib/supabase/verification-requests";
@@ -155,9 +156,9 @@ function Existing() {
             {verifiedUnder && (
               <p className="mt-2 text-sm text-gold">Verified under {verifiedUnder}</p>
             )}
-            <div className="mt-8">
-              <LuxButton onClick={() => navigate({ to: "/dashboard" })}>CONTINUE</LuxButton>
-            </div>
+            <VerificationSuccessVvipCard
+              onContinueToDashboard={() => navigate({ to: "/dashboard" })}
+            />
           </motion.div>
         )}
 
