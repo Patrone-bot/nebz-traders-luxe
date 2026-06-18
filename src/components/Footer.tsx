@@ -8,9 +8,11 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-full bg-gradient-gold flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold">CFX</span>
-              </div>
+              <img
+                src="/__l5e/assets-v1/492d0329-bc4e-4e2f-bb71-8c2c5bcf81f6/cashoutfx-logo.png"
+                alt="CashoutFX"
+                className="h-9 w-9 rounded-full object-cover object-top"
+              />
               <span className="font-display text-xl tracking-[0.3em] text-gradient-gold">CashoutFX</span>
             </div>
             <p className="mt-5 max-w-md text-sm text-muted-foreground leading-relaxed">
