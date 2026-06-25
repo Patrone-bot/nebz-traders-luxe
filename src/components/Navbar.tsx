@@ -28,11 +28,11 @@ export function Navbar() {
         >
           <Link to="/" className="flex items-center gap-2 group">
             <img
-              src="/__l5e/assets-v1/492d0329-bc4e-4e2f-bb71-8c2c5bcf81f6/cashoutfx-logo.png"
+              src="/__l5e/assets-v1/e3cf1099-2892-4fb5-9491-a855d71378cf/cashoutfx-logo-v2.png"
               alt="CashoutFX"
-              className="h-8 w-8 rounded-full object-cover object-top shadow-gold-glow"
+              className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
             />
-            <span className="text-lg sm:text-xl font-display font-semibold tracking-[0.25em] text-gradient-gold">
+            <span className="text-xs sm:text-sm font-display font-semibold tracking-[0.3em] text-gradient-gold">
               CashoutFX
             </span>
           </Link>
