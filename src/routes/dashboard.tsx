@@ -7,6 +7,7 @@ import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { isAdminEmail } from "@/lib/auth/admin";
 import { supabase } from "@/lib/supabase/client";
 import { fetchProfile } from "@/lib/supabase/profiles";import { requestPackage } from "@/lib/supabase/package-requests";
+import logoAsset from "@/assets/cashoutfx-logo-v2.png.asset.json";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — CashoutFX" }] }),
@@ -110,13 +111,13 @@ function Dashboard() {
   return (
     <div className="min-h-screen">
       <header className="px-6 py-6 flex items-center justify-between max-w-7xl mx-auto">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-3">
           <img
-            src="/__l5e/assets-v1/e3cf1099-2892-4fb5-9491-a855d71378cf/cashoutfx-logo-v2.png"
+            src={logoAsset.url}
             alt="CashoutFX"
-            className="h-8 w-8 object-contain"
+            className="h-12 w-12 object-contain"
           />
-          <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
+          <span className="font-display text-lg tracking-[0.25em] text-gradient-gold">CashoutFX</span>
         </Link>
         <button
           type="button"
