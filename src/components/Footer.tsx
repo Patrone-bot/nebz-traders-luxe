@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import logoAsset from "@/assets/cashoutfx-logo-v2.png.asset.json";
 
 export function Footer() {
   return (
@@ -7,13 +8,13 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <img
-                src="/__l5e/assets-v1/e3cf1099-2892-4fb5-9491-a855d71378cf/cashoutfx-logo-v2.png"
+                src={logoAsset.url}
                 alt="CashoutFX"
-                className="h-9 w-9 object-contain"
+                className="h-12 w-12 object-contain"
               />
-              <span className="font-display text-xl tracking-[0.3em] text-gradient-gold">CashoutFX</span>
+              <span className="font-display text-xl tracking-[0.25em] text-gradient-gold">CashoutFX</span>
             </div>
             <p className="mt-5 max-w-md text-sm text-muted-foreground leading-relaxed">
               From A Dream To A Legacy.<br />

@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
+import logoAsset from "@/assets/cashoutfx-logo-v2.png.asset.json";
 
 interface Props {
   step?: { current: number; total: number; label?: string };
@@ -15,13 +16,13 @@ export function AuthShell({ step, eyebrow, title, subtitle, children, footer }: 
   return (
     <div className="min-h-screen flex flex-col">
       <header className="px-6 py-6">
-        <Link to="/" className="inline-flex items-center gap-2">
+        <Link to="/" className="inline-flex items-center gap-3">
           <img
-            src="/__l5e/assets-v1/e3cf1099-2892-4fb5-9491-a855d71378cf/cashoutfx-logo-v2.png"
+            src={logoAsset.url}
             alt="CashoutFX"
-            className="h-8 w-8 object-contain"
+            className="h-12 w-12 object-contain"
           />
-          <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
+          <span className="font-display text-lg tracking-[0.25em] text-gradient-gold">CashoutFX</span>
         </Link>
       </header>
 

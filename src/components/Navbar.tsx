@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import logoAsset from "@/assets/cashoutfx-logo-v2.png.asset.json";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,13 +27,15 @@ export function Navbar() {
             scrolled ? "glass shadow-luxury" : "border border-transparent"
           }`}
         >
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <img
-              src="/__l5e/assets-v1/e3cf1099-2892-4fb5-9491-a855d71378cf/cashoutfx-logo-v2.png"
+              src={logoAsset.url}
               alt="CashoutFX"
-              className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
+              width={56}
+              height={56}
+              className="h-12 w-12 sm:h-14 sm:w-14 object-contain"
             />
-            <span className="text-xs sm:text-sm font-display font-semibold tracking-[0.3em] text-gradient-gold">
+            <span className="text-base sm:text-xl font-display font-semibold tracking-[0.25em] text-gradient-gold">
               CashoutFX
             </span>
           </Link>
