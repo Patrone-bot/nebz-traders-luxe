@@ -77,9 +77,9 @@ function Admin() {
           <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center gap-2">
               <img
-                src="/__l5e/assets-v1/492d0329-bc4e-4e2f-bb71-8c2c5bcf81f6/cashoutfx-logo.png"
+                src="/__l5e/assets-v1/e3cf1099-2892-4fb5-9491-a855d71378cf/cashoutfx-logo-v2.png"
                 alt="CashoutFX"
-                className="h-8 w-8 rounded-full object-cover object-top"
+                className="h-8 w-8 object-contain"
               />
               <span className="font-display tracking-[0.3em] text-gradient-gold">CashoutFX</span>
             </Link>
