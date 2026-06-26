@@ -6,9 +6,10 @@ import { ExternalLink, Loader2 } from "lucide-react";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { submitReferralRedirect } from "@/lib/supabase/referral-redirects";
+import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 export const Route = createFileRoute("/verify-new")({
-  head: () => ({ meta: [{ title: "Continue Registration — CashoutFX" }] }),
+  head: () => ({ meta: [{ title: "Continue Registration — CashoutFX" }, NOINDEX_ROBOTS] }),
   component: NewUser,
 });
 

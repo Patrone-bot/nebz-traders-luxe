@@ -2,9 +2,13 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/get-started")({
-  head: () => ({ meta: [{ title: "Get Started — CashoutFX" }] }),
+  head: () => ({
+    meta: [{ title: "Get Started — CashoutFX" }],
+    links: [canonicalLink("/get-started")],
+  }),
   component: GetStarted,
 });
 

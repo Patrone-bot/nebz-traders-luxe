@@ -4,6 +4,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import path from "node:path";
+import { seoCrawlFilesPlugin } from "./vite/seo-crawl-files-plugin";
 
 /** Replaces %VITE_SITE_URL% in index.html (absolute OG URLs for social crawlers). */
 function injectSiteUrlMeta(): Plugin {
@@ -23,6 +24,7 @@ export default defineConfig({
     tsconfigPaths(),
     tailwindcss(),
     injectSiteUrlMeta(),
+    seoCrawlFilesPlugin(__dirname),
   ],
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },

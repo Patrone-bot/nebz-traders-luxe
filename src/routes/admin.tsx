@@ -18,9 +18,10 @@ import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { useRequireAdmin } from "@/hooks/use-require-admin";
 import { fetchAdminDashboard } from "@/lib/supabase/admin";
 import { BrandLogo } from "@/components/BrandLogo";
+import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Admin — CashoutFX" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Admin — CashoutFX" }, NOINDEX_ROBOTS] }),
   component: Admin,
 });
 

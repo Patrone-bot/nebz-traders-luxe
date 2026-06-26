@@ -4,9 +4,10 @@ import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { clearOnboardingLead, readOnboardingLead } from "@/lib/onboarding-lead";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
 import { insertProfile } from "@/lib/supabase/profiles";
+import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({ meta: [{ title: "Create Account — CashoutFX" }] }),
+  head: () => ({ meta: [{ title: "Create Account — CashoutFX" }, NOINDEX_ROBOTS] }),
   component: Register,
 });
 

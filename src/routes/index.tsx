@@ -19,6 +19,8 @@ import journey04 from "@/assets/story/journey-04.jpg";
 import journey05 from "@/assets/story/journey-05.jpg";
 import journey06 from "@/assets/story/journey-06.jpg";
 import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
+import { canonicalLink } from "@/lib/seo";
+import { homepageStructuredDataMeta } from "@/lib/structured-data";
 
 // Journey progression — re-use existing approved imagery in a cinematic sequence
 const journeyImages = [story1, story2, story4, journey04, journey05, journey06];
@@ -29,7 +31,9 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "CashoutFX — From Nothing to a Trading Empire" },
       { name: "description", content: "From a school dropout and a waitress to building a trading empire. Nebz & Nyathira help ordinary people begin their journey for free." },
+      homepageStructuredDataMeta(),
     ],
+    links: [canonicalLink("/")],
   }),
   component: HomePage,
 });

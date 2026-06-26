@@ -8,9 +8,10 @@ import { isAdminEmail } from "@/lib/auth/admin";
 import { supabase } from "@/lib/supabase/client";
 import { fetchProfile } from "@/lib/supabase/profiles";import { requestPackage } from "@/lib/supabase/package-requests";
 import { BrandLogo } from "@/components/BrandLogo";
+import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 export const Route = createFileRoute("/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — CashoutFX" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — CashoutFX" }, NOINDEX_ROBOTS] }),
   component: Dashboard,
 });
 

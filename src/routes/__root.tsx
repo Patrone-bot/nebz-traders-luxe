@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
+  HeadContent,
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { AuthProvider } from "@/contexts/auth-context";
@@ -69,6 +70,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <HeadContent />
         <Outlet />
       </AuthProvider>
     </QueryClientProvider>

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /verify
+Disallow: /verify-existing
+Disallow: /verify-new
+
+Sitemap: https://cashoutfx.com/sitemap.xml

@@ -4,9 +4,10 @@ import { Check, X, ArrowLeft } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useRequireAuth } from "@/hooks/use-require-auth";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
+import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 export const Route = createFileRoute("/verify")({
-  head: () => ({ meta: [{ title: "Verify Account — CashoutFX" }] }),
+  head: () => ({ meta: [{ title: "Verify Account — CashoutFX" }, NOINDEX_ROBOTS] }),
   component: Verify,
 });
 

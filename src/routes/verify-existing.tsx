@@ -9,9 +9,10 @@ import { VerificationSuccessVvipCard } from "@/components/VerificationSuccessVvi
 import { callVerifyPocketPartners } from "@/lib/api/verify-pocket-partners";
 import { supabase } from "@/lib/supabase/client";
 import { submitExistingAccountVerification } from "@/lib/supabase/verification-requests";
+import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 export const Route = createFileRoute("/verify-existing")({
-  head: () => ({ meta: [{ title: "Verify Account — CashoutFX" }] }),
+  head: () => ({ meta: [{ title: "Verify Account — CashoutFX" }, NOINDEX_ROBOTS] }),
   component: Existing,
 });
 

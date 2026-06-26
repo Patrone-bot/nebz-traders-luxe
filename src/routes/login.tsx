@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AuthShell, LuxButton, LuxField } from "@/components/AuthShell";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase/client";
 import { getPostLoginRedirect } from "@/lib/auth/redirect";
+import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 type LoginSearch = {
   redirect?: string;
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>): LoginSearch => ({
     redirect: typeof search.redirect === "string" ? search.redirect : undefined,
   }),
-  head: () => ({ meta: [{ title: "Login — CashoutFX" }] }),
+  head: () => ({ meta: [{ title: "Login — CashoutFX" }, NOINDEX_ROBOTS] }),
   component: Login,
 });
 
