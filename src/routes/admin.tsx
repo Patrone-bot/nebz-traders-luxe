@@ -17,7 +17,7 @@ import { format } from "date-fns";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { useRequireAdmin } from "@/hooks/use-require-admin";
 import { fetchAdminDashboard } from "@/lib/supabase/admin";
-import logoAsset from "@/assets/cashoutfx-logo-v2.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — CashoutFX" }, { name: "robots", content: "noindex" }] }),
@@ -76,14 +76,7 @@ function Admin() {
       <header className="px-6 py-6 border-b border-border/40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-3">
-              <img
-                src={logoAsset.url}
-                alt="CashoutFX"
-                className="h-12 w-12 object-contain"
-              />
-              <span className="font-display text-lg tracking-[0.25em] text-gradient-gold">CashoutFX</span>
-            </Link>
+            <BrandLogo variant="standard" />
             <span className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full glass-gold text-[10px] tracking-[0.25em] text-gold uppercase">
               <Shield className="h-3 w-3" /> Admin
             </span>

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logoAsset from "@/assets/cashoutfx-logo-v2.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export function Footer() {
   return (
@@ -8,14 +8,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3">
-              <img
-                src={logoAsset.url}
-                alt="CashoutFX"
-                className="h-12 w-12 object-contain"
-              />
-              <span className="font-display text-xl tracking-[0.25em] text-gradient-gold">CashoutFX</span>
-            </div>
+            <BrandLogo variant="footer" />
             <p className="mt-5 max-w-md text-sm text-muted-foreground leading-relaxed">
               From A Dream To A Legacy.<br />
               What started with less than $100 became eight years of growth, innovation, and a mission bigger than ourselves.

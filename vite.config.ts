@@ -1,9 +1,20 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import path from "node:path";
+
+/** Replaces %VITE_SITE_URL% in index.html (absolute OG URLs for social crawlers). */
+function injectSiteUrlMeta(): Plugin {
+  return {
+    name: "inject-site-url-meta",
+    transformIndexHtml(html) {
+      const siteUrl = process.env.VITE_SITE_URL?.trim().replace(/\/$/, "") ?? "";
+      return html.replaceAll("%VITE_SITE_URL%", siteUrl);
+    },
+  };
+}
 
 export default defineConfig({
   plugins: [
@@ -11,6 +22,7 @@ export default defineConfig({
     react(),
     tsconfigPaths(),
     tailwindcss(),
+    injectSiteUrlMeta(),
   ],
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
