@@ -18,13 +18,24 @@
     <meta name="twitter:title" content="CashoutFX — The Evolution of Trading Excellence" />
     <meta name="twitter:description" content="Join CashoutFX, a world-class forex trader, and an exclusive community of 20,000+ traders mastering discipline, innovation, and consistency." />
     <meta name="twitter:image" content="%VITE_SITE_URL%/branding/og-card.png" />
-    <link rel="icon" href="/branding/favicon-32x32.png" type="image/png" sizes="32x32" />
-    <link rel="icon" href="/branding/favicon-16x16.png" type="image/png" sizes="16x16" />
-    <link rel="shortcut icon" href="/branding/favicon-32x32.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/branding/apple-touch-icon.png" sizes="180x180" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" />
+
+    <!-- Standard favicon (preferred by Google and browsers) -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+
+    <!-- PNG fallbacks -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/branding/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/branding/favicon-16x16.png">
+
+    <!-- Apple -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/branding/apple-touch-icon.png">
+    
+    <!-- Above-the-fold fonts (hero h1, navbar wordmark, body, CTAs) -->
+    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cormorant-garamond-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cormorant-garamond-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cormorant-garamond-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
   </head>
   <body>
     <div id="root"></div>

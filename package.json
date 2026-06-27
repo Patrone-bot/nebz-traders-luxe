@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "optimize:hero": "node scripts/optimize-hero.mjs",
-    "optimize:homepage-images": "node scripts/optimize-homepage-images.mjs"
+    "optimize:homepage-images": "node scripts/optimize-homepage-images.mjs",
+    "setup:fonts": "node scripts/setup-fonts.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
