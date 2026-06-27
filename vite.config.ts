@@ -17,6 +17,25 @@ function injectSiteUrlMeta(): Plugin {
   };
 }
 
+/** Injects LCP hero preload into index.html (build: hashed URL; dev: source path). */
+function preloadHeroLcp(): Plugin {
+  return {
+    name: "preload-hero-lcp",
+    transformIndexHtml: {
+      order: "post",
+      handler(html, ctx) {
+        const asset = ctx.bundle
+          ? Object.keys(ctx.bundle).find((name) => name.startsWith("assets/hero-") && name.endsWith(".webp"))
+          : "src/assets/story/hero.webp";
+        if (!asset) return html;
+        const href = asset.startsWith("/") ? asset : `/${asset}`;
+        const tag = `<link rel="preload" as="image" href="${href}" type="image/webp" fetchpriority="high" />`;
+        return html.replace("</head>", `    ${tag}\n  </head>`);
+      },
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     TanStackRouterVite({ routesDirectory: "./src/routes", generatedRouteTree: "./src/routeTree.gen.ts" }),
@@ -24,6 +43,7 @@ export default defineConfig({
     tsconfigPaths(),
     tailwindcss(),
     injectSiteUrlMeta(),
+    preloadHeroLcp(),
     seoCrawlFilesPlugin(__dirname),
   ],
   resolve: {

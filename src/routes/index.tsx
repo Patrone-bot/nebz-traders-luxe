@@ -6,7 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { successStories } from "@/lib/mock-data";
 
-import heroImg from "@/assets/story/hero.jpg";
+import heroImg from "@/assets/story/hero.webp";
 import nebzBefore from "@/assets/story/nebz-before.png";
 import nebzAfter from "@/assets/story/nebz-after2.jpg";
 import nyathiraBefore from "@/assets/story/nyathira-before.png";
@@ -26,6 +26,10 @@ import { homepageStructuredDataMeta } from "@/lib/structured-data";
 const journeyImages = [story1, story2, story4, journey04, journey05, journey06];
 
 
+// Optimized hero LCP asset (800×1200 WebP, q81)
+const HERO_WIDTH = 800;
+const HERO_HEIGHT = 1200;
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -33,7 +37,16 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "From a school dropout and a waitress to building a trading empire. Nebz & Nyathira help ordinary people begin their journey for free." },
       homepageStructuredDataMeta(),
     ],
-    links: [canonicalLink("/")],
+    links: [
+      canonicalLink("/"),
+      {
+        rel: "preload",
+        href: heroImg,
+        as: "image",
+        type: "image/webp",
+        fetchPriority: "high",
+      },
+    ],
   }),
   component: HomePage,
 });
@@ -167,6 +180,11 @@ function Hero() {
               <img
                 src={heroImg}
                 alt="Nebz and Nyathira"
+                width={HERO_WIDTH}
+                height={HERO_HEIGHT}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 className="h-full w-full object-cover saturate-[1.05] contrast-[1.05]"
                 style={{ filter: "brightness(0.85)" }}
               />
