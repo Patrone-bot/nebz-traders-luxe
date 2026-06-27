@@ -32,9 +32,10 @@ type Props = {
   variant?: BrandLogoVariant;
   to?: "/" | false;
   className?: string;
+  loading?: "lazy" | "eager";
 };
 
-export function BrandLogo({ variant = "standard", to = "/", className }: Props) {
+export function BrandLogo({ variant = "standard", to = "/", className, loading }: Props) {
   const styles = VARIANT_STYLES[variant];
 
   const content = (
@@ -44,6 +45,7 @@ export function BrandLogo({ variant = "standard", to = "/", className }: Props) 
         alt={BRAND_NAME}
         width={styles.imageWidth}
         height={styles.imageHeight}
+        loading={loading}
         className={styles.image}
         decoding="async"
       />

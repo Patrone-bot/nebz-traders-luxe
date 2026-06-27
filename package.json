@@ -9,7 +9,9 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "optimize:hero": "node scripts/optimize-hero.mjs",
+    "optimize:homepage-images": "node scripts/optimize-homepage-images.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

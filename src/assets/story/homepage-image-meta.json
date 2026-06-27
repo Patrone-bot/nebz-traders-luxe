@@ -1,0 +1,147 @@
+{
+  "quality": 81,
+  "dimensions": {
+    "nebz-before": {
+      "width": 800,
+      "height": 1067
+    },
+    "nebz-after2": {
+      "width": 800,
+      "height": 1067
+    },
+    "nyathira-before": {
+      "width": 800,
+      "height": 1067
+    },
+    "nyathira-after2": {
+      "width": 800,
+      "height": 1067
+    },
+    "part-one": {
+      "width": 800,
+      "height": 1067
+    },
+    "story2": {
+      "width": 800,
+      "height": 1067
+    },
+    "story4": {
+      "width": 800,
+      "height": 1067
+    },
+    "last-image": {
+      "width": 800,
+      "height": 1067
+    },
+    "journey-04": {
+      "width": 800,
+      "height": 1067
+    },
+    "journey-05": {
+      "width": 800,
+      "height": 1067
+    },
+    "journey-06": {
+      "width": 800,
+      "height": 1067
+    }
+  },
+  "assets": [
+    {
+      "input": "nebz-before.png",
+      "output": "nebz-before.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 1943744,
+      "outputBytes": 119866
+    },
+    {
+      "input": "nebz-after2.jpg",
+      "output": "nebz-after2.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 1972842,
+      "outputBytes": 86004
+    },
+    {
+      "input": "nyathira-before.png",
+      "output": "nyathira-before.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 1843338,
+      "outputBytes": 48614
+    },
+    {
+      "input": "nyathira-after2.jpg",
+      "output": "nyathira-after2.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 2883508,
+      "outputBytes": 85940
+    },
+    {
+      "input": "part-one.jpg",
+      "output": "part-one.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 2090924,
+      "outputBytes": 94018
+    },
+    {
+      "input": "story2.jpg",
+      "output": "story2.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 1016250,
+      "outputBytes": 170600
+    },
+    {
+      "input": "story4.jpg",
+      "output": "story4.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 1240509,
+      "outputBytes": 218122
+    },
+    {
+      "input": "last-image.jpg",
+      "output": "last-image.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 2077858,
+      "outputBytes": 96428
+    },
+    {
+      "input": "journey-04.jpg",
+      "output": "journey-04.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 201940,
+      "outputBytes": 145262
+    },
+    {
+      "input": "journey-05.jpg",
+      "output": "journey-05.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 1985661,
+      "outputBytes": 77074
+    },
+    {
+      "input": "journey-06.jpg",
+      "output": "journey-06.webp",
+      "width": 800,
+      "height": 1067,
+      "inputBytes": 1105863,
+      "outputBytes": 123904
+    },
+    {
+      "input": "logo.png",
+      "output": "logo.webp",
+      "width": 256,
+      "height": 256,
+      "inputBytes": 163173,
+      "outputBytes": 6644
+    }
+  ]
+}

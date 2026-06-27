@@ -2,7 +2,7 @@
 export const BRAND_NAME = "CashoutFX";
 
 export const BRANDING = {
-  logo: "/branding/logo.png",
+  logo: "/branding/logo.webp",
   favicon16: "/branding/favicon-16x16.png",
   favicon32: "/branding/favicon-32x32.png",
   appleTouchIcon: "/branding/apple-touch-icon.png",

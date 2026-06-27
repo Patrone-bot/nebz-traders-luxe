@@ -7,23 +7,34 @@ import { Footer } from "@/components/Footer";
 import { successStories } from "@/lib/mock-data";
 
 import heroImg from "@/assets/story/hero.webp";
-import nebzBefore from "@/assets/story/nebz-before.png";
-import nebzAfter from "@/assets/story/nebz-after2.jpg";
-import nyathiraBefore from "@/assets/story/nyathira-before.png";
-import nyathiraAfter from "@/assets/story/nyathira-after2.jpg";
-import story1 from "@/assets/story/part-one.jpg";
-import story2 from "@/assets/story/story2.jpg";
-import story4 from "@/assets/story/story4.jpg";
-import missionImg from "@/assets/story/last-image.jpg";
-import journey04 from "@/assets/story/journey-04.jpg";
-import journey05 from "@/assets/story/journey-05.jpg";
-import journey06 from "@/assets/story/journey-06.jpg";
+import nebzBefore from "@/assets/story/nebz-before.webp";
+import nebzAfter from "@/assets/story/nebz-after2.webp";
+import nyathiraBefore from "@/assets/story/nyathira-before.webp";
+import nyathiraAfter from "@/assets/story/nyathira-after2.webp";
+import story1 from "@/assets/story/part-one.webp";
+import story2 from "@/assets/story/story2.webp";
+import story4 from "@/assets/story/story4.webp";
+import missionImg from "@/assets/story/last-image.webp";
+import journey04 from "@/assets/story/journey-04.webp";
+import journey05 from "@/assets/story/journey-05.webp";
+import journey06 from "@/assets/story/journey-06.webp";
 import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
+import homepageImageMeta from "@/assets/story/homepage-image-meta.json";
 import { canonicalLink } from "@/lib/seo";
 import { homepageStructuredDataMeta } from "@/lib/structured-data";
 
+const IMG = homepageImageMeta.dimensions;
+
 // Journey progression — re-use existing approved imagery in a cinematic sequence
 const journeyImages = [story1, story2, story4, journey04, journey05, journey06];
+const journeyImageDims = [
+  IMG["part-one"],
+  IMG.story2,
+  IMG.story4,
+  IMG["journey-04"],
+  IMG["journey-05"],
+  IMG["journey-06"],
+] as const;
 
 
 // Optimized hero LCP asset (800×1200 WebP, q81)
@@ -258,7 +269,21 @@ function Stats() {
   );
 }
 
-function CinematicImage({ src, alt, tall = false, dim = "0.82" }: { src: string; alt: string; tall?: boolean; dim?: string }) {
+function CinematicImage({
+  src,
+  alt,
+  width,
+  height,
+  tall = false,
+  dim = "0.82",
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  tall?: boolean;
+  dim?: string;
+}) {
   return (
     <div className={`relative overflow-hidden rounded-2xl glass shadow-luxury ${tall ? "aspect-[3/4]" : "aspect-[4/5]"}`}>
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/30 to-transparent" />
@@ -267,19 +292,28 @@ function CinematicImage({ src, alt, tall = false, dim = "0.82" }: { src: string;
       <svg className="absolute inset-0 z-[5] w-full h-full opacity-[0.08]" viewBox="0 0 400 400" preserveAspectRatio="none">
         <path d="M0,300 L60,260 L120,280 L180,200 L240,220 L300,140 L360,160 L400,80" stroke="currentColor" strokeWidth="1" fill="none" className="text-gold" />
       </svg>
-      <img src={src} alt={alt} className="h-full w-full object-cover" style={{ filter: `brightness(${dim}) saturate(1.05) contrast(1.05)` }} />
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        className="h-full w-full object-cover"
+        style={{ filter: `brightness(${dim}) saturate(1.05) contrast(1.05)` }}
+      />
     </div>
   );
 }
 
 /* ---------- Transformation card primitive ---------- */
 function TransformCard({
-  src, alt, label, lines, tone,
-}: { src: string; alt: string; label: string; lines: string[]; tone: "before" | "after" }) {
+  src, alt, label, lines, tone, width, height,
+}: { src: string; alt: string; label: string; lines: string[]; tone: "before" | "after"; width: number; height: number }) {
   const accent = tone === "after" ? "text-gold" : "text-muted-foreground";
   return (
     <div className="flex flex-col">
-      <CinematicImage src={src} alt={alt} tall dim={tone === "after" ? "0.9" : "0.7"} />
+      <CinematicImage src={src} alt={alt} width={width} height={height} tall dim={tone === "after" ? "0.9" : "0.7"} />
       <div className="mt-4 sm:mt-5">
         <p className={`text-[10px] tracking-[0.4em] uppercase ${accent}`}>{label}</p>
         <div className="mt-3 space-y-1.5">
@@ -329,6 +363,8 @@ function NebzTransformation() {
             alt="Nebz before"
             label="Before"
             tone="before"
+            width={IMG["nebz-before"].width}
+            height={IMG["nebz-before"].height}
             lines={["School dropout with $0 to his name.", "\n", "\n", "\n"]}
           />
           <ProgressionIndicator label="8 YEARS OF WORK" />
@@ -337,6 +373,8 @@ function NebzTransformation() {
             alt="Nebz after"
             label="After"
             tone="after"
+            width={IMG["nebz-after2"].width}
+            height={IMG["nebz-after2"].height}
             lines={["Today he proves that your past does not decide your future.", "\n", "\n", "\n"]}
           />
 
@@ -390,7 +428,12 @@ function OurStory() {
               className={`grid lg:grid-cols-12 gap-8 sm:gap-10 items-center ${i % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}
             >
               <div className="lg:col-span-6">
-                <CinematicImage src={s.img} alt={s.title} />
+                <CinematicImage
+                  src={s.img}
+                  alt={s.title}
+                  width={journeyImageDims[i].width}
+                  height={journeyImageDims[i].height}
+                />
               </div>
               <div className="lg:col-span-6">
                 <p className="font-display text-7xl text-gradient-gold opacity-60 leading-none">{s.n}</p>
@@ -431,6 +474,8 @@ function NyathiraTransformation() {
             alt="Nyathira before"
             label="Before"
             tone="before"
+            width={IMG["nyathira-before"].width}
+            height={IMG["nyathira-before"].height}
             lines={["Earning -200$\\month.", "\n"]}
 
           />
@@ -440,6 +485,8 @@ function NyathiraTransformation() {
             alt="Nyathira after"
             label="After"
             tone="after"
+            width={IMG["nyathira-after2"].width}
+            height={IMG["nyathira-after2"].height}
             lines={["Today she proves that your beginning does not decide your future.", "\n", "\n"]}
 
           />
@@ -572,7 +619,12 @@ function Mission() {
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
-          <CinematicImage src={missionImg} alt="Mission" />
+          <CinematicImage
+            src={missionImg}
+            alt="Mission"
+            width={IMG["last-image"].width}
+            height={IMG["last-image"].height}
+          />
         </div>
         <div className="lg:col-span-7">
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Our Mission</p>

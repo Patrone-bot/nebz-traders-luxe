@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
-            <BrandLogo variant="footer" />
+            <BrandLogo variant="footer" loading="lazy" />
             <p className="mt-5 max-w-md text-sm text-muted-foreground leading-relaxed">
               From A Dream To A Legacy.<br />
               What started with less than $100 became eight years of growth, innovation, and a mission bigger than ourselves.
