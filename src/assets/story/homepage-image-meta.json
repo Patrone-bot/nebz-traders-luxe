@@ -1,11 +1,11 @@
 {
   "quality": 81,
   "dimensions": {
-    "nebz-before": {
+    "founders-before": {
       "width": 800,
       "height": 1067
     },
-    "nebz-after2": {
+    "founders-after": {
       "width": 800,
       "height": 1067
     },
@@ -13,35 +13,35 @@
       "width": 800,
       "height": 1067
     },
-    "nyathira-after2": {
+    "nyathira-after": {
       "width": 800,
       "height": 1067
     },
-    "part-one": {
+    "story-stage-01": {
       "width": 800,
       "height": 1067
     },
-    "story2": {
+    "story-stage-02": {
       "width": 800,
       "height": 1067
     },
-    "story4": {
+    "story-stage-03": {
       "width": 800,
       "height": 1067
     },
-    "last-image": {
+    "mission": {
       "width": 800,
       "height": 1067
     },
-    "journey-04": {
+    "story-stage-04": {
       "width": 800,
       "height": 1067
     },
-    "journey-05": {
+    "story-stage-05": {
       "width": 800,
       "height": 1067
     },
-    "journey-06": {
+    "story-stage-06": {
       "width": 800,
       "height": 1067
     }
@@ -49,7 +49,7 @@
   "assets": [
     {
       "input": "nebz-before.png",
-      "output": "nebz-before.webp",
+      "output": "founders-before.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 1943744,
@@ -57,7 +57,7 @@
     },
     {
       "input": "nebz-after2.jpg",
-      "output": "nebz-after2.webp",
+      "output": "founders-after.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 1972842,
@@ -73,7 +73,7 @@
     },
     {
       "input": "nyathira-after2.jpg",
-      "output": "nyathira-after2.webp",
+      "output": "nyathira-after.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 2883508,
@@ -81,7 +81,7 @@
     },
     {
       "input": "part-one.jpg",
-      "output": "part-one.webp",
+      "output": "story-stage-01.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 2090924,
@@ -89,7 +89,7 @@
     },
     {
       "input": "story2.jpg",
-      "output": "story2.webp",
+      "output": "story-stage-02.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 1016250,
@@ -97,7 +97,7 @@
     },
     {
       "input": "story4.jpg",
-      "output": "story4.webp",
+      "output": "story-stage-03.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 1240509,
@@ -105,7 +105,7 @@
     },
     {
       "input": "last-image.jpg",
-      "output": "last-image.webp",
+      "output": "mission.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 2077858,
@@ -113,7 +113,7 @@
     },
     {
       "input": "journey-04.jpg",
-      "output": "journey-04.webp",
+      "output": "story-stage-04.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 201940,
@@ -121,7 +121,7 @@
     },
     {
       "input": "journey-05.jpg",
-      "output": "journey-05.webp",
+      "output": "story-stage-05.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 1985661,
@@ -129,7 +129,7 @@
     },
     {
       "input": "journey-06.jpg",
-      "output": "journey-06.webp",
+      "output": "story-stage-06.webp",
       "width": 800,
       "height": 1067,
       "inputBytes": 1105863,

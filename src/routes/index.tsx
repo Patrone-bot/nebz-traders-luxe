@@ -7,17 +7,17 @@ import { Footer } from "@/components/Footer";
 import { successStories } from "@/lib/mock-data";
 
 import heroImg from "@/assets/story/hero.webp";
-import nebzBefore from "@/assets/story/nebz-before.webp";
-import nebzAfter from "@/assets/story/nebz-after2.webp";
+import foundersBefore from "@/assets/story/founders-before.webp";
+import foundersAfter from "@/assets/story/founders-after.webp";
 import nyathiraBefore from "@/assets/story/nyathira-before.webp";
-import nyathiraAfter from "@/assets/story/nyathira-after2.webp";
-import story1 from "@/assets/story/part-one.webp";
-import story2 from "@/assets/story/story2.webp";
-import story4 from "@/assets/story/story4.webp";
-import missionImg from "@/assets/story/last-image.webp";
-import journey04 from "@/assets/story/journey-04.webp";
-import journey05 from "@/assets/story/journey-05.webp";
-import journey06 from "@/assets/story/journey-06.webp";
+import nyathiraAfter from "@/assets/story/nyathira-after.webp";
+import storyStage01 from "@/assets/story/story-stage-01.webp";
+import storyStage02 from "@/assets/story/story-stage-02.webp";
+import storyStage03 from "@/assets/story/story-stage-03.webp";
+import missionImg from "@/assets/story/mission.webp";
+import storyStage04 from "@/assets/story/story-stage-04.webp";
+import storyStage05 from "@/assets/story/story-stage-05.webp";
+import storyStage06 from "@/assets/story/story-stage-06.webp";
 import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
 import homepageImageMeta from "@/assets/story/homepage-image-meta.json";
 import { canonicalLink } from "@/lib/seo";
@@ -26,14 +26,14 @@ import { homepageStructuredDataMeta } from "@/lib/structured-data";
 const IMG = homepageImageMeta.dimensions;
 
 // Journey progression — re-use existing approved imagery in a cinematic sequence
-const journeyImages = [story1, story2, story4, journey04, journey05, journey06];
+const journeyImages = [storyStage01, storyStage02, storyStage03, storyStage04, storyStage05, storyStage06];
 const journeyImageDims = [
-  IMG["part-one"],
-  IMG.story2,
-  IMG.story4,
-  IMG["journey-04"],
-  IMG["journey-05"],
-  IMG["journey-06"],
+  IMG["story-stage-01"],
+  IMG["story-stage-02"],
+  IMG["story-stage-03"],
+  IMG["story-stage-04"],
+  IMG["story-stage-05"],
+  IMG["story-stage-06"],
 ] as const;
 
 
@@ -359,22 +359,22 @@ function NebzTransformation() {
 
         <div className="grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-6 lg:gap-10 items-stretch">
           <TransformCard
-            src={nebzBefore}
+            src={foundersBefore}
             alt="Nebz before"
             label="Before"
             tone="before"
-            width={IMG["nebz-before"].width}
-            height={IMG["nebz-before"].height}
+            width={IMG["founders-before"].width}
+            height={IMG["founders-before"].height}
             lines={["School dropout with $0 to his name.", "\n", "\n", "\n"]}
           />
           <ProgressionIndicator label="8 YEARS OF WORK" />
           <TransformCard
-            src={nebzAfter}
+            src={foundersAfter}
             alt="Nebz after"
             label="After"
             tone="after"
-            width={IMG["nebz-after2"].width}
-            height={IMG["nebz-after2"].height}
+            width={IMG["founders-after"].width}
+            height={IMG["founders-after"].height}
             lines={["Today he proves that your past does not decide your future.", "\n", "\n", "\n"]}
           />
 
@@ -485,8 +485,8 @@ function NyathiraTransformation() {
             alt="Nyathira after"
             label="After"
             tone="after"
-            width={IMG["nyathira-after2"].width}
-            height={IMG["nyathira-after2"].height}
+            width={IMG["nyathira-after"].width}
+            height={IMG["nyathira-after"].height}
             lines={["Today she proves that your beginning does not decide your future.", "\n", "\n"]}
 
           />
@@ -622,8 +622,8 @@ function Mission() {
           <CinematicImage
             src={missionImg}
             alt="Mission"
-            width={IMG["last-image"].width}
-            height={IMG["last-image"].height}
+            width={IMG.mission.width}
+            height={IMG.mission.height}
           />
         </div>
         <div className="lg:col-span-7">

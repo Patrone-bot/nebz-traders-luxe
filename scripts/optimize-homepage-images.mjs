@@ -19,17 +19,17 @@ const QUALITY = 81;
 
 /** maxWidth tuned for ~640px layout slots (2× retina headroom without 1400px sources). */
 const STORY_ASSETS = [
-  { input: "nebz-before.png", output: "nebz-before.webp", maxWidth: 800 },
-  { input: "nebz-after2.jpg", output: "nebz-after2.webp", maxWidth: 800 },
+  { input: "nebz-before.png", output: "founders-before.webp", maxWidth: 800 },
+  { input: "nebz-after2.jpg", output: "founders-after.webp", maxWidth: 800 },
   { input: "nyathira-before.png", output: "nyathira-before.webp", maxWidth: 800 },
-  { input: "nyathira-after2.jpg", output: "nyathira-after2.webp", maxWidth: 800 },
-  { input: "part-one.jpg", output: "part-one.webp", maxWidth: 800 },
-  { input: "story2.jpg", output: "story2.webp", maxWidth: 800 },
-  { input: "story4.jpg", output: "story4.webp", maxWidth: 800 },
-  { input: "last-image.jpg", output: "last-image.webp", maxWidth: 800 },
-  { input: "journey-04.jpg", output: "journey-04.webp", maxWidth: 800 },
-  { input: "journey-05.jpg", output: "journey-05.webp", maxWidth: 800 },
-  { input: "journey-06.jpg", output: "journey-06.webp", maxWidth: 800 },
+  { input: "nyathira-after2.jpg", output: "nyathira-after.webp", maxWidth: 800 },
+  { input: "part-one.jpg", output: "story-stage-01.webp", maxWidth: 800 },
+  { input: "story2.jpg", output: "story-stage-02.webp", maxWidth: 800 },
+  { input: "story4.jpg", output: "story-stage-03.webp", maxWidth: 800 },
+  { input: "last-image.jpg", output: "mission.webp", maxWidth: 800 },
+  { input: "journey-04.jpg", output: "story-stage-04.webp", maxWidth: 800 },
+  { input: "journey-05.jpg", output: "story-stage-05.webp", maxWidth: 800 },
+  { input: "journey-06.jpg", output: "story-stage-06.webp", maxWidth: 800 },
 ];
 
 const LOGO = {
