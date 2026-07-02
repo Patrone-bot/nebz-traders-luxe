@@ -1,16 +1,6 @@
 import { createHash } from "node:crypto";
-import { createClient } from "@supabase/supabase-js";
-
-type VercelRequest = {
-  method?: string;
-  headers: Record<string, string | string[] | undefined>;
-  body?: string | Record<string, unknown>;
-};
-
-type VercelResponse = {
-  status: (code: number) => VercelResponse;
-  json: (body: unknown) => void;
-};
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 type VerifyRequestBody = {
   verificationRequestId?: string;
@@ -80,6 +70,112 @@ async function fetchPartnerInfo(
   }
 }
 
+// ─── TradersHub Marketplace account check ────────────────────────────────
+// Runs ONLY after Pocket Option verification (Nebz or Nyathira) succeeds.
+// Confirms the user also has an account on the TradersHub Marketplace,
+// matched by email. This does not replace the Pocket Option check — it's an
+// additional gate on top of it.
+async function checkMarketplaceAccount(email: string): Promise<boolean> {
+  const endpoint = readEnv("MARKETPLACE_CHECK_URL");
+  const secret = readEnv("MARKETPLACE_CHECK_SECRET");
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Internal-Key": secret,
+    },
+    body: JSON.stringify({ email }),
+  });
+
+  let payload: { success?: boolean; hasAccount?: boolean } = {};
+  try {
+    payload = await response.json();
+  } catch {
+    // If the marketplace endpoint is unreachable or returns bad data, fail
+    // closed (treat as "no account") rather than silently letting everyone
+    // through.
+    return false;
+  }
+
+  return Boolean(payload.success && payload.hasAccount);
+}
+
+// Runs after a successful Pocket Option match. Adds the TradersHub
+// marketplace-account gate on top before writing the final verified state.
+async function finalizeVerification(
+  supabaseAdmin: SupabaseClient,
+  params: {
+    verificationRequestId: string;
+    verifiedUnder: "Nebz" | "Nyathira";
+    partnerResponse: unknown;
+    userEmail: string | null;
+    res: VercelResponse;
+  },
+) {
+  const { verificationRequestId, verifiedUnder, partnerResponse, userEmail, res } = params;
+
+  if (!userEmail) {
+    return res.status(400).json({ success: false, message: "No email on file for this account" });
+  }
+
+  const hasMarketplaceAccount = await checkMarketplaceAccount(userEmail);
+
+  if (!hasMarketplaceAccount) {
+    const verifiedAt = new Date().toISOString();
+    const verificationMessage =
+      "Your Pocket Option account was verified, but you don't yet have a TradersHub Marketplace account with us. Please create an account on TradersHub Marketplace, make a deposit, and then reach out to us so we can complete your verification.";
+
+    const { error: updateError } = await supabaseAdmin
+      .from("verification_requests")
+      .update({
+        verification_status: "rejected",
+        verified_under: verifiedUnder,
+        verified_at: verifiedAt,
+        partner_response: partnerResponse,
+        verification_message: verificationMessage,
+      })
+      .eq("id", verificationRequestId);
+
+    if (updateError) {
+      return res.status(500).json({ success: false, message: updateError.message });
+    }
+
+    return res.status(200).json({
+      success: false,
+      verified: false,
+      verifiedUnder,
+      reason: "no_marketplace_account",
+      message: verificationMessage,
+    });
+  }
+
+  const verifiedAt = new Date().toISOString();
+  const verificationMessage = `Verified under ${verifiedUnder}`;
+
+  const { error: updateError } = await supabaseAdmin
+    .from("verification_requests")
+    .update({
+      verification_status: "verified",
+      verified_under: verifiedUnder,
+      verified_at: verifiedAt,
+      partner_response: partnerResponse,
+      verification_message: verificationMessage,
+    })
+    .eq("id", verificationRequestId);
+
+  if (updateError) {
+    return res.status(500).json({ success: false, message: updateError.message });
+  }
+
+  return res.status(200).json({
+    success: true,
+    verified: true,
+    verifiedUnder,
+    message: verificationMessage,
+  });
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, message: "Method not allowed" });
@@ -141,29 +237,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
 
     if (hasUid(nebzResponse)) {
-      const verifiedAt = new Date().toISOString();
-      const verificationMessage = "Verified under Nebz";
-
-      const { error: updateError } = await supabaseAdmin
-        .from("verification_requests")
-        .update({
-          verification_status: "verified",
-          verified_under: "Nebz",
-          verified_at: verifiedAt,
-          partner_response: nebzResponse,
-          verification_message: verificationMessage,
-        })
-        .eq("id", verificationRequestId);
-
-      if (updateError) {
-        return res.status(500).json({ success: false, message: updateError.message });
-      }
-
-      return res.status(200).json({
-        success: true,
-        verified: true,
+      return await finalizeVerification(supabaseAdmin, {
+        verificationRequestId,
         verifiedUnder: "Nebz",
-        message: verificationMessage,
+        partnerResponse: nebzResponse,
+        userEmail: user.email ?? null,
+        res,
       });
     }
 
@@ -178,29 +257,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       );
 
       if (hasUid(nyathiraResponse)) {
-        const verifiedAt = new Date().toISOString();
-        const verificationMessage = "Verified under Nyathira";
-
-        const { error: updateError } = await supabaseAdmin
-          .from("verification_requests")
-          .update({
-            verification_status: "verified",
-            verified_under: "Nyathira",
-            verified_at: verifiedAt,
-            partner_response: nyathiraResponse,
-            verification_message: verificationMessage,
-          })
-          .eq("id", verificationRequestId);
-
-        if (updateError) {
-          return res.status(500).json({ success: false, message: updateError.message });
-        }
-
-        return res.status(200).json({
-          success: true,
-          verified: true,
+        return await finalizeVerification(supabaseAdmin, {
+          verificationRequestId,
           verifiedUnder: "Nyathira",
-          message: verificationMessage,
+          partnerResponse: nyathiraResponse,
+          userEmail: user.email ?? null,
+          res,
         });
       }
     }

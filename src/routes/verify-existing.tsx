@@ -16,6 +16,10 @@ export const Route = createFileRoute("/verify-existing")({
   component: Existing,
 });
 
+// TradersHub Marketplace registration links, one per partner.
+const TRADERSHUB_REGISTER_URL_NEBZ = "https://tradersmarketsplace.com/register.php?ref=27375C9D";
+const TRADERSHUB_REGISTER_URL_NYATHIRA = "https://tradersmarketsplace.com/register.php?ref=C9E7307D";
+
 function Existing() {
   const navigate = useNavigate();
   const { user, loading } = useRequireAuth();
@@ -23,6 +27,8 @@ function Existing() {
   const [stage, setStage] = useState<"form" | "loading" | "success" | "failure">("form");
   const [error, setError] = useState<string | null>(null);
   const [verifiedUnder, setVerifiedUnder] = useState<"Nebz" | "Nyathira" | null>(null);
+  const [failureReason, setFailureReason] = useState<"no_marketplace_account" | null>(null);
+  const [failureMessage, setFailureMessage] = useState<string | null>(null);
 
   if (loading || !user) return <AuthSessionLoader />;
 
@@ -37,6 +43,8 @@ function Existing() {
 
     setError(null);
     setVerifiedUnder(null);
+    setFailureReason(null);
+    setFailureMessage(null);
     setStage("loading");
 
     const createResult = await submitExistingAccountVerification(user.id, pocketTraderId);
@@ -68,6 +76,14 @@ function Existing() {
       setStage("success");
       return;
     }
+
+    if (verifyResult.reason === "no_marketplace_account") {
+      setFailureReason("no_marketplace_account");
+      if (verifyResult.verifiedUnder) {
+        setVerifiedUnder(verifyResult.verifiedUnder);
+      }
+    }
+    setFailureMessage(verifyResult.message);
 
     setStage("failure");
   };
@@ -170,15 +186,48 @@ function Existing() {
             animate={{ opacity: 1, scale: 1 }}
             className="py-8 text-center"
           >
-            <p className="text-base text-foreground">
-              We could not verify this Pocket Option account under Nebz or Nyathira.
-            </p>
-            <div className="mt-8 flex flex-col gap-3">
-              <LuxButton onClick={() => setStage("form")}>TRY AGAIN</LuxButton>
-              <LuxButton variant="ghost" onClick={() => navigate({ to: "/dashboard" })}>
-                BACK TO DASHBOARD
-              </LuxButton>
-            </div>
+            {failureReason === "no_marketplace_account" ? (
+              <>
+                <p className="text-base text-foreground">
+                  {failureMessage ??
+                    "Your Pocket Option account was verified, but we couldn't find a TradersHub Marketplace account for your email."}
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Please create an account on TradersHub Marketplace, make a deposit, and then
+                  reach out to us so we can complete your verification.
+                </p>
+                <div className="mt-8 flex flex-col gap-3">
+                  <LuxButton
+                    onClick={() =>
+                      window.open(
+                        verifiedUnder === "Nebz"
+                          ? TRADERSHUB_REGISTER_URL_NEBZ
+                          : TRADERSHUB_REGISTER_URL_NYATHIRA,
+                        "_blank",
+                      )
+                    }
+                  >
+                    GO TO TRADERSHUB MARKETPLACE
+                  </LuxButton>
+                  <LuxButton onClick={() => setStage("form")}>TRY AGAIN</LuxButton>
+                  <LuxButton variant="ghost" onClick={() => navigate({ to: "/dashboard" })}>
+                    BACK TO DASHBOARD
+                  </LuxButton>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-base text-foreground">
+                  We could not verify this Pocket Option account under Nebz or Nyathira.
+                </p>
+                <div className="mt-8 flex flex-col gap-3">
+                  <LuxButton onClick={() => setStage("form")}>TRY AGAIN</LuxButton>
+                  <LuxButton variant="ghost" onClick={() => navigate({ to: "/dashboard" })}>
+                    BACK TO DASHBOARD
+                  </LuxButton>
+                </div>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

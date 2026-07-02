@@ -2,6 +2,7 @@ export type PocketPartnersVerifyResponse = {
   success: boolean;
   verified?: boolean;
   verifiedUnder?: "Nebz" | "Nyathira";
+  reason?: "no_marketplace_account";
   message: string;
 };
 
