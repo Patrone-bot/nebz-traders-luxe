@@ -11,6 +11,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { MarketplaceCard } from "@/components/MarketplaceCard";
 import { MarketplaceVerificationModal } from "@/components/MarketplaceVerificationModal";
 import { MARKETPLACE_PRODUCTS, type MarketplaceProduct } from "@/lib/marketplace-products";
+import { openMarketplaceUrl } from "@/lib/api/tradersMarketplace";
 import { NOINDEX_ROBOTS } from "@/lib/seo";
 
 export const Route = createFileRoute("/dashboard")({
@@ -51,7 +52,7 @@ function Dashboard() {
       return;
     }
 
-    window.location.href = product.action.url;
+    openMarketplaceUrl(product.action.url);
   };
 
   return (
@@ -92,8 +93,25 @@ function Dashboard() {
               </Link>
             </div>
           )}
-          <p className="mt-4 text-muted-foreground">
-            Explore exclusive marketplace products designed to accelerate your trading journey.
+          <p className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-relaxed">
+            Your member portal connects you to curated trading education, private mentorship, and
+            AI-powered automation through the TradersMarketsPlace ecosystem. Review the options
+            below and choose the path that best matches your goals — each selection opens in a new
+            tab so you can return here at any time.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.6 }}
+          className="max-w-6xl mx-auto mb-8 text-center"
+        >
+          <h2 className="font-display text-2xl sm:text-3xl text-foreground">
+            Choose Your <span className="italic text-gradient-gold">Next Step</span>
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Select one product below to continue your journey.
           </p>
         </motion.div>
 

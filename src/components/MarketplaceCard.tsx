@@ -11,6 +11,8 @@ type Props = {
 };
 
 export function MarketplaceCard({ product, index, onAction, loading, disabled }: Props) {
+  const Icon = product.theme.icon;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -18,10 +20,27 @@ export function MarketplaceCard({ product, index, onAction, loading, disabled }:
       transition={{ delay: index * 0.1, duration: 0.6 }}
       className="relative group h-full"
     >
-      <div className="relative h-full rounded-3xl p-8 shadow-luxury transition-all overflow-hidden glass hover:border-gold/40 hover:-translate-y-1">
-        <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-gold/10 blur-2xl group-hover:bg-gold/20 transition-colors" />
+      <div
+        className={`relative h-full rounded-3xl border p-8 shadow-luxury transition-all overflow-hidden glass hover:-translate-y-1 ${product.theme.cardClass}`}
+      >
+        <div
+          className={`absolute -top-16 -right-16 h-40 w-40 rounded-full blur-2xl transition-colors ${product.theme.glowClass}`}
+        />
         <div className="relative flex h-full flex-col">
-          <h3 className="font-display text-2xl sm:text-3xl text-foreground leading-tight">
+          <div className="flex items-start justify-between gap-3">
+            <div
+              className={`h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 ${product.theme.iconWrapClass}`}
+            >
+              <Icon className={`h-5 w-5 ${product.theme.iconClass}`} />
+            </div>
+            <span
+              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] uppercase ${product.theme.badgeClass}`}
+            >
+              {product.theme.badge}
+            </span>
+          </div>
+
+          <h3 className="mt-5 font-display text-2xl sm:text-3xl text-foreground leading-tight">
             {product.title}
           </h3>
 

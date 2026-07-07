@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   checkMarketplaceBalance,
+  openMarketplaceUrl,
   TRADERS_MARKETPLACE_URLS,
 } from "@/lib/api/tradersMarketplace";
 
@@ -78,14 +79,14 @@ export function MarketplaceVerificationModal({ open, onOpenChange }: Props) {
     if (view !== "success") return;
 
     const redirectTimer = window.setTimeout(() => {
-      window.location.href = TRADERS_MARKETPLACE_URLS.automatedTrading;
+      openMarketplaceUrl(TRADERS_MARKETPLACE_URLS.automatedTrading);
     }, 2000);
 
     return () => window.clearTimeout(redirectTimer);
   }, [view]);
 
   const openExternal = (url: string) => {
-    window.open(url, "_blank", "noopener,noreferrer");
+    openMarketplaceUrl(url);
   };
 
   const handleContinue = async () => {

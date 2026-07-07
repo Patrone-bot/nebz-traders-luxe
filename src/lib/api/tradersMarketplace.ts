@@ -1,7 +1,4 @@
-const CHECK_BALANCE_URL =
-  "https://tradersmarketsplace.com/check-marketplace-balance.php";
-
-const INTERNAL_KEY = "xK9pL2vQ8mR5tY7wZ3nB6cF1jH4sD0aE";
+import { supabase } from "@/lib/supabase/client";
 
 const REQUEST_TIMEOUT_MS = 30_000;
 
@@ -97,19 +94,34 @@ function toCheckResult(data: MarketplaceBalanceApiResponse): CheckMarketplaceBal
   };
 }
 
+export function openMarketplaceUrl(url: string) {
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
 export async function checkMarketplaceBalance(
   displayId: string,
   requiredAmount: number = AI_SIGNALS_REQUIRED_AMOUNT,
 ): Promise<CheckMarketplaceBalanceResult> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.access_token) {
+    return {
+      status: "error",
+      message: "Please sign in to verify your account.",
+    };
+  }
+
   const controller = new AbortController();
   const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(CHECK_BALANCE_URL, {
+    const response = await fetch("/api/check-marketplace-balance", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Internal-Key": INTERNAL_KEY,
+        Authorization: `Bearer ${session.access_token}`,
       },
       body: JSON.stringify({ displayId, requiredAmount }),
       signal: controller.signal,
@@ -130,6 +142,19 @@ export async function checkMarketplaceBalance(
       return {
         status: "error",
         message: "Unexpected response from verification service. Please try again.",
+      };
+    }
+
+    if (!response.ok && parsed.success === false) {
+      return toCheckResult(parsed);
+    }
+
+    if (!response.ok) {
+      return {
+        status: "error",
+        message:
+          (isRecord(payload) && typeof payload.message === "string" && payload.message) ||
+          "Verification service unavailable. Please try again.",
       };
     }
 
