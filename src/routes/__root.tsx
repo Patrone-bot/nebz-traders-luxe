@@ -6,6 +6,7 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { AuthProvider } from "@/contexts/auth-context";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -72,6 +73,7 @@ function RootComponent() {
       <AuthProvider>
         <HeadContent />
         <Outlet />
+        <Toaster />
       </AuthProvider>
     </QueryClientProvider>
   );
