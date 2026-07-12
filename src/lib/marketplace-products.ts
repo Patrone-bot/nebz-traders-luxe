@@ -45,7 +45,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     id: "mentorship",
     title: "🎓 $1,000 – 1-on-1 Private Mentorship",
     description:
-      "Receive personalized coaching and a complete step-by-step blueprint.\n\nI'll teach you the exact formula and best approach that has consistently worked for many successful traders including us.",
+      "Discover how to know when to buy and when to sell with confidence 88%+ accuracy.\n\nLearn how trading signals really work, then use that knowledge to build your own AI trading bot that generates buy and sell signals for you.\n\nBest approach for lifetime consistent earnings.",
     action: { type: "redirect", url: TRADERS_MARKETPLACE_URLS.mentors },
     theme: {
       badge: "Limited Slots",
