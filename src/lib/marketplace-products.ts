@@ -59,9 +59,9 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
   },
   {
     id: "ai-signals",
-    title: "🤖 $1800 – AI Signals",
+    title: "🤖 Rent Bilord AI for Just $1,800",
     description:
-      "Fund your trading account with $1800 and let the most advanced Binary AI do the heavy lifting on your behalf.\n\nSimply feed the AI's trades while keeping full control of your account.",
+      "Bilord AI is one of the highest-performing binary options trading bots available today.\n\nThe recommended version is priced at $6,700, while the Premium Access version costs $13,000.\n\nInstead of paying the full purchase price upfront, you can rent Bilord AI for just $1,800 for one month. This gives you the opportunity to recover your investment and potentially earn enough to purchase and own your own Bilord AI license.\n\nRenting is an affordable way to access the power of Bilord AI without the high initial cost.",
     action: { type: "modal" },
     theme: {
       badge: "Requires Marketplace Account",
