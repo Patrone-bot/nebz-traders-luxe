@@ -101,7 +101,7 @@ function Existing() {
       subtitle={
         stage === "success"
           ? "Welcome to the inner circle."
-          : "We'll automatically detect whether your Pocket Option account belongs to Nebz or Nyathira."
+          : "We'll automatically detect whether your valetax account belongs to Nebz or Nyathira."
       }
       footer={
         stage === "form" ? (
@@ -145,9 +145,9 @@ function Existing() {
             className="py-10 text-center"
           >
             <Loader2 className="h-10 w-10 text-gold mx-auto animate-spin" />
-            <p className="mt-6 text-sm text-foreground">Verifying with Pocket Option…</p>
+            <p className="mt-6 text-sm text-foreground">Verifying with valetax…</p>
             <p className="mt-2 text-xs text-muted-foreground">
-              Verifying your Pocket Option account. This usually takes a few seconds.
+              Verifying your valetax account. This usually takes a few seconds.
             </p>
           </motion.div>
         )}
@@ -168,7 +168,7 @@ function Existing() {
               <Check className="h-8 w-8 text-primary-foreground" />
             </motion.div>
             <p className="mt-6 text-base text-foreground">
-              Your Pocket Option account has been verified successfully.
+              Your valetax account has been verified successfully.
             </p>
             {verifiedUnder && (
               <p className="mt-2 text-sm text-gold">Verified under {verifiedUnder}</p>
@@ -190,7 +190,7 @@ function Existing() {
               <>
                 <p className="text-base text-foreground">
                   {failureMessage ??
-                    "Your Pocket Option account was verified, but we couldn't find a TradersHub Marketplace account for your email."}
+                    "Your valetax account was verified, but we couldn't find a TradersHub Marketplace account for your email."}
                 </p>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Please create an account on TradersHub Marketplace, make a deposit, and then
@@ -218,7 +218,7 @@ function Existing() {
             ) : (
               <>
                 <p className="text-base text-foreground">
-                  We could not verify this Pocket Option account under Nebz or Nyathira.
+                  We could not verify this valetax account under Nebz or Nyathira.
                 </p>
                 <div className="mt-8 flex flex-col gap-3">
                   <LuxButton onClick={() => setStage("form")}>TRY AGAIN</LuxButton>
