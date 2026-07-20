@@ -124,7 +124,7 @@ async function finalizeVerification(
   if (!hasMarketplaceAccount) {
     const verifiedAt = new Date().toISOString();
     const verificationMessage =
-      "Your Pocket Option account was verified, but you don't yet have a TradersHub Marketplace account with us. Please create an account on TradersHub Marketplace, make a deposit, and then reach out to us so we can complete your verification.";
+      "Your valetax account was verified, but you don't yet have a TradersHub Marketplace account with us. Please create an account on TradersHub Marketplace, make a deposit, and then reach out to us so we can complete your verification.";
 
     const { error: updateError } = await supabaseAdmin
       .from("verification_requests")

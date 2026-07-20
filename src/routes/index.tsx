@@ -18,7 +18,7 @@ import missionImg from "@/assets/story/mission.webp";
 import storyStage04 from "@/assets/story/story-stage-04.webp";
 import storyStage05 from "@/assets/story/story-stage-05.webp";
 import storyStage06 from "@/assets/story/story-stage-06.webp";
-import pocketOptionLogoSrc from "@/assets/pocketoption.svg";
+import valetaxLogoSrc from "@/assets/valetax.svg";
 import homepageImageMeta from "@/assets/story/homepage-image-meta.json";
 import { canonicalLink } from "@/lib/seo";
 import { homepageStructuredDataMeta } from "@/lib/structured-data";
@@ -91,12 +91,12 @@ function HomePage() {
   );
 }
 
-/* ---------- Official Pocket Option partner mark ---------- */
-function PocketOptionLogo({ className = "h-6 sm:h-7" }: { className?: string }) {
+/* ---------- Official Valetax partner mark ---------- */
+function ValetaxLogo({ className = "h-6 sm:h-7" }: { className?: string }) {
   return (
     <img
-      src={pocketOptionLogoSrc}
-      alt="Pocket Option — Official Partner"
+      src={valetaxLogoSrc}
+      alt="Valetax — Official Partner"
       className={`w-auto ${className} select-none`}
       draggable={false}
     />
@@ -112,9 +112,9 @@ function PartnerBand() {
             <ShieldCheck className="h-3.5 w-3.5 text-gold" />
             <p className="text-[10px] sm:text-[11px] tracking-[0.45em] text-gold uppercase">Official Partner</p>
           </div>
-          <PocketOptionLogo className="h-7 sm:h-9" />
+          <ValetaxLogo className="h-7 sm:h-9" />
           <p className="text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
-            Verified Broker · Since 2019
+            Verified Broker · Since 2021
           </p>
         </div>
       </div>
@@ -172,7 +172,7 @@ function Hero() {
           <div className="mt-10 flex items-center gap-3">
             <span className="text-[10px] tracking-[0.4em] text-muted-foreground uppercase">Official Partner</span>
             <span className="h-px w-6 bg-border" />
-            <PocketOptionLogo className="h-5" />
+            <ValetaxLogo className="h-5" />
           </div>
         </motion.div>
 
