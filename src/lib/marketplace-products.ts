@@ -27,13 +27,13 @@ export type MarketplaceProduct = {
 };
 
 export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
-  {
+   {
     id: "under-500-start",
     title: "if you have less than 500$ to start",
     description:
       "I've created a simple, easy to follow video where I teach only the essential strategies you need to know.\n\nWhether you're starting with as little as $100 or whatever amount you have available, you'll learn how to make the most of your capital and develop the skills needed to trade confidently.\n\nThis course is based on the exact approach that worked for me. I've removed the unnecessary information and focused only on practical strategies that helped me become a successful trader.\n\nMy goal is to help you build a strong foundation and become financially free from a very small start.",
-    action: { type: "redirect", url: "https://tradersmarketsplace.com/product?type=manager&id=359" },
-    videoUrl: "https://youtu.be/fiNQVA0II-8",
+    action: { type: "redirect", url: "https://www.youtube.com/watch?v=fINQVA0lI-8&authuser=0" },
+    videoUrl: "https://www.youtube.com/watch?v=fINQVA0lI-8&authuser=0",
     theme: {
       badge: "Instant Access",
       icon: Sparkles,
@@ -49,7 +49,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     title: "💎 $500 – Get the Almighty Formula",
     description:
       "The secret that can turn your small account into a life-changing opportunity.\n\nIt worked for me, and it's already helped thousands of others who decided to take action.\n\nIn less than 13 minutes, you'll gain the insights you need to get started on a journey that could change your financial future.\n\nDon't miss your chance—your next big opportunity could begin today.",
-    action: { type: "redirect", url: TRADERS_MARKETPLACE_URLS.courses },
+    action: { type: "redirect", url: "https://tradersmarketsplace.com/product.php?type=course&id=47" },
     theme: {
       badge: "Instant Access",
       icon: Gem,
@@ -65,7 +65,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     title: "🎓 $1,000 – 1-on-1 Private Mentorship",
     description:
       "Discover how to know when to buy and when to sell with confidence 88%+ accuracy.\n\nLearn how trading signals really work, then use that knowledge to build your own AI trading bot that generates buy and sell signals for you.\n\nBest approach for lifetime consistent earnings.",
-    action: { type: "redirect", url: TRADERS_MARKETPLACE_URLS.mentors },
+    action: { type: "redirect", url: "https://tradersmarketsplace.com/product?type=manager&id=359" },
     theme: {
       badge: "Limited Slots",
       icon: GraduationCap,
@@ -76,28 +76,13 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
       badgeClass: "border-violet-400/30 bg-violet-500/10 text-violet-200",
     },
   },
-  {
-    id: "ai-signals",
-    title: "🤖 Rent Bilord AI for Just $1,800",
-    description:
-      "Bilord AI is one of the highest-performing binary options trading bots available today.\n\nThe recommended version is priced at $6,700, while the Premium Access version costs $13,000.\n\nInstead of paying the full purchase price upfront, you can rent Bilord AI for just $1,800 for one month. This gives you the opportunity to recover your investment and potentially earn enough to purchase and own your own Bilord AI license.\n\nRenting is an affordable way to access the power of Bilord AI without the high initial cost.",
-    action: { type: "modal" },
-    theme: {
-      badge: "Requires Marketplace Account",
-      icon: Bot,
-      cardClass: "border-sky-500/20 hover:border-sky-400/40",
-      glowClass: "bg-sky-500/10 group-hover:bg-sky-500/20",
-      iconWrapClass: "border border-sky-400/30 bg-sky-500/10",
-      iconClass: "text-sky-300",
-      badgeClass: "border-sky-400/30 bg-sky-500/10 text-sky-200",
-    },
-  },
+ 
   {
     id: "bi-lord",
-    title: "🚀 From $2000 – Own Your BI Lord AI",
+    title: "🚀 From $3500 – Own Your BI Lord AI",
     description:
       "Get your own BI Lord AI and trade on your own terms.\n\nLet AI help you grow your capital while creating a potential source of passive income through automated trading.",
-    action: { type: "redirect", url: TRADERS_MARKETPLACE_URLS.aiStudio },
+    action: { type: "redirect", url: "https://tradersmarketsplace.com/product.php?type=bot&id=589" },
     theme: {
       badge: "Enterprise Solution",
       icon: Rocket,
