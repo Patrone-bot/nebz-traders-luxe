@@ -71,9 +71,9 @@ async function fetchPartnerInfo(
 }
 
 // ─── TradersHub Marketplace account check ────────────────────────────────
-// Runs ONLY after Pocket Option verification (Nebz or Nyathira) succeeds.
+// Runs ONLY after PocketOption verification (Nebz or Nyathira) succeeds.
 // Confirms the user also has an account on the TradersHub Marketplace,
-// matched by email. This does not replace the Pocket Option check — it's an
+// matched by email. This does not replace the PocketOption check — it's an
 // additional gate on top of it.
 async function checkMarketplaceAccount(email: string): Promise<boolean> {
   const endpoint = readEnv("MARKETPLACE_CHECK_URL");
@@ -101,7 +101,7 @@ async function checkMarketplaceAccount(email: string): Promise<boolean> {
   return Boolean(payload.success && payload.hasAccount);
 }
 
-// Runs after a successful Pocket Option match. Adds the TradersHub
+// Runs after a successful PocketOption match. Adds the TradersHub
 // marketplace-account gate on top before writing the final verified state.
 async function finalizeVerification(
   supabaseAdmin: SupabaseClient,
@@ -124,7 +124,7 @@ async function finalizeVerification(
   if (!hasMarketplaceAccount) {
     const verifiedAt = new Date().toISOString();
     const verificationMessage =
-      "Your valetax account was verified, but you don't yet have a TradersHub Marketplace account with us. Please create an account on TradersHub Marketplace, make a deposit, and then reach out to us so we can complete your verification.";
+      "Your PocketOption account was verified, but you don't yet have a TradersHub Marketplace account with us. Please create an account on TradersHub Marketplace, make a deposit, and then reach out to us so we can complete your verification.";
 
     const { error: updateError } = await supabaseAdmin
       .from("verification_requests")

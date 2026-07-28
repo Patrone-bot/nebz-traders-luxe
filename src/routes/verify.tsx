@@ -47,7 +47,7 @@ function Verify() {
                 <Check className="h-7 w-7 text-primary-foreground" />
               </div>
               <h3 className="mt-6 font-display text-3xl text-foreground">YES</h3>
-              <p className="mt-2 text-sm text-muted-foreground">I have a Pocket Option account.</p>
+              <p className="mt-2 text-sm text-muted-foreground">I have a PocketOption account.</p>
             </motion.button>
 
             <motion.button
