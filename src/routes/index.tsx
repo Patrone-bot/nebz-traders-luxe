@@ -18,7 +18,7 @@ import missionImg from "@/assets/story/mission.webp";
 import storyStage04 from "@/assets/story/story-stage-04.webp";
 import storyStage05 from "@/assets/story/story-stage-05.webp";
 import storyStage06 from "@/assets/story/story-stage-06.webp";
-import valetaxLogoSrc from "@/assets/valetax.svg";
+import pocketOptionLogoSrc from "@/assets/pocket option.svg";
 import homepageImageMeta from "@/assets/story/homepage-image-meta.json";
 import { canonicalLink } from "@/lib/seo";
 import { homepageStructuredDataMeta } from "@/lib/structured-data";
@@ -42,23 +42,34 @@ const HERO_WIDTH = 800;
 const HERO_HEIGHT = 1200;
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "CashoutFX — From Nothing to a Trading Empire" },
-      { name: "description", content: "From a school dropout and a waitress to building a trading empire. Nebz & Nyathira help ordinary people begin their journey for free." },
-      homepageStructuredDataMeta(),
-    ],
-    links: [
-      canonicalLink("/"),
-      {
-        rel: "preload",
-        href: heroImg,
-        as: "image",
-        type: "image/webp",
-        fetchPriority: "high",
-      },
-    ],
-  }),
+  head: () => {
+    const structuredData = homepageStructuredDataMeta() as { "script:ld+json": Record<string, unknown> };
+
+    return {
+      meta: [
+        { title: "CashoutFX — From Nothing to a Trading Empire" },
+        { name: "description", content: "From a school dropout and a waitress to building a trading empire. Nebz & Nyathira help ordinary people begin their journey for free." },
+      ],
+      links: [
+        canonicalLink("/"),
+        {
+          rel: "preload",
+          href: heroImg,
+          as: "image",
+          type: "image/webp",
+          fetchPriority: "high",
+        },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          dangerouslySetInnerHTML: {
+            __html: JSON.stringify(structuredData["script:ld+json"]),
+          },
+        },
+      ],
+    };
+  },
   component: HomePage,
 });
 
@@ -91,12 +102,12 @@ function HomePage() {
   );
 }
 
-/* ---------- Official Valetax partner mark ---------- */
-function ValetaxLogo({ className = "h-6 sm:h-7" }: { className?: string }) {
+/* ---------- Official pocket option partner mark ---------- */
+function PocketOptionLogo({ className = "h-6 sm:h-7" }: { className?: string }) {
   return (
     <img
-      src={valetaxLogoSrc}
-      alt="Valetax — Official Partner"
+      src={pocketOptionLogoSrc}
+      alt="pocket option — Official Partner"
       className={`w-auto ${className} select-none`}
       draggable={false}
     />
@@ -112,7 +123,7 @@ function PartnerBand() {
             <ShieldCheck className="h-3.5 w-3.5 text-gold" />
             <p className="text-[10px] sm:text-[11px] tracking-[0.45em] text-gold uppercase">Official Partner</p>
           </div>
-          <ValetaxLogo className="h-7 sm:h-9" />
+          <PocketOptionLogo className="h-7 sm:h-9" />
           <p className="text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
             Verified Broker · Since 2021
           </p>
@@ -172,7 +183,7 @@ function Hero() {
           <div className="mt-10 flex items-center gap-3">
             <span className="text-[10px] tracking-[0.4em] text-muted-foreground uppercase">Official Partner</span>
             <span className="h-px w-6 bg-border" />
-            <ValetaxLogo className="h-5" />
+            <PocketOptionLogo className="h-5" />
           </div>
         </motion.div>
 

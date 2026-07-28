@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Bot, Gem, GraduationCap, Rocket } from "lucide-react";
+import { Bot, Gem, GraduationCap, Rocket, Sparkles } from "lucide-react";
 import { TRADERS_MARKETPLACE_URLS } from "@/lib/api/tradersMarketplace";
 
 export type MarketplaceProductAction =
@@ -22,9 +22,28 @@ export type MarketplaceProduct = {
   description: string;
   action: MarketplaceProductAction;
   theme: MarketplaceProductTheme;
+  /** Optional YouTube video shown alongside this card's content. */
+  videoUrl?: string;
 };
 
 export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
+  {
+    id: "under-500-start",
+    title: "if you have less than 500$ to start",
+    description:
+      "I've created a simple, easy to follow video where I teach only the essential strategies you need to know.\n\nWhether you're starting with as little as $100 or whatever amount you have available, you'll learn how to make the most of your capital and develop the skills needed to trade confidently.\n\nThis course is based on the exact approach that worked for me. I've removed the unnecessary information and focused only on practical strategies that helped me become a successful trader.\n\nMy goal is to help you build a strong foundation and become financially free from a very small start.",
+    action: { type: "redirect", url: "https://tradersmarketsplace.com/product?type=manager&id=359" },
+    videoUrl: "https://youtu.be/fiNQVA0II-8",
+    theme: {
+      badge: "Instant Access",
+      icon: Sparkles,
+      cardClass: "border-amber-500/20 hover:border-amber-400/40",
+      glowClass: "bg-amber-400/10 group-hover:bg-amber-400/20",
+      iconWrapClass: "glass-gold",
+      iconClass: "text-gold",
+      badgeClass: "border-amber-400/30 bg-amber-400/10 text-amber-200",
+    },
+  },
   {
     id: "formula",
     title: "💎 $500 – Get the Almighty Formula",
@@ -75,7 +94,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
   },
   {
     id: "bi-lord",
-    title: "🚀 From $3500 – Own Your BI Lord AI",
+    title: "🚀 From $2000 – Own Your BI Lord AI",
     description:
       "Get your own BI Lord AI and trade on your own terms.\n\nLet AI help you grow your capital while creating a potential source of passive income through automated trading.",
     action: { type: "redirect", url: TRADERS_MARKETPLACE_URLS.aiStudio },

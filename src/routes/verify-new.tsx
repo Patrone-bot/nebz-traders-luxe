@@ -51,7 +51,7 @@ function NewUser() {
     <AuthShell
       eyebrow="New Member"
       title={stage === "form" ? "Continue Your Registration" : "Setting Up Your Account"}
-      subtitle={stage === "form" ? "Tell us who invited you to begin." : "We're preparing your Pocket Option setup."}
+      subtitle={stage === "form" ? "Tell us who invited you to begin." : "We're preparing your PocketOption setup."}
       footer={
         stage === "form" ? (
           <p className="text-center">

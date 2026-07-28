@@ -31,7 +31,7 @@ export function VerificationSuccessVvipCard({ onContinueToDashboard }: Props) {
           Access Your VVIP Community
         </h2>
         <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-          Congratulations. Your Pocket Option account has been verified successfully. You now qualify
+          Congratulations. Your PocketOption account has been verified successfully. You now qualify
           for access to the CashoutFX VVIP Telegram community.
         </p>
 
