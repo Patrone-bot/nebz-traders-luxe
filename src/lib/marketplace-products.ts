@@ -79,7 +79,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
  
   {
     id: "bi-lord",
-    title: "🚀 From $3500 – Own Your BI Lord AI",
+    title: "🚀 From $2000 – Own Your BI Lord AI",
     description:
       "Get your own BI Lord AI and trade on your own terms.\n\nLet AI help you grow your capital while creating a potential source of passive income through automated trading.",
     action: { type: "redirect", url: "https://tradersmarketsplace.com/product.php?type=bot&id=589" },
