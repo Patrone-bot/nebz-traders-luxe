@@ -19,27 +19,27 @@ export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
 });
 
-function Dashboard() {
-  const navigate = useNavigate();
-  const { user, loading } = useRequireAuth();
-  const [displayName, setDisplayName] = useState<string | null>(null);
-  const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+  function Dashboard() {
+    const navigate = useNavigate();
+    const { user, loading } = useRequireAuth();
+    const [displayName, setDisplayName] = useState<string | null>(null);
+    const [verificationModalOpen, setVerificationModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (!user) return;
+    useEffect(() => {
+      if (!user) return;
 
-    let mounted = true;
-    fetchProfile(user.id).then(({ data }) => {
-      if (!mounted) return;
-      setDisplayName(data?.full_name?.trim() || user.email || "Member");
-    });
+      let mounted = true;
+      fetchProfile(user.id).then(({ data }) => {
+        if (!mounted) return;
+        setDisplayName(data?.full_name?.trim() || user.email || "Member");
+      });
 
-    return () => {
-      mounted = false;
-    };
-  }, [user]);
+      return () => {
+        mounted = false;
+      };
+    }, [user]);
 
-  if (loading || !user) return <AuthSessionLoader />;
+    if (loading || !user) return <AuthSessionLoader />;
 
   const onSignOut = async () => {
     await supabase.auth.signOut();
@@ -135,3 +135,6 @@ function Dashboard() {
     </div>
   );
 }
+
+
+
