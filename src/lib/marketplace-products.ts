@@ -60,22 +60,7 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
       badgeClass: "border-amber-400/30 bg-amber-400/10 text-amber-200",
     },
   },
-  {
-    id: "mentorship",
-    title: "🎓 $1,000 – 1-on-1 Private Mentorship",
-    description:
-      "Discover how to know when to buy and when to sell with confidence 88%+ accuracy.\n\nLearn how trading signals really work, then use that knowledge to build your own AI trading bot that generates buy and sell signals for you.\n\nBest approach for lifetime consistent earnings.",
-    action: { type: "redirect", url: "https://tradersmarketsplace.com/product?type=manager&id=359" },
-    theme: {
-      badge: "Limited Slots",
-      icon: GraduationCap,
-      cardClass: "border-violet-500/20 hover:border-violet-400/40",
-      glowClass: "bg-violet-500/10 group-hover:bg-violet-500/20",
-      iconWrapClass: "border border-violet-400/30 bg-violet-500/10",
-      iconClass: "text-violet-300",
-      badgeClass: "border-violet-400/30 bg-violet-500/10 text-violet-200",
-    },
-  },
+  
  
   {
     id: "bi-lord",
@@ -94,3 +79,4 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
     },
   },
 ];
+
