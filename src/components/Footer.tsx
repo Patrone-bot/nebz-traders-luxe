@@ -19,8 +19,7 @@ export function Footer() {
             <h4 className="text-xs tracking-[0.25em] text-gold uppercase">Explore</h4>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
               <li><Link to="/" className="hover:text-foreground transition">Home</Link></li>
-              <li><Link to="/get-started" className="hover:text-foreground transition">Get Started</Link></li>
-              <li><Link to="/login" className="hover:text-foreground transition">Login</Link></li>
+              <li><Link to="/dashboard" className="hover:text-foreground transition">Get Started</Link></li>
             </ul>
           </div>
           <div>

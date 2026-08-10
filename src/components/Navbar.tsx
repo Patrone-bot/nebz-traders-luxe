@@ -33,18 +33,11 @@ export function Navbar() {
             <Link to="/" className="hover:text-gold transition-colors" activeProps={{ className: "text-gold" }} activeOptions={{ exact: true }}>Home</Link>
             <a href="/#journey" className="hover:text-gold transition-colors">Journey</a>
             <a href="/#stories" className="hover:text-gold transition-colors">Community</a>
-            <Link to="/login" className="hover:text-gold transition-colors">Login</Link>
           </nav>
 
           <div className="flex items-center gap-3">
             <Link
-              to="/login"
-              className="hidden sm:inline-flex text-xs sm:text-sm tracking-widest text-muted-foreground hover:text-gold transition-colors"
-            >
-              LOGIN
-            </Link>
-            <Link
-              to="/get-started"
+              to="/dashboard"
               className="inline-flex items-center gap-2 rounded-full bg-gradient-gold px-4 sm:px-5 py-2 text-xs sm:text-sm font-semibold tracking-widest text-primary-foreground shadow-gold-glow hover:scale-[1.03] transition-transform"
             >
               GET STARTED
