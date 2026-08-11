@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { LogOut, Shield } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useRequireAuth } from "@/hooks/use-require-auth";
+import { useAuth } from "@/contexts/auth-context";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { isAdminEmail } from "@/lib/auth/admin";
 import { supabase } from "@/lib/supabase/client";
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/dashboard")({
 
   function Dashboard() {
     const navigate = useNavigate();
-    const { user, loading } = useRequireAuth();
+    const { user, loading } = useAuth();
     const [displayName, setDisplayName] = useState<string | null>(null);
     const [verificationModalOpen, setVerificationModalOpen] = useState(false);
 
@@ -39,7 +39,8 @@ export const Route = createFileRoute("/dashboard")({
       };
     }, [user]);
 
-    if (loading || !user) return <AuthSessionLoader />;
+    
+    if (loading) return <AuthSessionLoader />;
 
   const onSignOut = async () => {
     await supabase.auth.signOut();
@@ -59,14 +60,16 @@ export const Route = createFileRoute("/dashboard")({
     <div className="min-h-screen">
       <header className="px-6 py-6 flex items-center justify-between max-w-7xl mx-auto">
         <BrandLogo variant="standard" />
-        <button
-          type="button"
-          onClick={onSignOut}
-          className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-muted-foreground hover:text-gold uppercase"
-        >
-          <LogOut className="h-3.5 w-3.5" />
-          Sign Out
-        </button>
+        {user && (
+          <button
+            type="button"
+            onClick={onSignOut}
+            className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-muted-foreground hover:text-gold uppercase"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+            Sign Out
+          </button>
+        )}
       </header>
 
       <main className="px-6 pb-20">
@@ -78,20 +81,23 @@ export const Route = createFileRoute("/dashboard")({
         >
           <p className="text-[10px] tracking-[0.4em] text-gold uppercase mb-3">Member Dashboard</p>
           <h1 className="font-display text-5xl sm:text-6xl text-foreground">
-            Welcome back,{" "}
-            <span className="italic text-gradient-gold">{displayName ?? "Member"}</span>
+            Welcome back.
           </h1>
-          <p className="mt-3 text-sm text-muted-foreground">{user.email}</p>
-          {isAdminEmail(user.email) && (
-            <div className="mt-4">
-              <Link
-                to="/admin"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-secondary/40 px-5 py-2.5 text-xs font-semibold tracking-[0.2em] text-foreground hover:border-gold/60 uppercase transition-all"
-              >
-                <Shield className="h-3.5 w-3.5 text-gold" />
-                Admin Console
-              </Link>
-            </div>
+          {user && (
+            <>
+              <p className="mt-3 text-sm text-muted-foreground">{user.email}</p>
+              {isAdminEmail(user.email) && (
+                <div className="mt-4">
+                  <Link
+                    to="/admin"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-secondary/40 px-5 py-2.5 text-xs font-semibold tracking-[0.2em] text-foreground hover:border-gold/60 uppercase transition-all"
+                  >
+                    <Shield className="h-3.5 w-3.5 text-gold" />
+                    Admin Console
+                  </Link>
+                </div>
+              )}
+            </>
           )}
           <p className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-relaxed">
             Your member portal connects you to curated trading education, private mentorship, and
@@ -135,6 +141,3 @@ export const Route = createFileRoute("/dashboard")({
     </div>
   );
 }
-
-
-

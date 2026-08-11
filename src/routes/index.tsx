@@ -166,17 +166,11 @@ function Hero() {
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <Link
-              to="/get-started"
+              to="/dashboard"
               className="group inline-flex items-center justify-center gap-3 rounded-full bg-gradient-gold px-8 py-4 text-sm font-semibold tracking-[0.25em] text-primary-foreground shadow-gold-glow hover:scale-[1.02] transition-transform"
             >
               GET STARTED
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              to="/login"
-              className="inline-flex items-center justify-center gap-2 rounded-full glass border border-border/70 px-8 py-4 text-sm font-semibold tracking-[0.25em] text-foreground hover:border-gold/60 transition-colors"
-            >
-              LOGIN
             </Link>
           </div>
 
@@ -670,7 +664,7 @@ function FinalCTA() {
           </p>
 
           <Link
-            to="/get-started"
+            to="/dashboard"
             className="mt-10 inline-flex items-center gap-3 rounded-full bg-gradient-gold px-10 py-4 text-sm font-semibold tracking-[0.3em] text-primary-foreground shadow-gold-glow hover:scale-[1.03] transition-transform"
           >
             BEGIN YOUR JOURNEY
