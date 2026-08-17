@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { LogOut, Shield } from "lucide-react";
+import { LogOut, Shield, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
@@ -131,6 +131,21 @@ export const Route = createFileRoute("/dashboard")({
               disabled={verificationModalOpen}
             />
           ))}
+        </div>
+
+        <div className="max-w-2xl mx-auto mt-14 text-center">
+          <p className="text-base text-muted-foreground leading-relaxed">
+            Join our community of students and mentors already achieving success. Let's connect, share ideas, and grow together as traders.
+          </p>
+          <a
+            href="https://t.me/+nP3Sh4FzmDs5NzQ0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 w-full max-w-xs mx-auto inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-secondary/40 px-6 py-3.5 text-xs font-semibold tracking-[0.3em] text-foreground hover:border-gold/60 transition-all uppercase"
+          >
+            Chat With Us On Telegram
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
         </div>
       </main>
 
