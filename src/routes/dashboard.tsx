@@ -1,11 +1,10 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { LogOut, Shield, ArrowRight } from "lucide-react";
+import { Shield, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
 import { AuthSessionLoader } from "@/components/AuthSessionLoader";
 import { isAdminEmail } from "@/lib/auth/admin";
-import { supabase } from "@/lib/supabase/client";
 import { fetchProfile } from "@/lib/supabase/profiles";
 import { BrandLogo } from "@/components/BrandLogo";
 import { MarketplaceCard } from "@/components/MarketplaceCard";
@@ -20,7 +19,6 @@ export const Route = createFileRoute("/dashboard")({
 });
 
   function Dashboard() {
-    const navigate = useNavigate();
     const { user, loading } = useAuth();
     const [displayName, setDisplayName] = useState<string | null>(null);
     const [verificationModalOpen, setVerificationModalOpen] = useState(false);
@@ -42,11 +40,6 @@ export const Route = createFileRoute("/dashboard")({
     
     if (loading) return <AuthSessionLoader />;
 
-  const onSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate({ to: "/login" });
-  };
-
   const handleProductAction = (product: MarketplaceProduct) => {
     if (product.action.type === "modal") {
       setVerificationModalOpen(true);
@@ -60,16 +53,6 @@ export const Route = createFileRoute("/dashboard")({
     <div className="min-h-screen">
       <header className="px-6 py-6 flex items-center justify-between max-w-7xl mx-auto">
         <BrandLogo variant="standard" />
-        {user && (
-          <button
-            type="button"
-            onClick={onSignOut}
-            className="inline-flex items-center gap-2 text-xs tracking-[0.2em] text-muted-foreground hover:text-gold uppercase"
-          >
-            <LogOut className="h-3.5 w-3.5" />
-            Sign Out
-          </button>
-        )}
       </header>
 
       <main className="px-6 pb-20">
