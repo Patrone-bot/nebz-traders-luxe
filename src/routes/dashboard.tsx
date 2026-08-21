@@ -118,16 +118,38 @@ export const Route = createFileRoute("/dashboard")({
 
         <div className="max-w-2xl mx-auto mt-14 text-center">
           <p className="text-base text-muted-foreground leading-relaxed">
-            Join our community of students and mentors already achieving success. Let's connect, share ideas, and grow together as traders.
+            Join our Telegram group and connect with thousands of successful students who have
+            already followed our path. They're ready to support, guide, and help you every step of
+            the way until you succeed. The best part? You only pay once you become successful.
           </p>
           <a
             href="https://t.me/+nP3Sh4FzmDs5NzQ0"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 w-full max-w-xs mx-auto inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-secondary/40 px-6 py-3.5 text-xs font-semibold tracking-[0.3em] text-foreground hover:border-gold/60 transition-all uppercase"
+            className="group mt-8 w-full max-w-xs mx-auto inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-secondary/40 px-6 py-3.5 text-xs font-semibold tracking-[0.3em] text-foreground uppercase transition-all duration-300 hover:border-emerald-400/60 hover:bg-emerald-500/10 hover:text-emerald-200 hover:shadow-[0_0_20px_-4px] hover:shadow-emerald-500/40"
           >
-            Chat With Us On Telegram
-            <ArrowRight className="h-3.5 w-3.5" />
+            Join Our Telegram Group
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+          </a>
+        </div>
+
+        <div className="max-w-2xl mx-auto mt-14 text-center">
+          <h2 className="font-display text-2xl sm:text-3xl text-foreground">
+            Women of Forex <span className="italic text-gradient-gold">by Nyathira</span>
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+            Join a community of women who started with nothing, were mentored by Nyathira, and are
+            now achieving success in forex. Learn, grow, and become part of the next group of women
+            sharing their success stories. Your testimony could be next.
+          </p>
+          <a
+            href="https://t.me/profitpursuitForex"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-8 w-full max-w-xs mx-auto inline-flex items-center justify-center gap-2 rounded-full border border-border/70 bg-secondary/40 px-6 py-3.5 text-xs font-semibold tracking-[0.3em] text-foreground uppercase transition-all duration-300 hover:border-emerald-400/60 hover:bg-emerald-500/10 hover:text-emerald-200 hover:shadow-[0_0_20px_-4px] hover:shadow-emerald-500/40"
+          >
+            Join Our Telegram Group
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
       </main>
