@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, Play } from "lucide-react";
 import type { MarketplaceProduct } from "@/lib/marketplace-products";
 
 type Props = {
@@ -43,6 +43,26 @@ export function MarketplaceCard({ product, index, onAction, loading, disabled }:
           <h3 className="mt-5 font-display text-2xl sm:text-3xl text-foreground leading-tight">
             {product.title}
           </h3>
+
+          {product.imageUrl && product.videoUrl && (
+            <a
+              href={product.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/thumb relative mt-5 block overflow-hidden rounded-2xl border border-border/60"
+            >
+              <img
+                src={product.imageUrl}
+                alt={product.title}
+                className="aspect-video w-full object-cover transition-transform duration-500 group-hover/thumb:scale-105"
+              />
+              <span className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors group-hover/thumb:bg-black/40">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gold text-black shadow-lg">
+                  <Play className="h-5 w-5 fill-current" />
+                </span>
+              </span>
+            </a>
+          )}
 
           <div className="mt-5 space-y-4 flex-1">
             {product.description.split("\n\n").map((paragraph) => (

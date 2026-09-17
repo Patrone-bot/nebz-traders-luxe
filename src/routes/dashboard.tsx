@@ -9,6 +9,7 @@ import { fetchProfile } from "@/lib/supabase/profiles";
 import { BrandLogo } from "@/components/BrandLogo";
 import { MarketplaceCard } from "@/components/MarketplaceCard";
 import { MarketplaceVerificationModal } from "@/components/MarketplaceVerificationModal";
+import { VipSignalsModal } from "@/components/VipSignalsModal";
 import { MARKETPLACE_PRODUCTS, type MarketplaceProduct } from "@/lib/marketplace-products";
 import { openMarketplaceUrl } from "@/lib/api/tradersMarketplace";
 import { NOINDEX_ROBOTS } from "@/lib/seo";
@@ -22,6 +23,7 @@ export const Route = createFileRoute("/dashboard")({
     const { user, loading } = useAuth();
     const [displayName, setDisplayName] = useState<string | null>(null);
     const [verificationModalOpen, setVerificationModalOpen] = useState(false);
+    const [vipSignalsModalOpen, setVipSignalsModalOpen] = useState(false);
 
     useEffect(() => {
       if (!user) return;
@@ -43,6 +45,11 @@ export const Route = createFileRoute("/dashboard")({
   const handleProductAction = (product: MarketplaceProduct) => {
     if (product.action.type === "modal") {
       setVerificationModalOpen(true);
+      return;
+    }
+
+    if (product.action.type === "vip-signals") {
+      setVipSignalsModalOpen(true);
       return;
     }
 
@@ -84,7 +91,7 @@ export const Route = createFileRoute("/dashboard")({
           )}
           <p className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-relaxed">
             Your member portal connects you to curated trading education, private mentorship, and
-            AI-powered automation through the TradersMarketsPlace ecosystem. Review the options
+            AI-powered automation through the Y2 Markets ecosystem. Review the options
             below and choose the path that best matches your goals — each selection opens in a new
             tab so you can return here at any time.
           </p>
@@ -157,6 +164,10 @@ export const Route = createFileRoute("/dashboard")({
       <MarketplaceVerificationModal
         open={verificationModalOpen}
         onOpenChange={setVerificationModalOpen}
+      />
+      <VipSignalsModal
+        open={vipSignalsModalOpen}
+        onOpenChange={setVipSignalsModalOpen}
       />
     </div>
   );
