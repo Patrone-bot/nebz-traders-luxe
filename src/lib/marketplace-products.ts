@@ -50,9 +50,9 @@ export const MARKETPLACE_PRODUCTS: MarketplaceProduct[] = [
   },
   {
     id: "vip-signals",
-    title: "💎 $500 – VIP Signals Access",
+    title: "💎 $500 / Week – VIP Signals Access",
     description:
-      "Once your deposit of $500 or more is confirmed, you are instantly unlocked into our private Telegram VIP signals room, where every high probability setup we take is delivered straight to your phone.\n\nNo Y2 Markets account yet? Create yours under Don01 or nyathira in minutes, deposit $500, and you are in.",
+      "Pay $500 and your week of VIP signals opens straight away. You are unlocked into our private Telegram VIP signals room for seven full days, where every high probability setup we take is delivered straight to your phone.\n\nNo Y2 Markets account yet? Create yours under Don01 or nyathira in minutes, pay your $500, and the VIP room is yours for the week.",
     action: { type: "vip-signals" },
     theme: {
       badge: "Instant Access",
