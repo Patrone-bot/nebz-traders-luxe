@@ -54,7 +54,7 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
   const handleConfirm = async () => {
     const trimmed = username.trim();
     if (!trimmed) {
-      setErrorMessage("Enter your Y2 Markets username so we can confirm your deposit.");
+      setErrorMessage("Enter your Y2 Markets username so we can confirm your $500 VIP payment.");
       return;
     }
 
@@ -75,7 +75,7 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
         return;
       case "insufficient_balance":
         setErrorMessage(
-          `We can't see a confirmed ${currency.format(result.requiredAmount)} deposit on this account yet. Confirmed so far: ${currency.format(result.confirmedDeposits)}. Top up in your Y2 Markets dashboard, then try again.`,
+          `We can't see your ${currency.format(result.requiredAmount)} VIP payment on this account yet. Confirmed so far: ${currency.format(result.confirmedDeposits)}. Pay it from your Y2 Markets dashboard, then try again.`,
         );
         return;
       default:
@@ -97,10 +97,10 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-gold shadow-gold-glow">
                 <Check className="h-8 w-8 text-primary-foreground" strokeWidth={2.5} />
               </div>
-              <h3 className="mt-5 font-display text-2xl text-foreground">Deposit Confirmed</h3>
+              <h3 className="mt-5 font-display text-2xl text-foreground">Payment Confirmed</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Your seat in the VIP signals room is ready. Every setup we take from here on
-                lands straight in your Telegram.
+                Your seat in the VIP signals room is open for the full week. Every setup we take
+                from here on lands straight in your Telegram.
               </p>
               <button
                 type="button"
@@ -111,7 +111,8 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
                 <Send className="h-3.5 w-3.5" />
               </button>
               <p className="mt-4 text-xs text-muted-foreground">
-                Keep your $500 in your Y2 Markets account. It is your trading capital.
+                Your $500 stays in your own Y2 Markets account as trading capital. The week of VIP
+                signals is already unlocked.
               </p>
             </motion.div>
           ) : (
@@ -126,7 +127,8 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
                   Unlock VIP Signals
                 </DialogTitle>
                 <DialogDescription className="text-sm text-muted-foreground leading-relaxed">
-                  Once your deposit is confirmed, you are inside the VIP signals room.
+                  Pay $500, we confirm it on our side, and the VIP signals room is yours for one
+                  full week.
                 </DialogDescription>
               </DialogHeader>
 
@@ -179,9 +181,9 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
                       <ExternalLink className="h-3.5 w-3.5" />
                     </button>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      Once your account is ready, open the Deposit page in your Y2 Markets
-                      dashboard and deposit $500. Then enter your Y2 Markets username here and
-                      confirm. We check your deposit before opening the VIP room.
+                      Once your account is ready, pay the $500 VIP access fee into your Y2 Markets
+                      account. Then enter your Y2 Markets username here and confirm. We check your
+                      payment before opening the VIP room for the week.
                     </p>
                     <label className="block">
                       <span className="block text-[11px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
@@ -211,10 +213,10 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
                       {checking ? (
                         <>
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                          CONFIRMING YOUR DEPOSIT
+                          CONFIRMING YOUR PAYMENT
                         </>
                       ) : (
-                        "I'VE DEPOSITED $500, CONFIRM IT"
+                        "I'VE PAID THE $500, CONFIRM IT"
                       )}
                     </button>
                   </>
@@ -223,8 +225,8 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
                 {view === "fund" && (
                   <>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      Great. Make sure your account balance is $500 or more. If it is below
-                      that, top up now from the Deposit page in your Y2 Markets dashboard.
+                      Great. VIP access is $500 for one week. Pay that into your Y2 Markets
+                      account, and if it isn't there yet, add it now from your dashboard.
                     </p>
                     <button
                       type="button"
@@ -235,8 +237,8 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
                       <ExternalLink className="h-3.5 w-3.5" />
                     </button>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      When your $500 deposit is in, enter your Y2 Markets username here. We
-                      confirm the deposit on our side before opening the VIP signals room.
+                      When your $500 payment is in, enter your Y2 Markets username here. We
+                      confirm it on our side before opening the VIP signals room for the week.
                     </p>
                     <label className="block">
                       <span className="block text-[11px] tracking-[0.25em] text-muted-foreground uppercase mb-2">
@@ -266,10 +268,10 @@ export function VipSignalsModal({ open, onOpenChange }: Props) {
                       {checking ? (
                         <>
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                          CONFIRMING YOUR DEPOSIT
+                          CONFIRMING YOUR PAYMENT
                         </>
                       ) : (
-                        "MY $500 DEPOSIT IS IN, CONFIRM IT"
+                        "MY $500 PAYMENT IS IN, CONFIRM IT"
                       )}
                     </button>
                   </>
